@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/account_choice"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/navy_blue">
+
+    <!--shows app name-->
+    <TextView
+        android:id="@+id/app_name_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+
+        android:text="@string/app_name"
+        android:fontFamily="@font/orbitron_bold"
+        android:textColor="@color/light_orange"
+        android:textSize="20sp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--prompt account choice-->
+    <TextView
+        android:id="@+id/ac_prompt"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+
+        android:fontFamily="@font/orbitron_medium"
+        android:gravity="center"
+        android:text="@string/account_choice_prompt"
+        android:textColor="@color/pastel_yellow"
+        android:textSize="36sp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/app_name_text" />
+
+    <!--new account-->
+
+    <Button
+        android:id="@+id/new_account"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="50dp"
+
+        android:background="@drawable/baby_blue_button_shape"
+        android:fontFamily="@font/orbitron_medium"
+        android:text="@string/new_account"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ac_prompt" />
+
+    <TextView
+        android:id="@+id/or"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+
+        android:text="@string/or"
+        android:fontFamily="@font/orbitron_medium"
+        android:gravity="center"
+        android:textColor="@color/pastel_yellow"
+        android:textSize="36sp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/new_account" />
+
+    <!--existing account-->
+    <Button
+        android:id="@+id/existing_account"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="50dp"
+
+        android:text="@string/existing_account"
+        android:background="@drawable/baby_blue_button_shape"
+        android:fontFamily="@font/orbitron_medium"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+
+
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/or" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

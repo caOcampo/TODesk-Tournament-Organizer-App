@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_menu"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/navy_blue">
+
+    <!--title of main menu-->
+    <TextView
+        android:id="@+id/app_name_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+
+
+        android:fontFamily="@font/orbitron_bold"
+        android:text="@string/app_name"
+        android:textColor="@color/light_orange"
+        android:textSize="60sp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/app_description_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+
+        android:fontFamily="@font/orbitron_medium"
+        android:text="@string/app_description"
+        android:textColor="@color/light_orange"
+        android:textSize="18sp"
+
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/app_name_text" />
+
+    <!--Create New Tournament-->
+    <Button
+        android:id="@+id/CNT_button"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="50dp"
+        android:background="@drawable/baby_blue_button_shape"
+
+        android:fontFamily="@font/orbitron"
+        android:text="@string/main_CNT"
+        android:textColor="@color/navy_blue"
+        android:textSize="20sp"
+
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/app_description_text" />
+
+    <!--View Existing Tournament-->
+    <Button
+        android:id="@+id/VET_button"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="50dp"
+        android:background="@drawable/baby_blue_button_shape"
+
+        android:backgroundTint="@color/sky_blue"
+        android:fontFamily="@font/orbitron"
+        android:text="@string/main_VET"
+        android:textColor="@color/navy_blue"
+        android:textSize="20sp"
+
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CNT_button" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
