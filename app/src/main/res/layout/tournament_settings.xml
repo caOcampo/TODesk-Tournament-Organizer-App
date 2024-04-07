@@ -14,8 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
 
-        android:text="@string/app_name"
         android:fontFamily="@font/orbitron_bold"
+        android:text="@string/app_name"
         android:textColor="@color/light_orange"
         android:textSize="20sp"
 
@@ -24,147 +24,159 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!--prompt login account-->
     <TextView
-        android:id="@+id/login_prompt"
+        android:id="@+id/tournament_settings_prompt"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
 
         android:fontFamily="@font/orbitron_medium"
         android:gravity="center"
-        android:text="@string/login_account_prompt"
+        android:text="@string/tournament_settings_prompt"
         android:textColor="@color/pastel_yellow"
-        android:textSize="36sp"
+        android:textSize="30sp"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/app_name_text" />
 
-    <TextView
-        android:id="@+id/login_prompt2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:fontFamily="@font/orbitron_medium"
-        android:gravity="center"
-        android:text="@string/login_account_prompt2"
-        android:textColor="@color/pastel_yellow"
-        android:textSize="16sp"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_prompt" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/account_frame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:background="@color/sky_blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_prompt2"
-        app:layout_constraintVertical_bias="0.977">
+        app:layout_constraintTop_toBottomOf="@+id/tournament_settings_prompt">
 
         <TextView
-            android:id="@+id/frame"
+            android:id="@+id/tournament_name_prompt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
 
-            android:layout_marginTop="32dp"
             android:fontFamily="@font/orbitron"
             android:gravity="center"
-            android:text="@string/create_account_prompt2"
+            android:text="@string/tournament_name_prompt"
             android:textColor="@color/navy_blue"
+            android:textSize="20sp"
 
-
-            android:textSize="25sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-
-            android:fontFamily="@font/orbitron"
-            android:gravity="center"
-            android:text="@string/email"
-            android:textColor="@color/navy_blue"
-            android:textSize="20sp"
-
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/frame" />
 
         <EditText
-            android:id="@+id/input_email"
-            android:layout_width="300dp"
+            android:id="@+id/input_tournament_name"
+            android:layout_width="280dp"
             android:layout_height="48dp"
             android:layout_marginTop="10dp"
             android:background="@color/white"
-            android:backgroundTint="@color/white"
 
+            android:backgroundTint="@color/white"
             android:ems="10"
             android:gravity="center"
-
-            android:hint="example@email.com"
+            android:hint="Enter Tournament Name"
             android:inputType="textEmailAddress"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/email" />
+            app:layout_constraintTop_toBottomOf="@+id/tournament_name_prompt" />
 
         <TextView
-            android:id="@+id/password"
+            android:id="@+id/tournament_game_prompt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="44dp"
+            android:layout_marginTop="30dp"
 
             android:fontFamily="@font/orbitron"
             android:gravity="center"
-            android:text="@string/password"
+            android:text="@string/tournament_game_prompt"
             android:textColor="@color/navy_blue"
             android:textSize="20sp"
 
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/input_email" />
+            app:layout_constraintTop_toBottomOf="@+id/input_tournament_name" />
+
 
         <EditText
-            android:id="@+id/input_password"
-            android:layout_width="300dp"
+            android:id="@+id/input_tournament_game"
+            android:layout_width="280dp"
             android:layout_height="48dp"
             android:layout_marginTop="10dp"
             android:background="@color/white"
 
+            android:backgroundTint="@color/white"
             android:ems="10"
             android:gravity="center"
-            android:hint="Enter password"
+            android:hint="Enter Game Name"
+            android:inputType="textEmailAddress"
 
-            android:inputType="textPassword"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/password" />
+            app:layout_constraintTop_toBottomOf="@+id/tournament_game_prompt" />
 
-        <Button
-            android:id="@+id/button"
+
+        <TextView
+            android:id="@+id/bracket_style_format"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="70dp"
+            android:layout_marginTop="30dp"
+
+            android:fontFamily="@font/orbitron"
+            android:gravity="center"
+            android:text="@string/bracket_style_prompt"
+            android:textColor="@color/navy_blue"
+            android:textSize="20sp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/input_tournament_game" />
+
+        <LinearLayout
+            android:layout_width="280dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="120dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bracket_style_format"
+            app:layout_constraintVertical_bias="0.0">
+
+
+            <!--to center spinner, need adapater-->
+            <!--java code for grabbing from array  http://www.ahotbrew.com/android-dropdown-spinner-example/-->
+            <Spinner
+                android:id="@+id/bracket_choices"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+
+                android:background="@color/white"
+                android:backgroundTint="@color/white" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
 
             android:background="@drawable/blue_button_shape"
             android:fontFamily="@font/orbitron_medium"
-            android:text="@string/login"
+            android:text="@string/save"
             android:textColor="@color/white"
             android:textSize="20sp"
 

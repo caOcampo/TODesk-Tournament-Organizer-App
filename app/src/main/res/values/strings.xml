@@ -4,6 +4,7 @@
     <string name="or">or</string>
     <string name="create">CREATE</string>
     <string name="submit">SUBMIT</string>
+    <string name="save">SAVE</string>
 
     //main menu strings
     <string name="app_name">TODesk</string>
@@ -28,4 +29,27 @@
 
     //access tournament strings
     <string name="access_prompt">Enter Tournament Code</string>
+
+    //configure tournament strings
+    <string name="configure_prompt">Configure Tournament</string>
+    <string name="player_settings">Player Settings</string>
+    <string name="tournament_settings">Tournament Settings</string>
+
+    //add player strings
+    <string name="add_player">Add Player</string>
+    <string name="current_players">Current Players</string>
+
+    //tournament settings strings
+    <string name="tournament_settings_prompt">Settings</string>
+    <string name="tournament_name_prompt">Tournament Name</string>
+    <string name="tournament_game_prompt">Game</string>
+    <string name="bracket_style_prompt">Bracket Style</string>
+    <string name="show_choices">[select choice]</string>
+    <string-array name="tournament_format_choice">
+        <item>Swiss Pool</item>
+        <item>Round Robin</item>
+        <item>Double Elimination</item>
+    </string-array>
+
+
 </resources>
