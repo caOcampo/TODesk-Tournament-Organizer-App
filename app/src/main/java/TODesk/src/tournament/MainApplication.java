@@ -1,5 +1,5 @@
 package TODesk.src.tournament;
-import tournament.data.TournamentEntry;
+import TODesk.src.tournament.data.TournamentEntry;
 
 public class MainApplication {
     public static void main(String[] args) {
@@ -14,9 +14,9 @@ public class MainApplication {
         }*/
 
         //test section
-        TournamentEntry testTourney  = new TournamentEntry();
+        /*TournamentEntry testTourney  = new TournamentEntry();
         testTourney.readCSV();
         testTourney.printPlayers();
-
+        */
     }
 }
