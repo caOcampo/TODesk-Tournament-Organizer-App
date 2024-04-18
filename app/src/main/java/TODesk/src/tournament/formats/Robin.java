@@ -2,7 +2,7 @@ package TODesk.src.tournament.formats;
 
 import java.util.*;
 
-public class Round {
+public class Robin {
     static class Player {
         String username;
         String organization;
