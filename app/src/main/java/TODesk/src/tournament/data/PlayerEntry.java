@@ -3,16 +3,17 @@ package TODesk.src.tournament.data;
 import java.util.Scanner;
 
 // Defining a class named Player to represent a player with certain attributes and behaviors
-public class Player {
+public class PlayerEntry {
     // Player Details
     private String username;
     private String organization;
     private String rank;
+
     private int wins;
     private int losses;
 
     // Constructor to initialize player's details
-    public Player(String username, String organization, String rank) {
+    public PlayerEntry(String username, String organization, String rank) {
         this.username = username;
         this.organization = organization;
         this.rank = rank;
@@ -64,7 +65,7 @@ public class Player {
     // Main method - entry point of the program
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Player[] players = new Player[16]; // Creating an array to store player objects
+        PlayerEntry[] players = new PlayerEntry[16]; // Creating an array to store player objects
 
         // Loop to input details for 16 players
         for (int i = 0; i < 16; i++) {
@@ -76,11 +77,11 @@ public class Player {
             System.out.print("Rank: ");
             String rank = scanner.nextLine();
 
-            players[i] = new Player(username, organization, rank); // Creating Player object and storing in array
+            players[i] = new PlayerEntry(username, organization, rank); // Creating Player object and storing in array
         }
 
         System.out.println("\nPlayers:"); // Printing players' details
-        for (Player player : players) {
+        for (PlayerEntry player : players) {
             System.out.println(player); // Invokes toString() method of Player class for each player object
         }
     }

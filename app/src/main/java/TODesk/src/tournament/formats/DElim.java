@@ -1,9 +1,9 @@
-package tournament.formats;
-import tournament.data.PlayerEntry;
-import tournament.data.TournamentConfig;
-import tournament.data.TournamentEntry;
+package TODesk.src.tournament.formats;
+import TODesk.src.tournament.data.PlayerEntry;
+import TODesk.src.tournament.data.TournamentConfig;
+import TODesk.src.tournament.data.TournamentEntry;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class DElim {
     private ArrayList<Match> upperBracket;
