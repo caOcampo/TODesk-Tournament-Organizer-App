@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "617114587844",
+    "project_id": "todesk-af680",
+    "storage_bucket": "todesk-af680.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:617114587844:android:fcdbd8db4bcb294bc0ef91",
+        "android_client_info": {
+          "package_name": "com.example.todeskapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsYC3jpmP7Vp_KM2FB2t9DW2PXnnOQGVU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
