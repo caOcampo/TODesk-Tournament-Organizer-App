@@ -27,7 +27,7 @@
     <!--add player button-->
 
     <Button
-        android:id="@+id/Save_Access_Code"
+        android:id="@+id/Save_Access_Code_Button"
         android:layout_width="0dp"
         android:layout_height="70dp"
         android:layout_marginStart="70dp"
@@ -46,6 +46,22 @@
         app:layout_constraintTop_toBottomOf="@+id/app_name_text" />
 
     <!--shows a scrollable container with buttons for each player, need to code a way to create buttons for each player and display here-->
+
+    <TextView
+        android:id="@+id/current_bracket"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+
+        android:fontFamily="@font/orbitron_medium"
+        android:gravity="center"
+        android:text="@string/Current_Bracket"
+        android:textColor="@color/pastel_yellow"
+        android:textSize="30sp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Save_Access_Code_Button" />
 
     <ScrollView
         android:layout_width="0dp"
@@ -66,22 +82,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" />
     </ScrollView>
-
-    <TextView
-        android:id="@+id/current_bracket"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-
-        android:fontFamily="@font/orbitron_medium"
-        android:gravity="center"
-        android:text="@string/Current_Bracket"
-        android:textColor="@color/pastel_yellow"
-        android:textSize="30sp"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Save_Access_Code" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
