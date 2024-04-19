@@ -51,5 +51,9 @@
         <item>Double Elimination</item>
     </string-array>
 
+     //Save Access Code Page Strings
+    <string name="Save_Access_Code">Save Access Code</string>
+    <string name="Current_Bracket">Current Bracket</string>
+
 
 </resources>
