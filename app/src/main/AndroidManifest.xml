@@ -37,11 +37,15 @@
         </activity>
 
         <activity android:name=".AccountChoice"
-            android:label="account_choice"> <!-- Optional: You can set a specific label for the activity -->
+            android:label="account choice"> <!-- Optional: You can set a specific label for the activity -->
         </activity>
 
         <activity android:name=".AccessTournament"
-            android:label="access tournament"> <!-- Optional: You can set a specific label for the activity -->
+            android:label="access tournament">
+        </activity>
+
+        <activity android:name=".CreateAccount"
+            android:label="create account">
         </activity>
 
 

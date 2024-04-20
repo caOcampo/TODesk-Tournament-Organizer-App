@@ -5,6 +5,7 @@
     <string name="create">CREATE</string>
     <string name="submit">SUBMIT</string>
     <string name="save">SAVE</string>
+    <string name="add">ADD</string>
 
     //main menu strings
     <string name="app_name">TODesk</string>
@@ -54,6 +55,12 @@
      //Save Access Code Page Strings
     <string name="Save_Access_Code">Save Access Code</string>
     <string name="Current_Bracket">Current Bracket</string>
+
+    //player profile strings
+    <string name="player_info">Player Information</string>
+    <string name="username">Username</string>
+    <string name="organization">Team/Organization</string>
+    <string name="rank">Rank</string>
 
 
 </resources>
