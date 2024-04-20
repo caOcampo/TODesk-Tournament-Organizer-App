@@ -2,7 +2,6 @@ package TODesk.src.tournament.formats;
 
 import java.util.*;
 
-
 public class Robin {
     static class Player {
         String username;
