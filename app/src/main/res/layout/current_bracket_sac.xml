@@ -24,7 +24,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!--add player button-->
+    <!-- Save Access Code -->
 
     <Button
         android:id="@+id/Save_Access_Code_Button"
