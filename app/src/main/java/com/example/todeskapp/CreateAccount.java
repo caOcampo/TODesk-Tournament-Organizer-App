@@ -1,5 +1,7 @@
 package com.example.todeskapp;
 
+import java.util.*;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -34,20 +36,9 @@ public class CreateAccount extends AppCompatActivity{
     private EditText confirmPasswordEditText;
     private Button createAccountButton;
     private FirebaseAuth mAuth;
-
+    private FirebaseFirestore db;
     private String accessCode;
 
-    private FirebaseFirestore db;
-
-
-    static class OrganizerUser {
-        String email, defaultValue;
-
-        OrganizerUser(String email, String defaultValue) {
-            this.email = email;
-            this.defaultValue = defaultValue;
-        }
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,10 +53,10 @@ public class CreateAccount extends AppCompatActivity{
 
         accessCode = getIntent().getStringExtra("ACCESS_CODE");
 
-        emailEditText = findViewById(R.id.input_email);
-        passwordEditText = findViewById(R.id.input_password);
-        confirmPasswordEditText = findViewById(R.id.input_password_conf);
-        createAccountButton = findViewById(R.id.create);
+        emailEditText = binding.inputEmail;
+        passwordEditText = binding.inputPassword;
+        confirmPasswordEditText = binding.inputPasswordConf;
+        createAccountButton = binding.create;
 
         createAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,17 +66,6 @@ public class CreateAccount extends AppCompatActivity{
         });
     }
 
-    /* Checks if user logged in on START */
-    /*@Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            reload();
-        }
-
-     */
     private void createAccount(String email, String password) {
         if (!validateForm()) {
             return;
@@ -94,31 +74,63 @@ public class CreateAccount extends AppCompatActivity{
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        updateFirestore(email);  // Update Firestore with the email and using the received access code
-                        Toast.makeText(CreateAccount.this, "Authentication successful.",
-                                Toast.LENGTH_SHORT).show();
+                        // Pass the password to updateFirestore method
+                        updateFirestore(email, password);
+                        Toast.makeText(CreateAccount.this, "Authentication successful.", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(CreateAccount.this, "Authentication failed: " + task.getException(),
-                                Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CreateAccount.this, "Authentication failed: " + task.getException(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
-    private void updateFirestore(String email) {
+    private void updateFirestore(String email, String password) {
 
         if (accessCode == null) {
             Toast.makeText(this, "Error: No access code provided.", Toast.LENGTH_LONG).show();
             return;
         }
+
+        // Create a map to hold the update data
+        HashMap<String, Object> updates = new HashMap<>();
+        updates.put("OrganizerEmail", email);
+        updates.put("OrganizerPassword", password);  // Store the password
+
         db.collection("AccessCodes").document(accessCode)
-                .update("OrganizerEmail", email)
+                .update(updates)
                 .addOnSuccessListener(aVoid -> Toast.makeText(CreateAccount.this, "Firestore updated successfully.", Toast.LENGTH_SHORT).show())
                 .addOnFailureListener(e -> Toast.makeText(CreateAccount.this, "Error updating Firestore: " + e.toString(), Toast.LENGTH_SHORT).show());
     }
 
     private boolean validateForm() {
         boolean valid = true;
-        // Existing validation code
+
+        // Check for a valid email
+        String email = emailEditText.getText().toString();
+        String password = passwordEditText.getText().toString();
+        String confirmPassword = confirmPasswordEditText.getText().toString();
+        if (email.isEmpty()) {
+            emailEditText.setError("Required.");
+            valid = false;
+        } else {
+            emailEditText.setError(null);
+        }
+
+        // Check for a valid password
+        if (password.isEmpty()) {
+            passwordEditText.setError("Required.");
+            valid = false;
+        } else {
+            passwordEditText.setError(null);
+        }
+
+        // Check if passwords match
+        if (!password.equals(confirmPassword)) {
+            confirmPasswordEditText.setError("Passwords do not match.");
+            valid = false;
+        } else {
+            confirmPasswordEditText.setError(null);
+        }
+
         return valid;
     }
 

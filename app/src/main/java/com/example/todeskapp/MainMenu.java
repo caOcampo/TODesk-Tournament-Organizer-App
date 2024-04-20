@@ -27,11 +27,7 @@ public class MainMenu extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
 
-        /*binding.CNTButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MainMenu.this, AccountChoice.class);
-            startActivity(intent);
-        });*/
-
+        /* redirection through buttons*/
         binding.CNTButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,6 +44,7 @@ public class MainMenu extends AppCompatActivity {
 
     }
 
+    /* Once Create New Tournament button is selected, generates an ACCESS code*/
     private String generateRandomCode(int codeLength) {
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         StringBuilder result = new StringBuilder();
@@ -59,6 +56,7 @@ public class MainMenu extends AppCompatActivity {
         return result.toString();
     }
 
+    /* Creates an [AccessCode] Document in the database under the collection for Access Codes" */
     private void createFirestoreDocumentAndRedirect(String documentName) {
         Map<String, Object> docData = new HashMap<>();
         docData.put("timestamp", System.currentTimeMillis());
@@ -75,6 +73,8 @@ public class MainMenu extends AppCompatActivity {
                 });
     }
 
+
+    /* Makes sure the Access code gets passed along for correct database locating*/
     private void redirectToAnotherActivity(String accessCode) {
         Intent intent = new Intent(this, AccountChoice.class);
         intent.putExtra("ACCESS_CODE", accessCode);  // Passing the access code to the next activity
