@@ -36,13 +36,34 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".AccountChoice"
-            android:label="account_choice"> <!-- Optional: You can set a specific label for the activity -->
+        <activity android:name=".AccessTournament"
+            android:label="access tournament">
         </activity>
 
-        <activity android:name=".AccessTournament"
-            android:label="access tournament"> <!-- Optional: You can set a specific label for the activity -->
+        <activity android:name=".AccountChoice"
+            android:label="account choice"> <!-- Optional: You can set a specific label for the activity -->
         </activity>
+
+        <activity android:name=".AddPlayer"
+            android:label="add player">
+        </activity>
+
+        <activity android:name=".ConfigureTournament"
+            android:label="configure tournament">
+        </activity>
+
+        <activity android:name=".CreateAccount"
+            android:label="create account">
+        </activity>
+
+        <activity android:name=".LoginAccount"
+        android:label="create account">
+        </activity>
+
+        <activity android:name=".TournamentSettings"
+            android:label="tournament settings">
+        </activity>
+
 
 
 

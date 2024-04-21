@@ -3,7 +3,6 @@ package com.example.todeskapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.todeskapp.databinding.MainMenuBinding;
 
@@ -27,16 +26,13 @@ public class MainMenu extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
 
-        /*binding.CNTButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MainMenu.this, AccountChoice.class);
-            startActivity(intent);
-        });*/
-
+        /* redirection through buttons*/
         binding.CNTButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String randomCode = generateRandomCode(5);
-                createFirestoreDocumentAndRedirect(randomCode);
+                String accessCode = generateRandomCode(5);
+                createFirestoreDocumentAndRedirect(accessCode);
+
             }
         });
 
@@ -48,6 +44,7 @@ public class MainMenu extends AppCompatActivity {
 
     }
 
+    /* Once Create New Tournament button is selected, generates an ACCESS code*/
     private String generateRandomCode(int codeLength) {
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         StringBuilder result = new StringBuilder();
@@ -59,6 +56,7 @@ public class MainMenu extends AppCompatActivity {
         return result.toString();
     }
 
+    /* Creates an [AccessCode] Document in the database under the collection for Access Codes" */
     private void createFirestoreDocumentAndRedirect(String documentName) {
         Map<String, Object> docData = new HashMap<>();
         docData.put("timestamp", System.currentTimeMillis());
@@ -66,17 +64,19 @@ public class MainMenu extends AppCompatActivity {
         db.collection("AccessCodes").document(documentName)
                 .set(docData)
                 .addOnSuccessListener(aVoid -> {
-                    // Document written successfully, now redirect to another activity
-                    redirectToAnotherActivity(documentName);;
+                    /*Creates a document with the accesscode*/
+                    redirectToAnotherActivity(documentName);
                 })
                 .addOnFailureListener(e -> {
-                    // Handle errors here
+                    /*data base error*/
                     System.out.println("Error writing document: " + e);
                 });
     }
 
+
+    /* Makes sure the Access code gets passed along for correct database locating*/
     private void redirectToAnotherActivity(String accessCode) {
-        Intent intent = new Intent(this, AccountChoice.class);
+        Intent intent = new Intent(MainMenu.this, AccountChoice.class);
         intent.putExtra("ACCESS_CODE", accessCode);  // Passing the access code to the next activity
         startActivity(intent);
     }
