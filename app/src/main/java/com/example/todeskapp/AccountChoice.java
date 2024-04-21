@@ -3,8 +3,6 @@ package com.example.todeskapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,20 +23,19 @@ public class AccountChoice extends AppCompatActivity {
 
         binding.newAccount.setOnClickListener(v -> {
             accessCode = getIntent().getStringExtra("ACCESS_CODE");
-            redirectToAnotherActivity(accessCode);
+            Intent intent = new Intent(AccountChoice.this, CreateAccount.class);
+            intent.putExtra("ACCESS_CODE", accessCode);  // Passing the access code to the next activity
+            startActivity(intent);
         });
 
 
 
         binding.existingAccount.setOnClickListener(v -> {
+            accessCode = getIntent().getStringExtra("ACCESS_CODE");
             Intent intent = new Intent(AccountChoice.this, LoginAccount.class);
+            intent.putExtra("ACCESS_CODE", accessCode);  // Passing the access code to the next activity
             startActivity(intent);
         });
 
-    }
-    private void redirectToAnotherActivity(String accessCode) {
-        Intent intent = new Intent(this, CreateAccount.class);
-        intent.putExtra("ACCESS_CODE", accessCode);  // Passing the access code to the next activity
-        startActivity(intent);
     }
 }

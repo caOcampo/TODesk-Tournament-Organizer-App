@@ -48,6 +48,23 @@
             android:label="create account">
         </activity>
 
+        <activity android:name=".LoginAccount"
+            android:label="create account">
+        </activity>
+
+        <activity android:name=".ConfigureTournament"
+            android:label="configure tournament">
+        </activity>
+
+        <activity android:name=".AddPlayer"
+            android:label="add player">
+        </activity>
+
+        <activity android:name=".TournamentSettings"
+            android:label="tournament settings">
+        </activity>
+
+
 
 
 

@@ -5,24 +5,18 @@ import java.util.*;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.todeskapp.databinding.AccountChoiceBinding;
 import com.example.todeskapp.databinding.CreateAccountBinding;
 
-import android.util.Log;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 
 
@@ -46,17 +40,17 @@ public class CreateAccount extends AppCompatActivity{
 
         binding = CreateAccountBinding.inflate(getLayoutInflater()); // Initialize the binding
         setContentView(binding.getRoot());
-        // Initialize Firebase Authentication
 
+        // Initialize Firebase Authentication
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-
-        accessCode = getIntent().getStringExtra("ACCESS_CODE");
 
         emailEditText = binding.inputEmail;
         passwordEditText = binding.inputPassword;
         confirmPasswordEditText = binding.inputPasswordConf;
         createAccountButton = binding.create;
+
+        accessCode = getIntent().getStringExtra("ACCESS_CODE");
 
         createAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +71,10 @@ public class CreateAccount extends AppCompatActivity{
                         // Pass the password to updateFirestore method
                         updateFirestore(email, password);
                         Toast.makeText(CreateAccount.this, "Authentication successful.", Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(this, ConfigureTournament.class);
+                        intent.putExtra("ACCESS_CODE", accessCode);  // Passing the access code to the next activity
+                        startActivity(intent);
                     } else {
                         Toast.makeText(CreateAccount.this, "Authentication failed: " + task.getException(), Toast.LENGTH_SHORT).show();
                     }
@@ -99,6 +97,7 @@ public class CreateAccount extends AppCompatActivity{
                 .update(updates)
                 .addOnSuccessListener(aVoid -> Toast.makeText(CreateAccount.this, "Firestore updated successfully.", Toast.LENGTH_SHORT).show())
                 .addOnFailureListener(e -> Toast.makeText(CreateAccount.this, "Error updating Firestore: " + e.toString(), Toast.LENGTH_SHORT).show());
+
     }
 
     private boolean validateForm() {
