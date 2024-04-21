@@ -11,8 +11,9 @@ import android.widget.Button;
 import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
-
 import java.util.HashMap;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutorService;
 
 public class LoginAccount extends AppCompatActivity{
 
@@ -23,6 +24,8 @@ public class LoginAccount extends AppCompatActivity{
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     private String accessCode;
+
+    private ExecutorService executorService;
 
 
 
@@ -37,7 +40,7 @@ public class LoginAccount extends AppCompatActivity{
         // Initialize Firebase Authentication
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-
+        executorService = Executors.newSingleThreadExecutor();
         
         emailEditText = binding.inputEmail;
         passwordEditText = binding.inputPassword;
@@ -59,23 +62,22 @@ public class LoginAccount extends AppCompatActivity{
             return;
         }
 
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
-                        // User is successfully logged in
-                        updateFirestore(email, password);
-
-                        Toast.makeText(LoginAccount.this, "Login successful.", Toast.LENGTH_SHORT).show();
-
-                        Intent intent = new Intent(LoginAccount.this, ConfigureTournament.class);
-                        intent.putExtra("ACCESS_CODE", accessCode);  // Passing the access code to the next activity
-                        startActivity(intent);
-
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        Toast.makeText(LoginAccount.this, "Authentication failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+        executorService.execute(() -> {
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, task -> {
+                        if (task.isSuccessful()) {
+                            runOnUiThread(() -> {
+                                updateFirestore(email, password);
+                                Toast.makeText(this, "Login successful.", Toast.LENGTH_SHORT).show();
+                                navigateToConfigureTournament();
+                            });
+                        } else {
+                            runOnUiThread(() -> {
+                                Toast.makeText(this, "Authentication failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            });
+                        }
+                    });
+        });
     }
 
     private void updateFirestore(String email, String password) {
@@ -90,10 +92,25 @@ public class LoginAccount extends AppCompatActivity{
         updates.put("OrganizerEmail", email);
         updates.put("OrganizerPassword", password);
 
-        db.collection("AccessCodes").document(accessCode)
-                .update(updates)
-                .addOnSuccessListener(aVoid -> Toast.makeText(LoginAccount.this, "Firestore updated successfully.", Toast.LENGTH_SHORT).show())
-                .addOnFailureListener(e -> Toast.makeText(LoginAccount.this, "Error updating Firestore: " + e.toString(), Toast.LENGTH_SHORT).show());
+        executorService.execute(() -> {
+            db.collection("AccessCodes").document(accessCode)
+                    .update(updates)
+                    .addOnSuccessListener(aVoid -> runOnUiThread(() -> Toast.makeText(this, "Firestore updated successfully.", Toast.LENGTH_SHORT).show()))
+                    .addOnFailureListener(e -> runOnUiThread(() -> Toast.makeText(this, "Error updating Firestore: " + e.toString(), Toast.LENGTH_SHORT).show()));
+        });
+
+    }
+
+    private void navigateToConfigureTournament() {
+        Intent intent = new Intent(this, ConfigureTournament.class);
+        intent.putExtra("ACCESS_CODE", accessCode);
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        executorService.shutdownNow(); // Properly shutdown the executor when the activity is destroyed
     }
 }
 
