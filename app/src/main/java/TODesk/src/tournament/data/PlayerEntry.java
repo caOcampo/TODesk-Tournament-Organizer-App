@@ -3,7 +3,9 @@ package TODesk.src.tournament.data;
 import java.util.Scanner;
 
 // Defining a class named Player to represent a player with certain attributes and behaviors
+
 public class PlayerEntry {
+
     // Player Details
     private String username;
     private String organization;

@@ -5,7 +5,11 @@
     <string name="create">CREATE</string>
     <string name="submit">SUBMIT</string>
     <string name="save">SAVE</string>
+
     <string name="edit">EDIT</string>
+
+    <string name="add">ADD</string>
+
 
     //main menu strings
     <string name="app_name">TODesk</string>
@@ -39,6 +43,22 @@
     //add player strings
     <string name="add_player">Add Player</string>
     <string name="current_players">Current Players</string>
+    <string name="player_1">Player 1</string>
+    <string name="player_2">Player 2</string>
+    <string name="player_3">Player 3</string>
+    <string name="player_4">Player 4</string>
+    <string name="player_5">Player 5</string>
+    <string name="player_6">Player 6</string>
+    <string name="player_7">Player 7</string>
+    <string name="player_8">Player 8</string>
+    <string name="player_9">Player 9</string>
+    <string name="player_10">Player 10</string>
+    <string name="player_11">Player 11</string>
+    <string name="player_12">Player 12</string>
+    <string name="player_13">Player 13</string>
+    <string name="player_14">Player 14</string>
+    <string name="player_15">Player 15</string>
+    <string name="player_16">Player 16</string>
 
     //player placements strings
     <string name="view_empty">VIEW EMPTY BRACKET</string>
@@ -149,6 +169,16 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_settings">Settings</string>
+
+     //Save Access Code Page Strings
+    <string name="Save_Access_Code">Save Access Code</string>
+    <string name="Current_Bracket">Current Bracket</string>
+
+    //player profile strings
+    <string name="player_info">Player Information</string>
+    <string name="username">Username</string>
+    <string name="organization">Team/Organization</string>
+    <string name="rank">Rank</string>
 
 
 </resources>

@@ -16,7 +16,9 @@ public class MainApplication {
         //test section
         /*TournamentEntry testTourney  = new TournamentEntry();
         testTourney.readCSV();
+
         testTourney.printPlayers();
         */
+
     }
 }
