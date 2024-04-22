@@ -6,4 +6,10 @@
     </style>
 
     <style name="Theme.TODeskApp" parent="Base.Theme.TODeskApp" />
+    <style name="Theme.TODeskApp.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.TODeskApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.TODeskApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
