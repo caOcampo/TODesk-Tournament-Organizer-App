@@ -40,6 +40,10 @@
     <string name="add_player">Add Player</string>
     <string name="current_players">Current Players</string>
 
+    //player placements strings
+    <string name="view_empty">VIEW EMPTY BRACKET</string>
+    <string name="player_placements">PLAYER SEEDING</string>
+
     //tournament settings strings
     <string name="tournament_settings_prompt">Settings</string>
     <string name="tournament_name_prompt">Tournament Name</string>

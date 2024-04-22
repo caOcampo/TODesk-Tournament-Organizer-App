@@ -35,10 +35,10 @@ public class ElimMatch extends RelativeLayout {
         player2ScoreTextView = findViewById(R.id.player2Score);
     }
 
-    public void setPlayers(Player player1, Player player2) {
+    /*public void setPlayers(Player player1, Player player2) {
         player1NameTextView.setText(player1.getName());
         player2NameTextView.setText(player2.getName());
-    }
+    }*/
 
     public void setScores(int player1Score, int player2Score) {
         player1ScoreTextView.setText(String.valueOf(player1Score));

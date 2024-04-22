@@ -11,15 +11,15 @@ import com.example.todeskapp.databinding.ActivityElimBinding;
 
 public class ElimActivity extends AppCompatActivity {
 
-private ActivityElimBinding binding;
+    private ActivityElimBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-     binding = ActivityElimBinding.inflate(getLayoutInflater());
-     setContentView(binding.getRoot());
-
+        binding = ActivityElimBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+/*
         Toolbar toolbar = binding.toolbar;
         setSupportActionBar(toolbar);
         CollapsingToolbarLayout toolBarLayout = binding.toolbarLayout;
@@ -33,6 +33,6 @@ private ActivityElimBinding binding;
                         .setAction("Action", null)
                         .setAnchorView(R.id.fab).show();
             }
-        });
+        });*/
     }
 }
