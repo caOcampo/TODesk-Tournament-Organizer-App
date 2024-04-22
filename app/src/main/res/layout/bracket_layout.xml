@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- bracket_layout.xml -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.example.todeskapp.ElimMatch
+        android:id="@+id/match1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.example.todeskapp.ElimMatch
+        android:id="@+id/match2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.example.todeskapp.ElimMatch
+    android:id="@+id/match3"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
+
+    <com.example.todeskapp.ElimMatch
+        android:id="@+id/match4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.example.todeskapp.ElimMatch
+        android:id="@+id/match5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.example.todeskapp.ElimMatch
+        android:id="@+id/match6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.example.todeskapp.ElimMatch
+        android:id="@+id/match7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.example.todeskapp.ElimMatch
+        android:id="@+id/match8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

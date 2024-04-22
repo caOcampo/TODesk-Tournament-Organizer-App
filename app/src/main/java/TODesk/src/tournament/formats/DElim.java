@@ -44,8 +44,8 @@ public class DElim {
     }
 
     public void advancePlayer(int matchIndex, PlayerEntry winner) {
-        if (upperBracket.getLast().player2 == null){
-            upperBracket.getLast().player2 = upperBracket.get(matchIndex).getWinner();
+        if (upperBracket.get(lowerBracket.size()-1).player2 == null){
+            upperBracket.get(lowerBracket.size()-1).player2 = upperBracket.get(matchIndex).getWinner();
         }
         else {
             Match nextMatch = new Match();
@@ -53,8 +53,8 @@ public class DElim {
             upperBracket.add(nextMatch);
         }
 
-        if (lowerBracket.getLast().player2 == null) {
-            lowerBracket.getLast().player2 = upperBracket.get(matchIndex).getLoser();
+        if (lowerBracket.get(lowerBracket.size()-1).player2 == null) {
+            lowerBracket.get(lowerBracket.size()-1).player2 = upperBracket.get(matchIndex).getLoser();
         }
         else {
             lowerBracket.add(new Match(upperBracket.get(matchIndex).getLoser(), null)); // Send loser to lower bracket
