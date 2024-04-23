@@ -38,8 +38,7 @@
         app:backgroundTint="@null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/app_name_text"
-        android:onClick="onAddPlayerClicked"/>
+        app:layout_constraintTop_toBottomOf="@+id/app_name_text" />
 
     <!-- Current players label -->
     <TextView
