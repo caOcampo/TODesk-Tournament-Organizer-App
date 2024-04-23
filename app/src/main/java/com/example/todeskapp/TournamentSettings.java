@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import android.content.Intent;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.todeskapp.databinding.TournamentSettingsBinding;
@@ -44,7 +46,20 @@ public class TournamentSettings extends AppCompatActivity {
     }
 
     private void saveButton() {
-        binding.save.setOnClickListener(v -> executorService.execute(() -> saveTournamentSettings()));
+        binding.save.setOnClickListener(v -> {
+            executorService.execute(() -> {
+                saveTournamentSettings();
+                runOnUiThread(() -> {
+                    /* redirection back */
+                    Intent intent = new Intent(TournamentSettings.this, ConfigureTournament.class);
+                    intent.putExtra("ACCESS_CODE", accessCode);  // Optionally passing the access code if needed
+                    startActivity(intent);
+                });
+            });
+        });
+
+
+
     }
 
     private void saveTournamentSettings() {
