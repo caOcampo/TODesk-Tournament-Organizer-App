@@ -102,7 +102,7 @@
                     android:layout_height="wrap_content"
                     android:padding="9dp"
                     android:fontFamily="@font/orbitron_bold"
-                    android:text="W"
+                    android:text="@string/w"
                     android:textColor="@android:color/white"
                     android:textSize="18sp" />
 
@@ -111,7 +111,7 @@
                     android:layout_height="wrap_content"
                     android:padding="9dp"
                     android:fontFamily="@font/orbitron_bold"
-                    android:text=" L "
+                    android:text="@string/l"
                     android:textColor="@android:color/white"
                     android:textSize="18sp" />
             </TableRow>
@@ -131,7 +131,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/orbitron_bold"
-                    android:text="  -"
+                    android:text="@string/Wdash"
                     android:textColor="@android:color/white"
                     android:textSize="16sp"
                     android:padding="8dp" />
@@ -140,7 +140,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/orbitron_bold"
-                    android:text="  -"
+                    android:text="@string/Ldash"
                     android:textColor="@android:color/white"
                     android:textSize="16sp"
                     android:padding="8dp" />
@@ -186,7 +186,7 @@
                     android:id="@+id/winner_editText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Winner:"
+                    android:text="@string/winner"
                     android:textColorHint="@android:color/darker_gray"
                     android:textColor="@android:color/white"
                     android:textSize="16sp"
