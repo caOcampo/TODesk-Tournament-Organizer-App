@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.todeskapp.databinding.PlayerProfileBinding;
 
 public class PlayerProfile extends AppCompatActivity{
@@ -21,7 +20,6 @@ public class PlayerProfile extends AppCompatActivity{
 
         accessCode = getIntent().getStringExtra("ACCESS_CODE");
 
-
         /* Setup redirection from PlayerProfile to AddPlayer */
         binding.add.setOnClickListener(v -> {
             accessCode = getIntent().getStringExtra("ACCESS_CODE");
@@ -29,8 +27,6 @@ public class PlayerProfile extends AppCompatActivity{
             intent.putExtra("ACCESS_CODE", accessCode);  // Passing the access code to the next activity
             startActivity(intent);
         });
-
-
     }
 }
 

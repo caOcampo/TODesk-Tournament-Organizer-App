@@ -22,6 +22,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:backgroundTint="@color/navy_blue"
+        android:drawableTop="@android:drawable/ic_menu_revert"
+        android:gravity="center"
+        tools:ignore="MissingConstraints" />
+
     <!-- Add player button -->
     <Button
         android:id="@+id/add_player"
