@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
+import android.content.Intent;
 
 import com.example.todeskapp.databinding.AccessTournamentBinding;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -42,16 +43,20 @@ public class AccessTournament extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         DocumentSnapshot document = task.getResult();
                         if (document.exists()) {
-                            // Code exists in the database
-                            validAccessCode = accessCode;  // Store the valid code in the accessCode variable
+
+                            validAccessCode = accessCode;
                             Toast.makeText(AccessTournament.this, "Access Code is valid!", Toast.LENGTH_SHORT).show();
-                            // Proceed with any other logic now that the code is confirmed, e.g., open new Activity
+
+                            Intent intent = new Intent(AccessTournament.this, AccessEditView.class);
+                            intent.putExtra("ACCESS_CODE", validAccessCode);
+                            startActivity(intent);
+
                         } else {
-                            // Code does not exist in the database
+
                             Toast.makeText(AccessTournament.this, "Invalid Access Code.", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        // Task failed with an exception
+
                         Toast.makeText(AccessTournament.this, "Error checking document: " + task.getException(), Toast.LENGTH_SHORT).show();
                     }
                 });
