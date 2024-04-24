@@ -2,9 +2,6 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="AddPlayer">
-        <State />
-      </entry>
       <entry key="ConfigureTournament">
         <State />
       </entry>
@@ -12,6 +9,9 @@
         <State />
       </entry>
       <entry key="PlayerProfile">
+        <State />
+      </entry>
+      <entry key="RoundRobinPre">
         <State />
       </entry>
       <entry key="app">
