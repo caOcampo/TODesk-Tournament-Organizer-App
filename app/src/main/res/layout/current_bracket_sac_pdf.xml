@@ -1,7 +1,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/current_bracket_sac"
+    android:id="@+id/current_bracket_sac_pdf"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FF073763">
@@ -45,38 +45,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/app_name_text" />
 
-    <!--shows a scrollable container with buttons for each player, need to code a way to create buttons for each player and display here-->
-
-    <TextView
-        android:id="@+id/current_bracket"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-
-        android:fontFamily="@font/orbitron_medium"
-        android:gravity="center"
-        android:text="@string/Current_Bracket"
-        android:textColor="@color/pastel_yellow"
-        android:textSize="30sp"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Save_Access_Code_Button" />
 
     <!-- Your existing ScrollView with TableLayout below -->
 
     <ScrollView
+        android:id="@+id/current_bracket"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/current_bracket"
+        app:layout_constraintTop_toBottomOf="@+id/Save_Access_Code_Button"
         app:layout_constraintVertical_bias="0.0">
 
         <TableLayout
@@ -88,5 +72,22 @@
         </TableLayout>
 
     </ScrollView>
+
+    <Button
+        android:id="@+id/create"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+
+        android:background="@drawable/blue_button_shape"
+        android:fontFamily="@font/orbitron_medium"
+        android:text="@string/create"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
