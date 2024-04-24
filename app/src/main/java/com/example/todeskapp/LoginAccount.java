@@ -18,9 +18,6 @@ import java.util.concurrent.ExecutorService;
 public class LoginAccount extends AppCompatActivity{
 
     private LoginAccountBinding binding;
-    private EditText emailEditText;
-    private EditText passwordEditText;
-    private Button loginButton;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     private String accessCode;
@@ -33,25 +30,19 @@ public class LoginAccount extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         binding = LoginAccountBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Initialize Firebase Authentication
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         executorService = Executors.newSingleThreadExecutor();
-        
-        emailEditText = binding.inputEmail;
-        passwordEditText = binding.inputPassword;
-        loginButton = binding.button;
 
         accessCode = getIntent().getStringExtra("ACCESS_CODE");
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        binding.loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loginUser(emailEditText.getText().toString(), passwordEditText.getText().toString());
+                loginUser(binding.inputEmail.getText().toString(), binding.inputPassword.getText().toString());
             }
         });
     }

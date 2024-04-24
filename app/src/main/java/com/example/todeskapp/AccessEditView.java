@@ -2,6 +2,7 @@ package com.example.todeskapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +25,15 @@ public class AccessEditView extends AppCompatActivity {
         accessCode = getIntent().getStringExtra("ACCESS_CODE");
 
         getTournamentName();
+
+        binding.editButton.setOnClickListener(v -> {
+            Intent intent = new Intent(AccessEditView.this, OrganizerLogin.class);
+            intent.putExtra("ACCESS_CODE", accessCode);
+            startActivity(intent);
+        });
+
+
+
     }
 
     private void getTournamentName() {
@@ -42,24 +52,6 @@ public class AccessEditView extends AppCompatActivity {
                 });
     }
 
-    private void viewButton() {
-        binding.viewButton.setOnClickListener(v -> {
-            accessCode = getIntent().getStringExtra("ACCESS_CODE");
-            Intent intent = new Intent(AccessEditView.this, CurrentBracket_SAC_PDF.class);
-            intent.putExtra("ACCESS_CODE", accessCode);  // Passing the access code to the next activity
-            startActivity(intent);
-        });
-    }
 
-    /* private void editButton() {
-        binding.editButton.setOnClickListener(v -> {
-            accessCode = getIntent().getStringExtra("ACCESS_CODE");
-            Intent intent = new Intent(AccessEditView.this, LoginAccountEdit.class);
-            intent.putExtra("ACCESS_CODE", accessCode);  // Passing the access code to the next activity
-            startActivity(intent);
-        });
-    }
 
-     */
 }
-
