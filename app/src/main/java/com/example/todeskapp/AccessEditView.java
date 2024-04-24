@@ -42,4 +42,24 @@ public class AccessEditView extends AppCompatActivity {
                 });
     }
 
+    private void viewButton() {
+        binding.viewButton.setOnClickListener(v -> {
+            accessCode = getIntent().getStringExtra("ACCESS_CODE");
+            Intent intent = new Intent(AccessEditView.this, CurrentBracket_SAC_PDF.class);
+            intent.putExtra("ACCESS_CODE", accessCode);  // Passing the access code to the next activity
+            startActivity(intent);
+        });
+    }
+
+    /* private void editButton() {
+        binding.editButton.setOnClickListener(v -> {
+            accessCode = getIntent().getStringExtra("ACCESS_CODE");
+            Intent intent = new Intent(AccessEditView.this, LoginAccountEdit.class);
+            intent.putExtra("ACCESS_CODE", accessCode);  // Passing the access code to the next activity
+            startActivity(intent);
+        });
+    }
+
+     */
 }
+

@@ -176,5 +176,9 @@
     <string name="Ldash">-</string>
     <string name="winner">Winner:</string>
 
+    //Tournament Management Strings
+    <string name="Management">Tournament Management</string>
+    <string name="ConfigureTournamentButton">Configure Tournament Settings</string>
+    <string name="UpdateTournamentButton">Update Tournament Bracket</string>
 
 </resources>
