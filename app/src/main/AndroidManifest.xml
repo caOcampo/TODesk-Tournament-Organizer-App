@@ -45,6 +45,11 @@
             android:name=".AccountChoice"
             android:label="account_choice" > <!-- Optional: You can set a specific label for the activity -->
         </activity>
+
+        <activity android:name=".AccessEditView"
+            android:label="tournament settings">
+        </activity>
+
         <activity
             android:name=".AccessTournament"
             android:label="access tournament" > <!-- Optional: You can set a specific label for the activity -->
@@ -69,6 +74,7 @@
         <activity android:name=".TournamentSettings"
             android:label="tournament settings">
         </activity>
+
 
 
 

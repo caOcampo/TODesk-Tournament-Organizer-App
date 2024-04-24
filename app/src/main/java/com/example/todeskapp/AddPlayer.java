@@ -1,36 +1,83 @@
+
+
 package com.example.todeskapp;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-
+import android.view.LayoutInflater;
+import android.widget.Toast;
+import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.todeskapp.databinding.AddPlayerBinding;
+import com.example.todeskapp.databinding.PlayerDisplayBinding;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
-public class AddPlayer extends AppCompatActivity{
+public class AddPlayer extends AppCompatActivity {
 
-        private AddPlayerBinding binding;
-        private String accessCode;
+    private AddPlayerBinding binding;
+    private FirebaseFirestore db;
 
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            binding = AddPlayerBinding.inflate(getLayoutInflater());
-            setContentView(binding.getRoot());
+    private String accessCode;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = AddPlayerBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-            accessCode = getIntent().getStringExtra("ACCESS_CODE");
+        db = FirebaseFirestore.getInstance();
+        accessCode = getIntent().getStringExtra("ACCESS_CODE");
 
-
-            /* Setup redirection for the player information */
-            binding.addPlayer.setOnClickListener(v -> {
-                accessCode = getIntent().getStringExtra("ACCESS_CODE");
-                Intent intent = new Intent(AddPlayer.this, PlayerProfile.class);
-                intent.putExtra("ACCESS_CODE", accessCode);  // Passing the access code to the next activity
-                startActivity(intent);
-            });
-
-
-        }
+        fetchAndDisplayPlayers();
+        addPlayerButton();
     }
+
+    private void fetchAndDisplayPlayers() {
+        db.collection("AccessCodes").document(accessCode)
+                .collection("PlayerList")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+
+                            /*get the player names*/
+                            addPlayerToView(document.getId());
+                        }
+                    } else {
+                        Toast.makeText(this, "Error fetching players: " + task.getException(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void addPlayerToView(String playerName) {
+
+        PlayerDisplayBinding itemBinding = PlayerDisplayBinding.inflate(LayoutInflater.from(this), binding.playersContainer, false);
+
+        itemBinding.playerName.setText(playerName);
+        itemBinding.deleteButton.setOnClickListener(v -> deletePlayer(playerName));
+
+        binding.playersContainer.addView(itemBinding.getRoot());
+    }
+
+    private void deletePlayer(String playerName) {
+        db.collection("AccessCodes").document(accessCode)
+                .collection("PlayerList").document(playerName)
+                .delete()
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(this, "Player deleted successfully", Toast.LENGTH_SHORT).show();
+                    binding.playersContainer.removeAllViews();
+                    fetchAndDisplayPlayers();
+                })
+                .addOnFailureListener(e -> Toast.makeText(this, "Error deleting player: " + e.toString(), Toast.LENGTH_SHORT).show());
+    }
+
+    private void addPlayerButton(){
+        binding.addPlayer.setOnClickListener(v -> {
+            accessCode = getIntent().getStringExtra("ACCESS_CODE");
+            Intent intent = new Intent(AddPlayer.this, PlayerProfile.class);
+            intent.putExtra("ACCESS_CODE", accessCode);  // Passing the access code to the next activity
+            startActivity(intent);
+        });
+    }
+}
+

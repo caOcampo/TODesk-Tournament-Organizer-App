@@ -1,41 +1,95 @@
-package TODesk.src.tournament.formats;
+/*package TODesk.src.tournament.formats;
 
-import android.content.Intent;
-import android.os.Bundle;
+import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
+import android.widget.Toast;
+import java.util.*;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 
 
 
 public class Swiss extends AppCompatActivity {
 
-    private String accessCode;
-    private void countPlayersInTournament(String accessCode) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        accessCode = getIntent().getStringExtra("ACCESS_CODE");
+    private FirebaseFirestore db;
 
-
-        db.collection("AccessCodes")
-                .document(accessCode)
+    public Swiss() {
+        db = FirebaseFirestore.getInstance();
+    }
+    public void initializeSwissStage(String accessCode, int stageNumber) {
+        db.collection("AccessCodes").document(accessCode)
                 .collection("PlayerList")
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        // The query snapshot contains all the documents in the 'PlayerList' collection
-                        QuerySnapshot querySnapshot = task.getResult();
-                        if (querySnapshot != null) {
-                            int count = querySnapshot.size(); // Counting the documents
-                            // Handle the count, e.g., update UI or log it
-                            System.out.println("Number of players: " + count);
-                        } else {
-                            System.out.println("Failed to fetch player list or no players found.");
-                        }
+
+                        List<String> playerNames = new ArrayList<>();
+
+                        task.getResult().forEach(document -> {
+                            playerNames.add(document.getId());
+                        });
+
+
+                        Collections.shuffle(playerNames);
+
+
+                        int rounds = playerNames.size() / 2;
+
+                        *//*System.out.println("Number of rounds: " + rounds);*//*
+
+
+                        initializePlayerStats(accessCode, playerNames);
+                        matchMaking(accessCode, playerNames, stageNumber);
+
                     } else {
-                        System.err.println("Query failed: " + task.getException().getMessage());
+                        System.err.println("Error fetching players: " + task.getException().getMessage());
                     }
                 });
     }
-}
+
+    private void initializePlayerStats(String accessCode, List<String> playerNames) {
+        for (String playerName : playerNames) {
+            db.collection("AccessCodes")
+                    .document(accessCode)
+                    .collection("PlayerList")
+                    .document(playerName)
+                    .update("win", 0, "loss", 0)
+                    .addOnSuccessListener(aVoid -> System.out.println("Player stats updated for: " + playerName))
+                    .addOnFailureListener(e -> System.err.println("Error updating player stats: " + e.getMessage()));
+        }
+    }
+
+    private void matchMaking(String accessCode, List<String> playerNames, int stageNumber) {
+        int numberOfPlayers = playerNames.size();
+
+        for (int i = 0; i < numberOfPlayers; i += 2) {
+
+            String player1 = playerNames.get(i);
+            String player2 = playerNames.get(i + 1);
+
+            *//*Create a matchup document or log
+            System.out.println("Matchup: " + player1 + " vs " + player2);*//*
+
+            // Optionally create or update a match document
+            db.collection("AccessCodes")
+                    .document(accessCode)
+                    .collection("Matchups Stage: "+ stageNumber)
+                    .add(new Match(player1, player2))
+                    .addOnSuccessListener(documentReference -> System.out.println("Match created between " + player1 + " and " + player2))
+                    .addOnFailureListener(e -> System.err.println("Failed to create match: " + e.getMessage()));
+        }
+    }
+
+    class Match {
+        String player1;
+        String player2;
+
+        Match(String player1, String player2) {
+            this.player1 = player1;
+            this.player2 = player2;
+        }
+    }
+}*/
