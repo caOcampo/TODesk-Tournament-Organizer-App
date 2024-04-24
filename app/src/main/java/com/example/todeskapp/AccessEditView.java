@@ -2,6 +2,7 @@ package com.example.todeskapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +25,15 @@ public class AccessEditView extends AppCompatActivity {
         accessCode = getIntent().getStringExtra("ACCESS_CODE");
 
         getTournamentName();
+
+        binding.editButton.setOnClickListener(v -> {
+            Intent intent = new Intent(AccessEditView.this, OrganizerLogin.class);
+            intent.putExtra("ACCESS_CODE", accessCode);
+            startActivity(intent);
+        });
+
+
+
     }
 
     private void getTournamentName() {
@@ -41,5 +51,7 @@ public class AccessEditView extends AppCompatActivity {
                     Toast.makeText(this, "Error getting document: " + e.toString(), Toast.LENGTH_SHORT).show();
                 });
     }
+
+
 
 }

@@ -18,13 +18,13 @@ public class AccountChoice extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = AccountChoiceBinding.inflate(getLayoutInflater()); // Initialize the binding
+        binding = AccountChoiceBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         binding.newAccount.setOnClickListener(v -> {
             accessCode = getIntent().getStringExtra("ACCESS_CODE");
             Intent intent = new Intent(AccountChoice.this, CreateAccount.class);
-            intent.putExtra("ACCESS_CODE", accessCode);  // Passing the access code to the next activity
+            intent.putExtra("ACCESS_CODE", accessCode);
             startActivity(intent);
         });
 
@@ -33,7 +33,7 @@ public class AccountChoice extends AppCompatActivity {
         binding.existingAccount.setOnClickListener(v -> {
             accessCode = getIntent().getStringExtra("ACCESS_CODE");
             Intent intent = new Intent(AccountChoice.this, LoginAccount.class);
-            intent.putExtra("ACCESS_CODE", accessCode);  // Passing the access code to the next activity
+            intent.putExtra("ACCESS_CODE", accessCode);
             startActivity(intent);
         });
 

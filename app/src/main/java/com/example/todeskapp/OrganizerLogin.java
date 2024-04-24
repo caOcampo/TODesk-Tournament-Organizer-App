@@ -17,10 +17,6 @@ import java.util.concurrent.ExecutorService;
 public class OrganizerLogin extends AppCompatActivity{
 
     private LoginAccountBinding binding;
-
-    private EditText emailEditText;
-    private EditText passwordEditText;
-    private Button loginButton;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     private String accessCode;
@@ -39,10 +35,13 @@ public class OrganizerLogin extends AppCompatActivity{
 
         accessCode = getIntent().getStringExtra("ACCESS_CODE");
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        // Initialize EditTexts and Button using binding
+        binding.loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loginUser(emailEditText.getText().toString(), passwordEditText.getText().toString());
+                String email = binding.inputEmail.getText().toString();
+                String password = binding.inputPassword.getText().toString();
+                loginUser(email, password);
             }
         });
     }

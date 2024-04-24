@@ -26,7 +26,7 @@ public class AccessTournament extends AppCompatActivity {
         // Initialize Firestore
         db = FirebaseFirestore.getInstance();
 
-        binding.button.setOnClickListener(new View.OnClickListener() {
+        binding.loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String accessCode = binding.editTextTextPassword.getText().toString();

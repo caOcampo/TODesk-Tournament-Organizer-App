@@ -72,6 +72,10 @@
         android:label="login account">
         </activity>
 
+        <activity android:name=".OrganizerLogin"
+            android:label="tournament settings">
+        </activity>
+
         <activity android:name=".PlayerProfile"
             android:label="player profile">
         </activity>
@@ -79,6 +83,7 @@
         <activity android:name=".TournamentSettings"
             android:label="tournament settings">
         </activity>
+
 
 
 
