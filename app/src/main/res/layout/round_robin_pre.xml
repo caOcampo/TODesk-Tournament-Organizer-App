@@ -1,0 +1,214 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/round_robin_pre"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FF073763">
+
+
+    <!--shows app name-->
+    <TextView
+        android:id="@+id/app_name_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+
+        android:fontFamily="@font/orbitron_bold"
+        android:text="@string/app_name"
+        android:textColor="@color/light_orange"
+        android:textSize="20sp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--add player button-->
+
+    <Button
+        android:id="@+id/Save_Access_Code_Button"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="70dp"
+        android:background="@drawable/baby_blue_button_shape"
+
+        android:fontFamily="@font/orbitron_medium"
+        android:text="@string/Save_Access_Code"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/app_name_text" />
+
+    <!--shows a scrollable container with buttons for each player, need to code a way to create buttons for each player and display here-->
+
+    <TextView
+        android:id="@+id/round_robin_bracket"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+
+        android:fontFamily="@font/orbitron_medium"
+        android:gravity="center"
+        android:text="@string/Round_Robin_Bracket"
+        android:textColor="@color/pastel_yellow"
+        android:textSize="30sp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Save_Access_Code_Button" />
+
+    <!-- Your existing ScrollView with TableLayout below -->
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/round_robin_bracket"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TableLayout
+            android:id="@+id/tableLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="DuplicateIds">
+
+            <!-- Header row -->
+            <TableRow android:layout_width="match_parent">
+
+                <TextView
+                    android:layout_width="290dp"
+                    android:layout_height="wrap_content"
+                    android:padding="9dp"
+                    android:fontFamily="@font/orbitron_bold"
+                    android:text="Username"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="9dp"
+                    android:fontFamily="@font/orbitron_bold"
+                    android:text="@string/w"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="9dp"
+                    android:fontFamily="@font/orbitron_bold"
+                    android:text="@string/l"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" />
+            </TableRow>
+
+            <!-- Sample row (replace with dynamically generated rows) -->
+            <TableRow>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Player 1"
+                    android:fontFamily="@font/orbitron_bold"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:padding="8dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/orbitron_bold"
+                    android:text="@string/Wdash"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:padding="8dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/orbitron_bold"
+                    android:text="@string/Ldash"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:padding="8dp" />
+            </TableRow>
+
+            <!-- Add more rows dynamically as needed -->
+
+        </TableLayout>
+    </ScrollView>
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="250dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/round_robin_bracket"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TableLayout
+            android:id="@+id/tableLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="DuplicateIds">
+
+            <!-- Sample row for matchups (replace with dynamically generated rows) -->
+            <TableRow>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Player 1 vs Player 2"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:padding="8dp" />
+
+                <TextView
+                    android:id="@+id/winner_editText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/winner"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:padding="8dp" />
+
+                <EditText
+                    android:id="@+id/input_winner_editText"
+                    android:layout_width="147dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="0dp"
+                    android:hint="@string/winning_player"
+                    android:padding="8dp"
+                    android:textColor="@android:color/white"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:textSize="16sp" />
+            </TableRow>
+
+            <!-- Add more rows dynamically as needed for each matchup -->
+
+        </TableLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

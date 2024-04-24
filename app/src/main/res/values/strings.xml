@@ -167,5 +167,14 @@
     <string name="organization">Team/Organization</string>
     <string name="rank">Rank</string>
 
+    //Round Robin Pre-Bracket
+    <string name="Round_Robin_Bracket">Round Robin Bracket</string>
+    <string name="winning_player">Player #</string>
+    <string name="w">W</string>
+    <string name="l">L</string>
+    <string name="Wdash">-</string>
+    <string name="Ldash">-</string>
+    <string name="winner">Winner:</string>
+
 
 </resources>
