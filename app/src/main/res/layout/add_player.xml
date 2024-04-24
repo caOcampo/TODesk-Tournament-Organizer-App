@@ -10,17 +10,6 @@
     <!--shows app name-->
     <include layout="@layout/app_name_view"/>
 
-    <Button
-        android:id="@+id/back_button"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:backgroundTint="@color/navy_blue"
-        android:drawableTop="@android:drawable/ic_menu_revert"
-        android:gravity="center"
-        tools:ignore="MissingConstraints" />
-
     <!-- Add player button -->
     <Button
         android:id="@+id/add_player"
@@ -78,4 +67,14 @@
             android:orientation="vertical" />
     </ScrollView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageButton
+        android:id="@+id/back_button"
+        android:layout_width="50dip"
+        android:layout_height="50dip"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/back_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
