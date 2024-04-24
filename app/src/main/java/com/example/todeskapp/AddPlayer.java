@@ -38,6 +38,7 @@ public class AddPlayer extends AppCompatActivity {
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
+
                         for (QueryDocumentSnapshot document : task.getResult()) {
 
                             /*get the player names*/
@@ -73,10 +74,24 @@ public class AddPlayer extends AppCompatActivity {
 
     private void addPlayerButton(){
         binding.addPlayer.setOnClickListener(v -> {
-            accessCode = getIntent().getStringExtra("ACCESS_CODE");
-            Intent intent = new Intent(AddPlayer.this, PlayerProfile.class);
-            intent.putExtra("ACCESS_CODE", accessCode);  // Passing the access code to the next activity
-            startActivity(intent);
+
+            db.collection("AccessCodes").document(accessCode)
+                    .collection("PlayerList")
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            int playerCount = task.getResult().size();
+                            if (playerCount >= 16) {
+                                Toast.makeText(this, "There can only be a maximum of 16 players.", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Intent intent = new Intent(AddPlayer.this, PlayerProfile.class);
+                                intent.putExtra("ACCESS_CODE", accessCode);
+                                startActivity(intent);
+                            }
+                        } else {
+                            Toast.makeText(this, "Error checking player count: " + task.getException(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
         });
     }
 }

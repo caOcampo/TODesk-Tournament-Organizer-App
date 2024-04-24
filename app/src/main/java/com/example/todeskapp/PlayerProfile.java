@@ -58,9 +58,22 @@ public class PlayerProfile extends AppCompatActivity{
                 .set(player)
                 .addOnSuccessListener(aVoid -> {
                     Toast.makeText(PlayerProfile.this, "Player added successfully", Toast.LENGTH_SHORT).show();
-                    navigateToAddPlayer(); // Only navigate once the player is successfully added
+                    deleteInitialDoc();
                 })
                 .addOnFailureListener(e -> Toast.makeText(PlayerProfile.this, "Failed to add player: " + e.toString(), Toast.LENGTH_SHORT).show());
+    }
+
+    private void deleteInitialDoc() {
+        db.collection("AccessCodes")
+                .document(accessCode)
+                .collection("PlayerList")
+                .document("InitialDoc")
+                .delete()
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(this, "Initial document removed successfully", Toast.LENGTH_SHORT).show();
+                    navigateToAddPlayer();
+                })
+                .addOnFailureListener(e -> Toast.makeText(this, "Failed to remove initial document: " + e.toString(), Toast.LENGTH_SHORT).show());
     }
 
     private void navigateToAddPlayer() {
