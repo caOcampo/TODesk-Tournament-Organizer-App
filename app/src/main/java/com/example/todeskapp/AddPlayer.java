@@ -29,6 +29,15 @@ public class AddPlayer extends AppCompatActivity {
         accessCode = getIntent().getStringExtra("ACCESS_CODE");
 
         fetchAndDisplayPlayers();
+
+
+        binding.backButton.setOnClickListener(v -> {
+            Intent intent = new Intent(AddPlayer.this, ConfigureTournament.class);
+            intent.putExtra("ACCESS_CODE", accessCode);
+            startActivity(intent);
+        });
+
+
         addPlayerButton();
     }
 

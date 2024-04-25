@@ -8,43 +8,48 @@
     android:background="@color/navy_blue">
 
     <!--shows app name-->
-    <include layout="@layout/app_name_view"/>
+    <include
+        android:id="@+id/include2"
+        layout="@layout/app_name_view"
+        tools:layout_editor_absoluteX="162dp"
+        tools:layout_editor_absoluteY="30dp" />
 
     <TextView
         android:id="@+id/TournamentManagement"
-        android:layout_width="300dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
 
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="30dp"
         android:fontFamily="@font/orbitron_medium"
         android:gravity="center"
-        android:text="@string/Management"
+
+        android:text="@string/tournament_management"
         android:textColor="@color/pastel_yellow"
         android:textSize="36sp"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/app_name_text" />
+        app:layout_constraintTop_toBottomOf="@+id/include2" />
 
     <!--View Existing Tournament-->
     <Button
         android:id="@+id/configure_tournament_settings"
         android:layout_width="0dp"
         android:layout_height="100dp"
+
         android:layout_marginStart="50dp"
         android:layout_marginEnd="50dp"
-
-        android:layout_marginBottom="75dp"
+        android:layout_marginBottom="60dp"
         android:background="@drawable/baby_blue_button_shape"
-        android:fontFamily="@font/orbitron_medium"
-        android:text="@string/ConfigureTournamentButton"
 
+        android:fontFamily="@font/orbitron_medium"
+        android:text="@string/management_configure"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:backgroundTint="@null"
         app:layout_constraintBottom_toTopOf="@+id/update_tournament_bracket"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -54,10 +59,10 @@
         android:layout_marginStart="50dp"
         android:layout_marginEnd="50dp"
 
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="150dp"
         android:background="@drawable/baby_blue_button_shape"
         android:fontFamily="@font/orbitron_medium"
-        android:text="@string/UpdateTournamentButton"
+        android:text="@string/management_update"
 
         android:textColor="@color/white"
         android:textSize="20sp"

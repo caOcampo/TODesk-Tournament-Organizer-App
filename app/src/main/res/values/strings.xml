@@ -18,16 +18,16 @@
 
     //account choice strings
     <string name="account_choice_prompt">Add NEW Tournament to:</string>
-    <string name="new_account">NEW Account</string>
-    <string name="existing_account">EXISTING Account</string>
+    <string name="new_account">NEW \nAccount</string>
+    <string name="existing_account">EXISTING \nAccount</string>
 
     //create+login account strings
     <string name="create_account_prompt">Create Account</string>
     <string name="create_account_prompt2">ORGANIZER</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
-    <string name="password_conf">CONFIRM Password</string>
-    <string name="login_account_prompt">Login</string>
+    <string name="password_conf">CONFIRM \nPassword</string>
+    <string name="login_account_prompt">LOGIN</string>
     <string name="login_account_prompt2">add to your account</string>
     <string name="login">LOGIN</string>
 
@@ -178,9 +178,9 @@
     <string name="winner">Winner:</string>
 
     //Tournament Management Strings
-    <string name="Management">Tournament Management</string>
-    <string name="ConfigureTournamentButton">Configure Tournament Settings</string>
-    <string name="UpdateTournamentButton">Update Tournament Bracket</string>
+    <string name="tournament_management">TOURNAMENT MANAGEMENT</string>
+    <string name="management_configure">CONFIGURE \nTournament Settings</string>
+    <string name="management_update">UPDATE \nTournament Bracket</string>
 
 
 </resources>

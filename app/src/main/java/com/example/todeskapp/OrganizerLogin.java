@@ -4,10 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.todeskapp.databinding.LoginAccountBinding;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.todeskapp.databinding.PlayerDisplayBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -27,6 +30,7 @@ public class OrganizerLogin extends AppCompatActivity{
         super.onCreate(savedInstanceState);
 
         binding = LoginAccountBinding.inflate(getLayoutInflater());
+
         setContentView(binding.getRoot());
 
         mAuth = FirebaseAuth.getInstance();
@@ -34,6 +38,8 @@ public class OrganizerLogin extends AppCompatActivity{
         executorService = Executors.newSingleThreadExecutor();
 
         accessCode = getIntent().getStringExtra("ACCESS_CODE");
+
+        binding.loginPrompt2.setText("to EDIT");
 
         // Initialize EditTexts and Button using binding
         binding.loginButton.setOnClickListener(new View.OnClickListener() {
@@ -99,6 +105,8 @@ public class OrganizerLogin extends AppCompatActivity{
         intent.putExtra("ACCESS_CODE", accessCode);
         startActivity(intent);
     }
+
+
 
     @Override
     protected void onDestroy() {
