@@ -9,6 +9,16 @@
         <item name="android:fontFamily">@font/orbitron</item>
         <item name="android:textColor">@color/blue</item>
         <item name="android:textSize">10sp</item>
+
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:paddingEnd">0dp</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetRight">0dp</item>
     </style>
 
     <style name="swiss_one_matchup">

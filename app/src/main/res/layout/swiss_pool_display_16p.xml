@@ -23,7 +23,6 @@
         <Button
             android:id="@+id/zero_zero_match1"
             style="@style/swiss_pool_button"
-
             app:backgroundTint="@null" />
 
         <Button
@@ -45,25 +44,25 @@
             app:backgroundTint="@null" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/zero_zero_match5"
             style="@style/swiss_pool_button"
 
             app:backgroundTint="@null" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/zero_zero_match6"
             style="@style/swiss_pool_button"
 
             app:backgroundTint="@null" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/zero_zero_match7"
             style="@style/swiss_pool_button"
 
             app:backgroundTint="@null" />
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/zero_zero_match8"
             style="@style/swiss_pool_button"
 
             app:backgroundTint="@null" />
@@ -97,13 +96,13 @@
             app:backgroundTint="@null" />
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/one_zero_match3"
             style="@style/swiss_pool_button"
 
             app:backgroundTint="@null" />
 
         <Button
-            android:id="@+id/button6"
+            android:id="@+id/one_zero_match4"
             style="@style/swiss_pool_button"
 
             app:backgroundTint="@null" />
@@ -138,13 +137,13 @@
             app:backgroundTint="@null" />
 
         <Button
-            android:id="@+id/button7"
+            android:id="@+id/zero_one_match3"
             style="@style/swiss_pool_button"
 
             app:backgroundTint="@null" />
 
         <Button
-            android:id="@+id/button8"
+            android:id="@+id/zero_one_match4"
             style="@style/swiss_pool_button"
 
             app:backgroundTint="@null" />
@@ -172,7 +171,7 @@
             app:backgroundTint="@null" />
 
         <Button
-            android:id="@+id/button9"
+            android:id="@+id/two_zero_match2"
             style="@style/swiss_pool_button"
 
             app:backgroundTint="@null" />
@@ -204,13 +203,13 @@
             app:backgroundTint="@null" />
 
         <Button
-            android:id="@+id/button10"
+            android:id="@+id/one_one_match3"
             style="@style/swiss_pool_button"
 
             app:backgroundTint="@null" />
 
         <Button
-            android:id="@+id/button11"
+            android:id="@+id/one_one_match4"
             style="@style/swiss_pool_button"
 
             app:backgroundTint="@null" />
@@ -235,7 +234,7 @@
             app:backgroundTint="@null" />
 
         <Button
-            android:id="@+id/button12"
+            android:id="@+id/zero_two_match2"
             style="@style/swiss_pool_button"
 
             app:backgroundTint="@null" />
@@ -281,13 +280,13 @@
             app:backgroundTint="@null" />
 
         <Button
-            android:id="@+id/button13"
+            android:id="@+id/two_one_match2"
             style="@style/swiss_pool_button"
 
             app:backgroundTint="@null" />
 
         <Button
-            android:id="@+id/button14"
+            android:id="@+id/two_one_match3"
             style="@style/swiss_pool_button"
 
             app:backgroundTint="@null" />
@@ -307,19 +306,19 @@
             android:text="1-2" />
 
         <Button
-            android:id="@+id/one_two_match"
+            android:id="@+id/one_two_match1"
             style="@style/swiss_pool_button"
 
             app:backgroundTint="@null" />
 
         <Button
-            android:id="@+id/button15"
+            android:id="@+id/one_two_match2"
             style="@style/swiss_pool_button"
 
             app:backgroundTint="@null" />
 
         <Button
-            android:id="@+id/button16"
+            android:id="@+id/one_two_match3"
             style="@style/swiss_pool_button"
 
             app:backgroundTint="@null" />
@@ -387,13 +386,13 @@
             app:backgroundTint="@null" />
 
         <Button
-            android:id="@+id/button17"
+            android:id="@+id/two_two_match2"
             style="@style/swiss_pool_button"
 
             app:backgroundTint="@null" />
 
         <Button
-            android:id="@+id/button18"
+            android:id="@+id/two_two_match3"
             style="@style/swiss_pool_button"
 
             app:backgroundTint="@null" />
