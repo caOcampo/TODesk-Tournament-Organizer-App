@@ -6,8 +6,8 @@ import android.content.Intent;
 
 import android.os.Bundle;
 
-import android.view.View;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.todeskapp.databinding.ConfigureTournmentBinding;
@@ -77,10 +77,6 @@ public class ConfigureTournament extends AppCompatActivity {
 
             bracketStyleRedirect(accessCode);
 
-            /*accessCode = getIntent().getStringExtra("ACCESS_CODE");
-            Intent intent = new Intent(ConfigureTournament.this, CurrentBracket_SAC_PDF.class);
-            intent.putExtra("ACCESS_CODE", accessCode);  // Passing the access code to the next activity
-            startActivity(intent);*/
         });
     }
 
@@ -129,10 +125,31 @@ public class ConfigureTournament extends AppCompatActivity {
     }
 
     private void performActionBasedOnBracketStyle() {
+        db.collection("AccessCodes").document(accessCode)
+                .collection("PlayerList")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
 
-        Intent intent = new Intent(ConfigureTournament.this, Swiss.class);
-        intent.putExtra("ACCESS_CODE", accessCode);
-        startActivity(intent);
+                            int playerCount = task.getResult().size();
+
+                            if (playerCount == 8 || playerCount == 16) {
+
+                                Intent intent = new Intent(ConfigureTournament.this, Swiss.class);
+                                intent.putExtra("ACCESS_CODE", accessCode);
+                                startActivity(intent);
+
+                            } else {
+
+                                Toast.makeText(ConfigureTournament.this, "Swiss Pool MUST HAVE 8 or 16 players", Toast.LENGTH_LONG).show();
+                            }
+                        } else {
+                            Toast.makeText(ConfigureTournament.this, "Failed to fetch players: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 
 

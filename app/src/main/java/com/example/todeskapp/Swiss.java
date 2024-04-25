@@ -27,17 +27,20 @@ public class Swiss extends AppCompatActivity {
 
     private FirebaseFirestore db;
     private SwissPoolDisplay8pBinding binding;
+    private SwissPoolDisplay16pBinding binding16;
 
     private String accessCode;
+
+    private List<String> playerNames;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = SwissPoolDisplay8pBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+
+        binding16 = SwissPoolDisplay16pBinding.inflate(getLayoutInflater());
 
         db = FirebaseFirestore.getInstance();
-
 
         accessCode = getIntent().getStringExtra("ACCESS_CODE");
 
@@ -67,7 +70,12 @@ public class Swiss extends AppCompatActivity {
 
                         int rounds = playerNames.size() / 2;
 
-
+                        if(playerNames.size() == 8){
+                            setContentView(binding.getRoot());
+                        }
+                        else{
+                            setContentView(binding16.getRoot());
+                        }
 
                         initializePlayerStats(accessCode, playerNames);
                         matchMaking(accessCode, playerNames, stageNumber);
@@ -167,6 +175,10 @@ public class Swiss extends AppCompatActivity {
     private void navigateToBracketDisplay() {
         Intent intent = new Intent(Swiss.this, CurrentBracket_SAC_PDF.class);
         intent.putExtra("ACCESS_CODE", accessCode);
+        intent.putExtra("NUMBER_OF_PLAYERS", playerNames.size());
         startActivity(intent);
     }
+
+
+
 }
