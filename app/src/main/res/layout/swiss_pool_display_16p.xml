@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
 
     <LinearLayout
         android:id="@+id/zero_zero"
         style="@style/swiss_one_matchup"
-        android:layout_height="460dp"
-        android:layout_marginTop="125dp"
+        android:layout_height="425dp"
+        android:layout_marginTop="60dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -73,9 +73,9 @@
     <LinearLayout
         android:id="@+id/one_zero"
         style="@style/swiss_one_matchup"
-        android:layout_height="250dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="75dp"
+        android:layout_height="225dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintStart_toEndOf="@+id/zero_zero"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -114,9 +114,9 @@
     <LinearLayout
         android:id="@+id/zero_one"
         style="@style/swiss_one_matchup"
-        android:layout_height="250dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="50dp"
+        android:layout_height="225dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintStart_toEndOf="@+id/zero_zero"
         app:layout_constraintTop_toBottomOf="@+id/one_zero">
 
@@ -155,8 +155,8 @@
     <LinearLayout
         android:id="@+id/two_zero"
         style="@style/swiss_one_matchup"
-        android:layout_height="150dp"
-        android:layout_marginTop="75dp"
+        android:layout_height="125dp"
+        android:layout_marginTop="25dp"
         app:layout_constraintStart_toEndOf="@+id/one_zero"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -181,8 +181,8 @@
     <LinearLayout
         android:id="@+id/one_one"
         style="@style/swiss_one_matchup"
-        android:layout_height="250dp"
-        android:layout_marginStart="150dp"
+        android:layout_height="225dp"
+        android:layout_marginStart="120dp"
         app:layout_constraintStart_toEndOf="@+id/zero_zero"
         app:layout_constraintTop_toBottomOf="@+id/two_zero">
 
@@ -219,7 +219,7 @@
     <LinearLayout
         android:id="@+id/zero_two"
         style="@style/swiss_one_matchup"
-        android:layout_height="150dp"
+        android:layout_height="125dp"
         app:layout_constraintStart_toEndOf="@+id/zero_one"
         app:layout_constraintTop_toBottomOf="@+id/one_one">
 
@@ -244,7 +244,7 @@
     <LinearLayout
         android:id="@+id/three_zero"
         style="@style/swiss_one_matchup"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintStart_toEndOf="@+id/two_zero"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -265,7 +265,7 @@
     <LinearLayout
         android:id="@+id/two_one"
         style="@style/swiss_one_matchup"
-        android:layout_height="200dp"
+        android:layout_height="175dp"
         app:layout_constraintStart_toEndOf="@+id/one_one"
         app:layout_constraintTop_toBottomOf="@+id/three_zero">
 
@@ -297,7 +297,7 @@
     <LinearLayout
         android:id="@+id/one_two"
         style="@style/swiss_one_matchup"
-        android:layout_height="200dp"
+        android:layout_height="175dp"
         app:layout_constraintStart_toEndOf="@+id/one_one"
         app:layout_constraintTop_toBottomOf="@+id/two_one">
 
@@ -348,8 +348,8 @@
     <LinearLayout
         android:id="@+id/three_one"
         style="@style/swiss_one_matchup"
-        android:layout_marginTop="100dp"
-        android:layout_height="110dp"
+        android:layout_height="85dp"
+        android:layout_marginTop="80dp"
         app:layout_constraintStart_toEndOf="@+id/three_zero"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -371,7 +371,7 @@
     <LinearLayout
         android:id="@+id/two_two"
         style="@style/swiss_one_matchup"
-        android:layout_height="200dp"
+        android:layout_height="175dp"
         app:layout_constraintStart_toEndOf="@+id/two_one"
         app:layout_constraintTop_toBottomOf="@+id/three_one">
 
@@ -402,7 +402,7 @@
     <LinearLayout
         android:id="@+id/one_three"
         style="@style/swiss_one_matchup"
-        android:layout_height="110dp"
+        android:layout_height="85dp"
         app:layout_constraintStart_toEndOf="@+id/one_two"
         app:layout_constraintTop_toBottomOf="@+id/two_two">
 
@@ -424,8 +424,8 @@
     <LinearLayout
         android:id="@+id/three_two"
         style="@style/swiss_one_matchup"
-        android:layout_marginTop="225dp"
-        android:layout_height="110dp"
+        android:layout_height="85dp"
+        android:layout_marginTop="175dp"
         app:layout_constraintStart_toEndOf="@+id/three_one"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -446,7 +446,7 @@
     <LinearLayout
         android:id="@+id/two_three"
         style="@style/swiss_one_matchup"
-        android:layout_height="110dp"
+        android:layout_height="85dp"
         app:layout_constraintStart_toEndOf="@+id/one_three"
         app:layout_constraintTop_toBottomOf="@+id/three_two">
 
