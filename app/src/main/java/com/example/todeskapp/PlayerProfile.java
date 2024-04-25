@@ -2,7 +2,6 @@ package com.example.todeskapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -110,11 +109,19 @@ public class PlayerProfile extends AppCompatActivity{
             return rank;
         }
 
-        public int getWin() {
+        public void incrementWins() {
+            win++;
+        }
+
+        public void incrementLosses() {
+            loss++;
+        }
+
+        public int getWins() {
             return win;
         }
 
-        public int getLoss() {
+        public int getLosses() {
             return loss;
         }
     }

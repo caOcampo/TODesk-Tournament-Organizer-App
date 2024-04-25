@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -31,11 +32,22 @@ public class RoundRobinPre extends AppCompatActivity {
         setContentView(R.layout.round_robin_pre);
 
         db = FirebaseFirestore.getInstance();
+
         tableLayout1 = findViewById(R.id.tableLayout1);
         tableLayout2 = findViewById(R.id.tableLayout2);
         players = new ArrayList<>();
 
-        fetchAndDisplayPlayers();
+        // Retrieve the access code from the intent extras
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            accessCode = extras.getString("accessCode");
+        }
+
+        if (accessCode != null) {
+            fetchAndDisplayPlayers();
+        } else {
+            Toast.makeText(this, "Access code not found", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void fetchAndDisplayPlayers() {
@@ -44,10 +56,10 @@ public class RoundRobinPre extends AppCompatActivity {
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        for (QueryDocumentSnapshot document : task.getResult()) {
+                        for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                             String username = document.getString("username");
                             String organization = document.getString("organization");
-                            String rank = document.getString("organization");
+                            String rank = document.getString("rank");
                             int w = Objects.requireNonNull(document.getLong("W")).intValue();
                             int l = Objects.requireNonNull(document.getLong("L")).intValue();
 
@@ -59,9 +71,9 @@ public class RoundRobinPre extends AppCompatActivity {
                             addPlayerToTable(username, w, l);
                         }
                         // generate MatchUps
-                        GeneratePlayerMatchUps();
+                        generatePlayerMatchUps();
                     } else {
-                        Toast.makeText(this, "Error fetching players: " + task.getException(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Error fetching players: " + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -82,7 +94,6 @@ public class RoundRobinPre extends AppCompatActivity {
         tableLayout1.addView(row);
     }
 
-
     private TextView createTextView(String text) {
         TextView textView = new TextView(this);
         TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(
@@ -97,14 +108,12 @@ public class RoundRobinPre extends AppCompatActivity {
         return textView;
     }
 
-    private void GeneratePlayerMatchUps() {
+    private void generatePlayerMatchUps() {
         // Iterate through all players
         for (int i = 0; i < players.size(); i++) {
             // Iterate through all other players
             for (int j = i + 1; j < players.size(); j++) {
-
                 String matchUpText = players.get(i).getUsername() + " vs " + players.get(j).getUsername();
-
                 addMatchUpRow(matchUpText);
             }
         }
@@ -133,7 +142,6 @@ public class RoundRobinPre extends AppCompatActivity {
         // EditText for inputting the winning player
         EditText winnerEditText = new EditText(this);
         winnerEditText.setId(View.generateViewId());
-        winnerEditText.setHint("Enter winner");
         winnerEditText.setTextColor(getResources().getColor(android.R.color.white));
         winnerEditText.setTextSize(16);
         winnerEditText.setPadding(8, 8, 8, 8);
@@ -145,5 +153,19 @@ public class RoundRobinPre extends AppCompatActivity {
 
         // Add the row to the table layout
         tableLayout2.addView(row);
+
+        // Set a listener to update the EditText with the winner's username
+        winnerEditText.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                EditText editText = (EditText) v;
+                String winner = editText.getText().toString().trim();
+                if (!winner.isEmpty()) {
+                    // Update the winner EditText field
+                    editText.setText(winner);
+                }
+            }
+        });
     }
 }
+
+

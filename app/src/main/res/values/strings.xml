@@ -182,5 +182,9 @@
     <string name="management_configure">CONFIGURE \nTournament Settings</string>
     <string name="management_update">UPDATE \nTournament Bracket</string>
 
+    //Edit Mode Round Robin
+    <string name="editmode">EDIT MODE</string>
+    <string name="Save">SAVE</string>
+
 
 </resources>
