@@ -3,6 +3,7 @@ package com.example.todeskapp;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -24,13 +26,14 @@ public class RoundRobinPre extends AppCompatActivity {
     private TableLayout tableLayout2;
     private String accessCode;
     private List<PlayerProfile.Player> players;
+    private Button saveAsPdfButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.round_robin_pre);
 
         db = FirebaseFirestore.getInstance();
+
         tableLayout1 = findViewById(R.id.tableLayout1);
         tableLayout2 = findViewById(R.id.tableLayout2);
         players = new ArrayList<>();
@@ -147,3 +150,5 @@ public class RoundRobinPre extends AppCompatActivity {
         tableLayout2.addView(row);
     }
 }
+
+

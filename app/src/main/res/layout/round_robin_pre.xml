@@ -58,7 +58,7 @@
                     android:textSize="18sp" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="41dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/orbitron_bold"
                     android:padding="9dp"
@@ -67,7 +67,7 @@
                     android:textSize="18sp" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="41dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/orbitron_bold"
                     android:padding="9dp"
@@ -127,6 +127,7 @@
         app:layout_constraintTop_toBottomOf="@+id/round_robin_bracket"
         app:layout_constraintVertical_bias="0.0">
 
+
         <TableLayout
             android:id="@+id/tableLayout2"
             android:layout_width="match_parent"
@@ -140,6 +141,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
+                    android:fontFamily="@font/orbitron_bold"
                     android:text="Player 1 vs Player 2"
                     android:textColor="@android:color/white"
                     android:textSize="16sp" />
@@ -149,6 +151,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
+                    android:fontFamily="@font/orbitron_bold"
                     android:text="@string/winner"
                     android:textColor="@android:color/white"
                     android:textColorHint="@android:color/darker_gray"
@@ -156,10 +159,10 @@
 
                 <EditText
                     android:id="@+id/input_winner_editText"
-                    android:layout_width="147dp"
+                    android:layout_width="92dp"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
                     android:layout_marginStart="0dp"
+                    android:fontFamily="@font/orbitron_bold"
                     android:hint="@string/winning_player"
                     android:padding="8dp"
                     android:textColor="@android:color/white"
