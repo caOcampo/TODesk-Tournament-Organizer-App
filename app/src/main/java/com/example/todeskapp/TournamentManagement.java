@@ -30,10 +30,12 @@ public class TournamentManagement extends AppCompatActivity {
 
         accessCode = getIntent().getStringExtra("ACCESS_CODE");
 
+        tournamentManagement();
 
-        }
+
+    }
     private void tournamentManagement() {
-        binding.tournamentManagement.setOnClickListener(v -> {
+        binding.configureTournamentSettings.setOnClickListener(v -> {
             accessCode = getIntent().getStringExtra("ACCESS_CODE");
             Intent intent = new Intent(TournamentManagement.this, ConfigureTournament.class);
             intent.putExtra("ACCESS_CODE", accessCode);  // Passing the access code to the next activity

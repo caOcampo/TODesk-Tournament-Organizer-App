@@ -13,19 +13,19 @@
 
     <style name="swiss_one_matchup">
         <item name="android:layout_width">100dp</item>
-        <item name="android:layout_height">100dp</item>
-        <item name="android:layout_marginStart">25dp</item>
-        <item name="android:layout_marginTop">25dp</item>
+        <item name="android:layout_height">75dp</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginTop">10dp</item>
         <item name="android:orientation">vertical</item>
     </style>
 
     <style name="swiss_matchup_text">
         <item name="android:layout_width">100dp</item>
-        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_height">25dp</item>
         <item name="android:fontFamily">@font/orbitron</item>
         <item name="android:gravity">center</item>
-        <item name="android:textColor">@color/blue</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/sky_blue</item>
+        <item name="android:textSize">10sp</item>
     </style>
 
 

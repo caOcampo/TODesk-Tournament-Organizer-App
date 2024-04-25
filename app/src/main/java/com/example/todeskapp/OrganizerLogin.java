@@ -101,7 +101,7 @@ public class OrganizerLogin extends AppCompatActivity{
     }
 
     private void navigateToConfigureTournament() {
-        Intent intent = new Intent(this, ConfigureTournament.class);
+        Intent intent = new Intent(OrganizerLogin.this, TournamentManagement.class);
         intent.putExtra("ACCESS_CODE", accessCode);
         startActivity(intent);
     }

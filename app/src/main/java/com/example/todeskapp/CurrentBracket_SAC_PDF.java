@@ -84,32 +84,3 @@ public class CurrentBracket_SAC_PDF extends AppCompatActivity {
     private void displayElimMatch(ScrollView scrollView) {
         // Implement displayElimMatch if needed
     }
-
-    public void saveAsPdf(ScrollView scrollView) {
-        try {
-            // Create a Bitmap from the ScrollView content
-            Bitmap bitmap = Bitmap.createBitmap(scrollView.getChildAt(0).getWidth(), scrollView.getChildAt(0).getHeight(), Bitmap.Config.ARGB_8888);
-            Canvas canvas = new Canvas(bitmap);
-            scrollView.draw(canvas);
-
-            // Create a File object for the PDF
-            File pdfFile = new File(Environment.getExternalStorageDirectory(), "Tournament.pdf");
-            FileOutputStream outputStream = new FileOutputStream(pdfFile);
-
-            // Convert the Bitmap to PDF and save it
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
-
-            outputStream.close();
-
-            // Show a toast indicating the PDF is saved
-            Toast.makeText(this, "PDF saved successfully", Toast.LENGTH_SHORT).show();
-        } catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Error saving PDF: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
-    }
-
-
-}
-
-

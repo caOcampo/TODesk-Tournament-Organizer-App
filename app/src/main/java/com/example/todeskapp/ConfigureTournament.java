@@ -11,7 +11,12 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.todeskapp.databinding.ConfigureTournmentBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
 
 
 public class ConfigureTournament extends AppCompatActivity {
@@ -67,11 +72,67 @@ public class ConfigureTournament extends AppCompatActivity {
         });
 
         binding.create.setOnClickListener(v -> {
+
             accessCode = getIntent().getStringExtra("ACCESS_CODE");
+
+            bracketStyleRedirect(accessCode);
+
+            /*accessCode = getIntent().getStringExtra("ACCESS_CODE");
             Intent intent = new Intent(ConfigureTournament.this, CurrentBracket_SAC_PDF.class);
             intent.putExtra("ACCESS_CODE", accessCode);  // Passing the access code to the next activity
-            startActivity(intent);
+            startActivity(intent);*/
         });
+    }
+
+    private void bracketStyleRedirect(String accessCode) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        // Get the specific document reference
+        db.collection("AccessCodes").document(accessCode)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+
+                        if (document.exists()) {
+
+                            Long bracketStyleLong = document.getLong("BracketStyle");
+
+
+                            if (bracketStyleLong != null) {
+                                int bracketStyle = bracketStyleLong.intValue();
+                                switch (bracketStyle) {
+                                    case 0:
+
+                                        performActionBasedOnBracketStyle();
+                                        break;
+
+                                    default:
+                                        Toast.makeText(this, "Unhandled bracket style: " + bracketStyle, Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            else {
+                                Toast.makeText(this, "BracketStyle field is missing.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        else {
+                            Toast.makeText(this, "No such document!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    else {
+                        Toast.makeText(this, "Failed to fetch document: " + task.getException(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void performActionBasedOnBracketStyle() {
+
+        Intent intent = new Intent(ConfigureTournament.this, Swiss.class);
+        intent.putExtra("ACCESS_CODE", accessCode);
+        startActivity(intent);
     }
 
 

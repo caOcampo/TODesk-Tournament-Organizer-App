@@ -64,6 +64,11 @@
             android:label="configure tournament">
         </activity>
 
+        <activity android:name=".CurrentBracket_SAC_PDF"
+            android:label="CurrentBracket_SAC_PDF">
+        </activity>
+
+
         <activity android:name=".CreateAccount"
             android:label="create account">
         </activity>
@@ -80,8 +85,16 @@
             android:label="player profile">
         </activity>
 
+        <activity android:name=".Swiss"
+            android:label="Swiss">
+        </activity>
+
         <activity android:name=".TournamentSettings"
             android:label="tournament settings">
+        </activity>
+
+        <activity android:name=".TournamentManagement"
+            android:label="TournamentManagement">
         </activity>
 
 
