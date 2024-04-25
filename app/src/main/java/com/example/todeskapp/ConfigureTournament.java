@@ -13,9 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.todeskapp.databinding.ConfigureTournmentBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.*;
 
 
 
@@ -40,18 +38,27 @@ public class ConfigureTournament extends AppCompatActivity {
 
     private void initializePlayerListCollection() {
 
-        HashMap<String, Object> initDoc = new HashMap<>();
-        initDoc.put("Init", true);
+        CollectionReference playerListRef = db.collection("AccessCodes").document(accessCode).collection("PlayerList");
 
-        db.collection("AccessCodes").document(accessCode)
-                .collection("PlayerList").document("InitialDoc")
-                .set(initDoc)
-                .addOnSuccessListener(aVoid -> {
-                    System.out.println("PlayerList collection initialized successfully.");
-                })
-                .addOnFailureListener(e -> {
-                    System.err.println("Error initializing PlayerList collection: " + e.getMessage());
-                });
+        playerListRef.limit(1).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                if (task.getResult().isEmpty()) {
+
+                    HashMap<String, Object> initDoc = new HashMap<>();
+                    initDoc.put("Init", true);
+
+                    playerListRef.document("InitialDoc").set(initDoc)
+                            .addOnSuccessListener(aVoid -> Toast.makeText(getApplicationContext(), "PlayerList collection initialized successfully.", Toast.LENGTH_SHORT).show())
+                            .addOnFailureListener(e -> Toast.makeText(getApplicationContext(), "Error initializing PlayerList collection: " + e.getMessage(), Toast.LENGTH_LONG).show());
+                } else {
+                    // Documents already exist, no need to add the initial document
+                    Toast.makeText(getApplicationContext(), "PlayerList already contains data.", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                // Failed to retrieve documents
+                Toast.makeText(getApplicationContext(), "Failed to check PlayerList collection: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void ButtonListeners(){
