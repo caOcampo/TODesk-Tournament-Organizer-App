@@ -1,25 +1,33 @@
+
 package com.example.todeskapp;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ScrollView;
-import androidx.annotation.NonNull;
+import android.widget.Toast;
+import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
-
+import com.example.todeskapp.databinding.AddPlayerBinding;
+import com.example.todeskapp.databinding.CurrentBracketSacPdfBinding;
+import com.example.todeskapp.databinding.PlayerDisplayBinding;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 public class CurrentBracket_SAC_PDF extends AppCompatActivity {
 
+    private CurrentBracketSacPdfBinding binding;
     private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.current_bracket_sac_pdf);
+        binding = CurrentBracketSacPdfBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         db = FirebaseFirestore.getInstance();
+        String accessCode = getIntent().getStringExtra("ACCESS_CODE");
 
         // Find the ScrollView in the layout
         ScrollView scrollView = findViewById(R.id.current_bracket);
@@ -28,9 +36,10 @@ public class CurrentBracket_SAC_PDF extends AppCompatActivity {
         readAccessCodeFromFirebase(scrollView);
     }
 
+    // THE TEMPLATE TO READ WHICH TOURNAMENT BRACKET IS BEING USED FROM ACCESS CODE
     private void readAccessCodeFromFirebase(ScrollView scrollView) {
         db.collection("AccessCodes")
-                .document("YOUR_ACCESS_CODE_DOCUMENT_ID") // Replace with the actual document ID
+                .document("YOUR_ACCESS_CODE_DOCUMENT_ID") // REPLACE WITH ACTUAL THING
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful() && task.getResult() != null) {
