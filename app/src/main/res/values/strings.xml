@@ -157,9 +157,10 @@
     </string>
     <string name="action_settings">Settings</string>
 
-     //Save Access Code Page Strings
+     //Save Current Bracket SAC PDF Strings
     <string name="Save_Access_Code">Save Access Code</string>
     <string name="Current_Bracket">Current Bracket</string>
+    <string name="Save_PDF">Save as PDF</string>
 
     //player profile strings
     <string name="player_info">Player Information</string>
@@ -180,5 +181,6 @@
     <string name="Management">Tournament Management</string>
     <string name="ConfigureTournamentButton">Configure Tournament Settings</string>
     <string name="UpdateTournamentButton">Update Tournament Bracket</string>
+
 
 </resources>

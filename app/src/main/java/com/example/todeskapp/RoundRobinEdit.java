@@ -1,6 +1,7 @@
 package com.example.todeskapp;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -17,7 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class RoundRobinPre extends AppCompatActivity {
+
+public class RoundRobinEdit extends AppCompatActivity {
 
     private FirebaseFirestore db;
     private TableLayout tableLayout1;
@@ -28,7 +30,7 @@ public class RoundRobinPre extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.round_robin_pre);
+        setContentView(R.layout.round_robin_edit);
 
         db = FirebaseFirestore.getInstance();
         tableLayout1 = findViewById(R.id.tableLayout1);
@@ -145,5 +147,14 @@ public class RoundRobinPre extends AppCompatActivity {
 
         // Add the row to the table layout
         tableLayout2.addView(row);
+    }
+
+
+
+
+
+    public void submitResults(View view) {
+        // Implement logic to process chosen winners and update Firebase data
+        // You can retrieve winner from EditText fields in each TableRow within tableLayout2
     }
 }
