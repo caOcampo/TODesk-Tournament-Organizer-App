@@ -1,7 +1,7 @@
 package com.example.todeskapp;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -9,16 +9,16 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.content.Intent;
-import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 
 public class RoundRobinEdit extends AppCompatActivity {
 
@@ -47,24 +47,24 @@ public class RoundRobinEdit extends AppCompatActivity {
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        for (QueryDocumentSnapshot document : task.getResult()) {
+                        for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                             String username = document.getString("username");
                             String organization = document.getString("organization");
-                            String rank = document.getString("organization");
-                            int w = Objects.requireNonNull(document.getLong("W")).intValue();
-                            int l = Objects.requireNonNull(document.getLong("L")).intValue();
+                            String rank = document.getString("rank"); // Fixed typo here
+                            int win = Objects.requireNonNull(document.getLong("W")).intValue();
+                            int loss = Objects.requireNonNull(document.getLong("L")).intValue();
 
                             // Create a Player object with retrieved data
-                            PlayerProfile.Player player = new PlayerProfile.Player(username, organization, rank, w, l);
+                            PlayerProfile.Player player = new PlayerProfile.Player(username, organization, rank, win, loss);
                             players.add(player);
 
                             // Add the player to the table view
-                            addPlayerToTable(username, w, l);
+                            addPlayerToTable(username, win, loss);
                         }
                         // generate MatchUps
-                        GeneratePlayerMatchUps();
+                        generatePlayerMatchUps();
                     } else {
-                        Toast.makeText(this, "Error fetching players: " + task.getException(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Error fetching players: " + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -85,7 +85,6 @@ public class RoundRobinEdit extends AppCompatActivity {
         tableLayout1.addView(row);
     }
 
-
     private TextView createTextView(String text) {
         TextView textView = new TextView(this);
         TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(
@@ -100,14 +99,12 @@ public class RoundRobinEdit extends AppCompatActivity {
         return textView;
     }
 
-    private void GeneratePlayerMatchUps() {
+    private void generatePlayerMatchUps() {
         // Iterate through all players
         for (int i = 0; i < players.size(); i++) {
             // Iterate through all other players
             for (int j = i + 1; j < players.size(); j++) {
-
                 String matchUpText = players.get(i).getUsername() + " vs " + players.get(j).getUsername();
-
                 addMatchUpRow(matchUpText);
             }
         }
@@ -150,12 +147,80 @@ public class RoundRobinEdit extends AppCompatActivity {
         tableLayout2.addView(row);
     }
 
-
-
-
-
     public void submitResults(View view) {
-        // Implement logic to process chosen winners and update Firebase data
-        // You can retrieve winner from EditText fields in each TableRow within tableLayout2
+        // Iterate through each TableRow in tableLayout2
+        for (int i = 0; i < tableLayout2.getChildCount(); i++) {
+            View rowView = tableLayout2.getChildAt(i);
+            if (rowView instanceof TableRow) {
+                TableRow row = (TableRow) rowView;
+                // Find the EditText in the TableRow
+                EditText winnerEditText = row.findViewById(row.getChildAt(2).getId());
+                String winner = winnerEditText.getText().toString().trim();
+                // Find the players involved in the match-up
+                String matchUpText = ((TextView) row.getChildAt(0)).getText().toString();
+                String[] playersInvolved = matchUpText.split(" vs ");
+                // Update the wins and losses accordingly
+                for (PlayerProfile.Player player : players) {
+                    if (player.getUsername().equals(winner)) {
+                        player.incrementWins();
+                    } else if (player.getUsername().equals(playersInvolved[0]) || player.getUsername().equals(playersInvolved[1])) {
+                        player.incrementLosses();
+                    }
+                }
+                saveWinnerToFirebase(matchUpText, winner);
+            }
+        }
+        // After updating the players' records, you can proceed to update the Firebase database
+        updatePlayersInFirebase();
+
+        Intent intent = new Intent(this, RoundRobinPre.class);
+        intent.putExtra("players", (Serializable) players);
+        startActivity(intent);
+    }
+
+    private void saveWinnerToFirebase(String matchUpText, String winner) {
+        // Split the matchUpText to get the names of the players involved
+        String[] playersInvolved = matchUpText.split(" vs ");
+        String player1Name = playersInvolved[0];
+        String player2Name = playersInvolved[1];
+
+        // Update the matchup document with the winner information
+        db.collection("AccessCodes").document(accessCode)
+                .collection("Matchups").document(matchUpText)
+                .update(
+                        "winner", winner,
+                        "player1", player1Name,
+                        "player2", player2Name
+                )
+                .addOnSuccessListener(aVoid -> {
+                    // Handle success if needed
+                })
+                .addOnFailureListener(e -> {
+                    // Handle failure if needed
+                    Toast.makeText(this, "Failed to update winner data in Firebase: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+    }
+
+
+    private void updatePlayersInFirebase() {
+        // Update Firebase with the changes for each player
+        for (PlayerProfile.Player player : players) {
+            db.collection("AccessCodes").document(accessCode)
+                    .collection("PlayerList").document(/* Pass player ID here */)
+                    .update(
+                            "username", player.getUsername(),
+                            "organization", player.getOrganization(),
+                            "rank", player.getRank(),
+                            "W", player.getWins(),
+                            "L", player.getLosses()
+                    )
+                    .addOnSuccessListener(aVoid -> {
+                        // Handle success if needed
+                    })
+                    .addOnFailureListener(e -> {
+                        // Handle failure if needed
+                        Toast.makeText(this, "Failed to update player data in Firebase: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    });
+        }
     }
 }
