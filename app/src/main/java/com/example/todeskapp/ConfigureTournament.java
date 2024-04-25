@@ -66,11 +66,11 @@ public class ConfigureTournament extends AppCompatActivity {
             startActivity(intent);
         });
 
-        binding.create.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-                // handleCreateTournament();
-            }
+        binding.create.setOnClickListener(v -> {
+            accessCode = getIntent().getStringExtra("ACCESS_CODE");
+            Intent intent = new Intent(ConfigureTournament.this, CurrentBracket_SAC_PDF.class);
+            intent.putExtra("ACCESS_CODE", accessCode);  // Passing the access code to the next activity
+            startActivity(intent);
         });
     }
 

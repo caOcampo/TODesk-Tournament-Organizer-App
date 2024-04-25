@@ -30,13 +30,7 @@ public class AddPlayer extends AppCompatActivity {
 
         fetchAndDisplayPlayers();
 
-
-        binding.backButton.setOnClickListener(v -> {
-            Intent intent = new Intent(AddPlayer.this, ConfigureTournament.class);
-            intent.putExtra("ACCESS_CODE", accessCode);
-            startActivity(intent);
-        });
-
+        backButton();
 
         addPlayerButton();
     }
@@ -102,6 +96,15 @@ public class AddPlayer extends AppCompatActivity {
                         }
                     });
         });
+    }
+
+    private void backButton() {
+        binding.backButton.setOnClickListener(v -> {
+            Intent intent = new Intent(AddPlayer.this, ConfigureTournament.class);
+            intent.putExtra("ACCESS_CODE", accessCode);
+            startActivity(intent);
+        });
+
     }
 }
 
