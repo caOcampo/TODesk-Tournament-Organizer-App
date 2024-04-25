@@ -2,15 +2,16 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swiss_pool_display_8p"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
 
     <LinearLayout
         android:id="@+id/zero_zero"
         style="@style/swiss_one_matchup"
-        android:layout_height="250dp"
-        android:layout_marginTop="225dp"
+        android:layout_height="225dp"
+        android:layout_marginTop="55dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -49,16 +50,16 @@
     <LinearLayout
         android:id="@+id/one_zero"
         style="@style/swiss_one_matchup"
-        android:layout_height="150dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="175dp"
+        android:layout_height="125dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
         app:layout_constraintStart_toEndOf="@+id/zero_zero"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/one_zero_text"
             style="@style/swiss_matchup_text"
-            android:text="1-0"/>
+            android:text="1-0" />
 
         <Button
             android:id="@+id/one_zero_match1"
@@ -78,9 +79,9 @@
     <LinearLayout
         android:id="@+id/zero_one"
         style="@style/swiss_one_matchup"
-        android:layout_height="150dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="50dp"
+        android:layout_height="125dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
         app:layout_constraintStart_toEndOf="@+id/zero_zero"
         app:layout_constraintTop_toBottomOf="@+id/one_zero">
 
@@ -107,7 +108,7 @@
     <LinearLayout
         android:id="@+id/two_zero"
         style="@style/swiss_one_matchup"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="25dp"
         app:layout_constraintStart_toEndOf="@+id/one_zero"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -126,8 +127,8 @@
     <LinearLayout
         android:id="@+id/one_one"
         style="@style/swiss_one_matchup"
-        android:layout_height="150dp"
-        android:layout_marginStart="150dp"
+        android:layout_height="125dp"
+        android:layout_marginStart="120dp"
         app:layout_constraintStart_toEndOf="@+id/zero_zero"
         app:layout_constraintTop_toBottomOf="@+id/two_zero">
 
@@ -148,6 +149,8 @@
 
             app:backgroundTint="@null" />
     </LinearLayout>
+
+
 
     <LinearLayout
         android:id="@+id/zero_two"
@@ -170,14 +173,14 @@
     <LinearLayout
         android:id="@+id/three_zero"
         style="@style/swiss_one_matchup"
-        android:layout_marginTop="125dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintStart_toEndOf="@+id/two_zero"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/three_zero_text"
             style="@style/swiss_matchup_text"
-            android:text="3-0"/>
+            android:text="3-0" />
 
         <Button
             android:id="@+id/three_zero_qualify"
@@ -248,7 +251,7 @@
     <LinearLayout
         android:id="@+id/three_one"
         style="@style/swiss_one_matchup"
-        android:layout_marginTop="175dp"
+        android:layout_marginTop="50dp"
         app:layout_constraintStart_toEndOf="@+id/three_zero"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -303,7 +306,7 @@
     <LinearLayout
         android:id="@+id/three_two"
         style="@style/swiss_one_matchup"
-        android:layout_marginTop="225dp"
+        android:layout_marginTop="90dp"
         app:layout_constraintStart_toEndOf="@+id/three_one"
         app:layout_constraintTop_toTopOf="parent">
 

@@ -4,7 +4,7 @@ package com.example.todeskapp;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ScrollView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +19,9 @@ public class CurrentBracket_SAC_PDF extends AppCompatActivity {
 
     private CurrentBracketSacPdfBinding binding;
     private FirebaseFirestore db;
+    private String accessCode;
+
+    private LinearLayout bracketContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,19 +30,17 @@ public class CurrentBracket_SAC_PDF extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         db = FirebaseFirestore.getInstance();
-        String accessCode = getIntent().getStringExtra("ACCESS_CODE");
+        accessCode = getIntent().getStringExtra("ACCESS_CODE");
 
-        // Find the ScrollView in the layout
-        ScrollView scrollView = findViewById(R.id.current_bracket);
+        bracketContainer = findViewById(R.id.bracket_container);
 
-        // Read the AccessCode from Firebase
-        readAccessCodeFromFirebase(scrollView);
+        readAccessCodeFromFirebase(bracketContainer);
     }
 
     // THE TEMPLATE TO READ WHICH TOURNAMENT BRACKET IS BEING USED FROM ACCESS CODE
-    private void readAccessCodeFromFirebase(ScrollView scrollView) {
+    /*private void readAccessCodeFromFirebase(LinearLayout bracketContainer) {
         db.collection("AccessCodes")
-                .document("YOUR_ACCESS_CODE_DOCUMENT_ID") // REPLACE WITH ACTUAL THING
+                .document(accessCode) // REPLACE WITH ACTUAL THING
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful() && task.getResult() != null) {
@@ -49,30 +50,81 @@ public class CurrentBracket_SAC_PDF extends AppCompatActivity {
                             String accessCode = document.getString("accessCode");
                             if (accessCode != null) {
                                 if (accessCode.contains("Round Robin")) {
-                                    displayRoundRobinPre(scrollView);
+                                    displayRoundRobinPre(bracketContainer);
                                 } else if (accessCode.contains("Double Elimination")) {
-                                    displayElimMatch(scrollView);
+                                    displayElimMatch(bracketContainer);
                                 } else if (accessCode.contains("Swiss Stage")) {
-                                    displaySwissStage(scrollView);
+                                    displaySwissStage(bracketContainer);
                                 }
                             }
                         }
                     }
                 });
+    }*/
+
+    private void readAccessCodeFromFirebase(LinearLayout bracketContainer) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        // Get the specific document reference
+        db.collection("AccessCodes").document(accessCode)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+
+                        if (document.exists()) {
+
+                            Long bracketStyleLong = document.getLong("BracketStyle");
+
+
+                            if (bracketStyleLong != null) {
+                                int bracketStyle = bracketStyleLong.intValue();
+                                switch (bracketStyle) {
+                                    case 0:
+                                        displaySwissStage(bracketContainer);
+                                        break;
+                                    case 1:
+                                        displayRoundRobinPre(bracketContainer);
+                                        break;
+
+                                    default:
+                                        Toast.makeText(this, "Unhandled bracket style: " + bracketStyle, Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            else {
+                                Toast.makeText(this, "BracketStyle field is missing.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        else {
+                            Toast.makeText(this, "No such document!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    else {
+                        Toast.makeText(this, "Failed to fetch document: " + task.getException(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
-    private void displayRoundRobinPre(ScrollView scrollView) {
+    private void displayRoundRobinPre(LinearLayout bracketContainer) {
         // Inflate the layout "round_robin_pre" and add it to the ScrollView
         LayoutInflater inflater = LayoutInflater.from(this);
-        View roundRobinPreView = inflater.inflate(R.layout.round_robin_pre, scrollView, false);
-        scrollView.addView(roundRobinPreView);
+        View roundRobinPreView = inflater.inflate(R.layout.round_robin_pre, bracketContainer, false);
+        bracketContainer.addView(roundRobinPreView);
     }
 
 
-    private void displaySwissStage(ScrollView scrollView) {
+    private void displaySwissStage(LinearLayout bracketContainer) {
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View swissStagePreview = inflater.inflate(R.layout.swiss_pool_display_8p, bracketContainer, false);
+        bracketContainer.addView(swissStagePreview);
     }
 
-    private void displayElimMatch(ScrollView scrollView) {
+    private void displayElimMatch(LinearLayout scrollView) {
+
+
     }
 }
 

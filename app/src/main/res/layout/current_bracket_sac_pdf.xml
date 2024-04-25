@@ -48,14 +48,18 @@
 
     <!-- Your existing ScrollView with TableLayout below -->
 
-    <ScrollView
+    <HorizontalScrollView
         android:id="@+id/current_bracket"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="30dp"
         android:layout_marginBottom="100dp"
+        android:background="@color/blue"
+        android:fillViewport="true"
+
+        app:backgroundTint="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -63,21 +67,23 @@
         app:layout_constraintTop_toBottomOf="@+id/Save_Access_Code_Button"
         app:layout_constraintVertical_bias="0.0">
 
-        <TableLayout
-            android:id="@+id/tableLayout"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/bracket_container"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:ignore="DuplicateIds">
+            android:orientation="horizontal">
 
-        </TableLayout>
 
-    </ScrollView>
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
 
     <Button
         android:id="@+id/save_as_PDF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="30dp"
 
         android:background="@drawable/blue_button_shape"
         android:fontFamily="@font/orbitron_medium"
