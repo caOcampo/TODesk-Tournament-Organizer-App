@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:id="@+id/zero_zero"
+        style="@style/swiss_one_matchup"
+        android:layout_height="250dp"
+        android:layout_marginTop="225dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <TextView
+            android:id="@+id/zero_zero_text"
+            style="@style/swiss_matchup_text"
+            android:text="0-0" />
+
+        <Button
+            android:id="@+id/zero_zero_match1"
+            style="@style/swiss_pool_button"
+
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/zero_zero_match2"
+            style="@style/swiss_pool_button"
+
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/zero_zero_match3"
+            style="@style/swiss_pool_button"
+
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/zero_zero_match4"
+            style="@style/swiss_pool_button"
+
+            app:backgroundTint="@null" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/one_zero"
+        style="@style/swiss_one_matchup"
+        android:layout_height="150dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="175dp"
+        app:layout_constraintStart_toEndOf="@+id/zero_zero"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/one_zero_text"
+            style="@style/swiss_matchup_text"
+            android:text="1-0"/>
+
+        <Button
+            android:id="@+id/one_zero_match1"
+            style="@style/swiss_pool_button"
+
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/one_zero_match2"
+            style="@style/swiss_pool_button"
+
+            app:backgroundTint="@null" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/zero_one"
+        style="@style/swiss_one_matchup"
+        android:layout_height="150dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintStart_toEndOf="@+id/zero_zero"
+        app:layout_constraintTop_toBottomOf="@+id/one_zero">
+
+        <TextView
+            android:id="@+id/zero_one_text"
+            style="@style/swiss_matchup_text"
+            android:text="0-1" />
+
+        <Button
+            android:id="@+id/zero_one_match1"
+            style="@style/swiss_pool_button"
+
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/zero_one_match2"
+            style="@style/swiss_pool_button"
+
+            app:backgroundTint="@null" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/two_zero"
+        style="@style/swiss_one_matchup"
+        android:layout_marginTop="150dp"
+        app:layout_constraintStart_toEndOf="@+id/one_zero"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/two_zero_text"
+            style="@style/swiss_matchup_text"
+            android:text="2-0" />
+
+        <Button
+            android:id="@+id/two_zero_match1"
+            style="@style/swiss_pool_button"
+
+            app:backgroundTint="@null" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/one_one"
+        style="@style/swiss_one_matchup"
+        android:layout_height="150dp"
+        android:layout_marginStart="150dp"
+        app:layout_constraintStart_toEndOf="@+id/zero_zero"
+        app:layout_constraintTop_toBottomOf="@+id/two_zero">
+
+        <TextView
+            android:id="@+id/one_one_text"
+            style="@style/swiss_matchup_text"
+            android:text="1-1" />
+
+        <Button
+            android:id="@+id/one_one_match1"
+            style="@style/swiss_pool_button"
+
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/one_one_match2"
+            style="@style/swiss_pool_button"
+
+            app:backgroundTint="@null" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/zero_two"
+        style="@style/swiss_one_matchup"
+        app:layout_constraintStart_toEndOf="@+id/zero_one"
+        app:layout_constraintTop_toBottomOf="@+id/one_one">
+
+        <TextView
+            android:id="@+id/zero_two_text"
+            style="@style/swiss_matchup_text"
+            android:text="0-2" />
+
+        <Button
+            android:id="@+id/zero_two_match1"
+            style="@style/swiss_pool_button"
+
+            app:backgroundTint="@null" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/three_zero"
+        style="@style/swiss_one_matchup"
+        android:layout_marginTop="125dp"
+        app:layout_constraintStart_toEndOf="@+id/two_zero"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/three_zero_text"
+            style="@style/swiss_matchup_text"
+            android:text="3-0"/>
+
+        <Button
+            android:id="@+id/three_zero_qualify"
+            style="@style/swiss_pool_button"
+
+            app:backgroundTint="@null" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/two_one"
+        style="@style/swiss_one_matchup"
+        app:layout_constraintStart_toEndOf="@+id/one_one"
+        app:layout_constraintTop_toBottomOf="@+id/three_zero">
+
+        <TextView
+            android:id="@+id/two_one_text"
+            style="@style/swiss_matchup_text"
+            android:text="2-1" />
+
+        <Button
+            android:id="@+id/two_one_match1"
+            style="@style/swiss_pool_button"
+
+            app:backgroundTint="@null" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/one_two"
+        style="@style/swiss_one_matchup"
+        app:layout_constraintStart_toEndOf="@+id/one_one"
+        app:layout_constraintTop_toBottomOf="@+id/two_one">
+
+        <TextView
+            android:id="@+id/one_two_text"
+            style="@style/swiss_matchup_text"
+            android:text="1-2" />
+
+        <Button
+            android:id="@+id/one_two_match"
+            style="@style/swiss_pool_button"
+
+            app:backgroundTint="@null" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/zero_three"
+        style="@style/swiss_one_matchup"
+        app:layout_constraintStart_toEndOf="@+id/zero_two"
+        app:layout_constraintTop_toBottomOf="@+id/one_two">
+
+        <TextView
+            android:id="@+id/zero_three_text"
+            style="@style/swiss_matchup_text"
+            android:text="0-3" />
+
+        <Button
+            android:id="@+id/zero_three_elim"
+            style="@style/swiss_pool_button"
+
+            app:backgroundTint="@null" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/three_one"
+        style="@style/swiss_one_matchup"
+        android:layout_marginTop="175dp"
+        app:layout_constraintStart_toEndOf="@+id/three_zero"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/three_one_text"
+            style="@style/swiss_matchup_text"
+            android:text="3-1" />
+
+        <Button
+            android:id="@+id/three_one_qualify"
+            style="@style/swiss_pool_button"
+
+            app:backgroundTint="@null" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/two_two"
+        style="@style/swiss_one_matchup"
+        app:layout_constraintStart_toEndOf="@+id/two_one"
+        app:layout_constraintTop_toBottomOf="@+id/three_one">
+
+        <TextView
+            android:id="@+id/two_two_text"
+            style="@style/swiss_matchup_text"
+            android:text="2-2" />
+
+        <Button
+            android:id="@+id/two_two_match1"
+            style="@style/swiss_pool_button"
+
+            app:backgroundTint="@null" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/one_three"
+        style="@style/swiss_one_matchup"
+        app:layout_constraintStart_toEndOf="@+id/one_two"
+        app:layout_constraintTop_toBottomOf="@+id/two_two">
+
+        <TextView
+            android:id="@+id/one_three_text"
+            style="@style/swiss_matchup_text"
+            android:text="1-3" />
+
+        <Button
+            android:id="@+id/one_three_elim"
+            style="@style/swiss_pool_button"
+
+            app:backgroundTint="@null" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/three_two"
+        style="@style/swiss_one_matchup"
+        android:layout_marginTop="225dp"
+        app:layout_constraintStart_toEndOf="@+id/three_one"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/three_two_text"
+            style="@style/swiss_matchup_text"
+            android:text="3-2" />
+
+        <Button
+            android:id="@+id/three_two_qualify"
+            style="@style/swiss_pool_button"
+
+            app:backgroundTint="@null" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/two_three"
+        style="@style/swiss_one_matchup"
+        app:layout_constraintStart_toEndOf="@+id/one_three"
+        app:layout_constraintTop_toBottomOf="@+id/three_two">
+
+        <TextView
+            android:id="@+id/two_three_text"
+            style="@style/swiss_matchup_text"
+            android:text="2-3" />
+
+        <Button
+            android:id="@+id/two_three_elim"
+            style="@style/swiss_pool_button"
+
+            app:backgroundTint="@null" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

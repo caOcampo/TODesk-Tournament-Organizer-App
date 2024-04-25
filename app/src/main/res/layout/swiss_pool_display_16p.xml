@@ -9,11 +9,10 @@
     <LinearLayout
         android:id="@+id/zero_zero"
         style="@style/swiss_one_matchup"
-        android:layout_height="250dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="460dp"
+        android:layout_marginTop="125dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.45">
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <TextView
@@ -45,21 +44,45 @@
 
             app:backgroundTint="@null" />
 
+        <Button
+            android:id="@+id/button"
+            style="@style/swiss_pool_button"
+
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/button2"
+            style="@style/swiss_pool_button"
+
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/button3"
+            style="@style/swiss_pool_button"
+
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/button4"
+            style="@style/swiss_pool_button"
+
+            app:backgroundTint="@null" />
+
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/one_zero"
         style="@style/swiss_one_matchup"
-        android:layout_height="150dp"
+        android:layout_height="250dp"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="175dp"
+        android:layout_marginTop="75dp"
         app:layout_constraintStart_toEndOf="@+id/zero_zero"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/one_zero_text"
             style="@style/swiss_matchup_text"
-            android:text="1-0"/>
+            android:text="1-0" />
 
         <Button
             android:id="@+id/one_zero_match1"
@@ -73,13 +96,25 @@
 
             app:backgroundTint="@null" />
 
+        <Button
+            android:id="@+id/button5"
+            style="@style/swiss_pool_button"
+
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/button6"
+            style="@style/swiss_pool_button"
+
+            app:backgroundTint="@null" />
+
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/zero_one"
         style="@style/swiss_one_matchup"
-        android:layout_height="150dp"
+        android:layout_height="250dp"
         android:layout_marginStart="25dp"
         android:layout_marginTop="50dp"
         app:layout_constraintStart_toEndOf="@+id/zero_zero"
@@ -102,13 +137,26 @@
 
             app:backgroundTint="@null" />
 
+        <Button
+            android:id="@+id/button7"
+            style="@style/swiss_pool_button"
+
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/button8"
+            style="@style/swiss_pool_button"
+
+            app:backgroundTint="@null" />
+
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/two_zero"
         style="@style/swiss_one_matchup"
-        android:layout_marginTop="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="75dp"
         app:layout_constraintStart_toEndOf="@+id/one_zero"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -122,12 +170,18 @@
             style="@style/swiss_pool_button"
 
             app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/button9"
+            style="@style/swiss_pool_button"
+
+            app:backgroundTint="@null" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/one_one"
         style="@style/swiss_one_matchup"
-        android:layout_height="150dp"
+        android:layout_height="250dp"
         android:layout_marginStart="150dp"
         app:layout_constraintStart_toEndOf="@+id/zero_zero"
         app:layout_constraintTop_toBottomOf="@+id/two_zero">
@@ -148,11 +202,24 @@
             style="@style/swiss_pool_button"
 
             app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/button10"
+            style="@style/swiss_pool_button"
+
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/button11"
+            style="@style/swiss_pool_button"
+
+            app:backgroundTint="@null" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/zero_two"
         style="@style/swiss_one_matchup"
+        android:layout_height="150dp"
         app:layout_constraintStart_toEndOf="@+id/zero_one"
         app:layout_constraintTop_toBottomOf="@+id/one_one">
 
@@ -166,19 +233,25 @@
             style="@style/swiss_pool_button"
 
             app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/button12"
+            style="@style/swiss_pool_button"
+
+            app:backgroundTint="@null" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/three_zero"
         style="@style/swiss_one_matchup"
-        android:layout_marginTop="125dp"
+        android:layout_marginTop="25dp"
         app:layout_constraintStart_toEndOf="@+id/two_zero"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/three_zero_text"
             style="@style/swiss_matchup_text"
-            android:text="3-0"/>
+            android:text="3-0" />
 
         <Button
             android:id="@+id/three_zero_qualify"
@@ -192,6 +265,7 @@
     <LinearLayout
         android:id="@+id/two_one"
         style="@style/swiss_one_matchup"
+        android:layout_height="200dp"
         app:layout_constraintStart_toEndOf="@+id/one_one"
         app:layout_constraintTop_toBottomOf="@+id/three_zero">
 
@@ -206,11 +280,24 @@
 
             app:backgroundTint="@null" />
 
+        <Button
+            android:id="@+id/button13"
+            style="@style/swiss_pool_button"
+
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/button14"
+            style="@style/swiss_pool_button"
+
+            app:backgroundTint="@null" />
+
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/one_two"
         style="@style/swiss_one_matchup"
+        android:layout_height="200dp"
         app:layout_constraintStart_toEndOf="@+id/one_one"
         app:layout_constraintTop_toBottomOf="@+id/two_one">
 
@@ -221,6 +308,18 @@
 
         <Button
             android:id="@+id/one_two_match"
+            style="@style/swiss_pool_button"
+
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/button15"
+            style="@style/swiss_pool_button"
+
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/button16"
             style="@style/swiss_pool_button"
 
             app:backgroundTint="@null" />
@@ -249,7 +348,8 @@
     <LinearLayout
         android:id="@+id/three_one"
         style="@style/swiss_one_matchup"
-        android:layout_marginTop="175dp"
+        android:layout_marginTop="100dp"
+        android:layout_height="110dp"
         app:layout_constraintStart_toEndOf="@+id/three_zero"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -261,13 +361,17 @@
         <Button
             android:id="@+id/three_one_qualify"
             style="@style/swiss_pool_button"
+            android:layout_height="60dp"
+            android:text="player\nplayer\nplayer"
 
             app:backgroundTint="@null" />
+
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/two_two"
         style="@style/swiss_one_matchup"
+        android:layout_height="200dp"
         app:layout_constraintStart_toEndOf="@+id/two_one"
         app:layout_constraintTop_toBottomOf="@+id/three_one">
 
@@ -281,11 +385,24 @@
             style="@style/swiss_pool_button"
 
             app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/button17"
+            style="@style/swiss_pool_button"
+
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/button18"
+            style="@style/swiss_pool_button"
+
+            app:backgroundTint="@null" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/one_three"
         style="@style/swiss_one_matchup"
+        android:layout_height="110dp"
         app:layout_constraintStart_toEndOf="@+id/one_two"
         app:layout_constraintTop_toBottomOf="@+id/two_two">
 
@@ -298,6 +415,9 @@
             android:id="@+id/one_three_elim"
             style="@style/swiss_pool_button"
 
+            android:layout_height="60dp"
+            android:text="player\nplayer\nplayer"
+
             app:backgroundTint="@null" />
     </LinearLayout>
 
@@ -305,6 +425,7 @@
         android:id="@+id/three_two"
         style="@style/swiss_one_matchup"
         android:layout_marginTop="225dp"
+        android:layout_height="110dp"
         app:layout_constraintStart_toEndOf="@+id/three_one"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -316,6 +437,8 @@
         <Button
             android:id="@+id/three_two_qualify"
             style="@style/swiss_pool_button"
+            android:layout_height="60dp"
+            android:text="player\nplayer\nplayer"
 
             app:backgroundTint="@null" />
     </LinearLayout>
@@ -323,6 +446,7 @@
     <LinearLayout
         android:id="@+id/two_three"
         style="@style/swiss_one_matchup"
+        android:layout_height="110dp"
         app:layout_constraintStart_toEndOf="@+id/one_three"
         app:layout_constraintTop_toBottomOf="@+id/three_two">
 
@@ -334,6 +458,8 @@
         <Button
             android:id="@+id/two_three_elim"
             style="@style/swiss_pool_button"
+            android:layout_height="60dp"
+            android:text="player\nplayer\nplayer"
 
             app:backgroundTint="@null" />
     </LinearLayout>
