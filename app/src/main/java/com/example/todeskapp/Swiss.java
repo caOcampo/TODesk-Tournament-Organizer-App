@@ -5,6 +5,8 @@ import android.os.Looper;
 import android.widget.Button;
 import android.widget.Toast;
 import android.content.Intent;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 
 import android.os.Bundle;
 
@@ -14,6 +16,7 @@ import com.example.todeskapp.databinding.SwissPoolDisplay16pBinding;
 
 
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FieldValue;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -158,18 +161,48 @@ public class Swiss extends AppCompatActivity {
                 Match match = entry.getValue();
 
                 int buttonId = getResources().getIdentifier(key, "id", getPackageName());
-
                 Button button = findViewById(buttonId);
 
                 if (button != null) {
-                    String matchText = match.player1 + "\n" + match.player2;
+                    String matchText = match.getPlayer1() + "\n" + match.getPlayer2();
                     button.setText(matchText);
-                } else {
+
+                    // Set onClickListener to show a selection dialog
+                    button.setOnClickListener(v -> {
+
+                        CharSequence[] items = {match.getPlayer1(), match.getPlayer2()};
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Swiss.this);
+                        builder.setTitle("Select the winner:");
+                        builder.setItems(items, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // `which` will be 0 for player1 and 1 for player2
+                                String winner = items[which].toString();
+                                String loser = items[1 - which].toString(); // Gets the other player
+
+                                updatePlayerStats(winner, loser, accessCode);
+                            }
+                        });
+                        builder.show();
+                    });
+                }
+                else {
                     Toast.makeText(Swiss.this, "Button not found for: " + key, Toast.LENGTH_SHORT).show();
                 }
             }
-            navigateToBracketDisplay();
         });
+    }
+
+    private void updatePlayerStats(String winner, String loser, String accessCode) {
+        // Increment win for the winner
+        db.collection("AccessCodes").document(accessCode).collection("PlayerList").document(winner)
+                .update("win", FieldValue.increment(1));
+
+        // Increment loss for the loser
+        db.collection("AccessCodes").document(accessCode).collection("PlayerList").document(loser)
+                .update("loss", FieldValue.increment(1));
+
+        // Optionally update UI or navigate to another activity after updating stats
     }
 
     private void navigateToBracketDisplay() {
