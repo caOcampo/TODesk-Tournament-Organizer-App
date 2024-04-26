@@ -19,9 +19,17 @@ public class TournamentManagement extends AppCompatActivity {
 
     private TournamentManagementBinding binding;
     private FirebaseFirestore db;
-
     private String accessCode;
 
+    /**
+     *
+     * Displays Tournament Management xml layout.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +42,10 @@ public class TournamentManagement extends AppCompatActivity {
 
 
     }
+
+    /**
+     * a button function that is used to redirect from Tournament Management to Configure Tournament.
+     */
     private void tournamentManagement() {
         binding.configureTournamentSettings.setOnClickListener(v -> {
             accessCode = getIntent().getStringExtra("ACCESS_CODE");

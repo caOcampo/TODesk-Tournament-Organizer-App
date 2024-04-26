@@ -27,6 +27,14 @@ public class RoundRobinPreTesting extends AppCompatActivity {
     private String accessCode;
     private List<PlayerProfile.Player> players;
 
+    /**
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     *
+     */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +63,11 @@ public class RoundRobinPreTesting extends AppCompatActivity {
 
     }
 
+
+    /**
+     * Used to fetch player's values from firebase, place them into new objects
+     * where their values will be displayed into tablelayout1 & tablelayout2.
+     */
     private void fetchAndDisplayPlayers() {
         db.collection("AccessCodes").document(accessCode)
                 .collection("PlayerList")
@@ -86,16 +99,25 @@ public class RoundRobinPreTesting extends AppCompatActivity {
                 });
     }
 
+    /**
+     *
+     * This function takes the values of the retrieved data from firebase (playerName, win & loss).
+     * For each player object, a row will be dynamically made in tablelayout1 containing the values
+     * playerName, wins, & loss.
+     *
+     * @param username a string pulled from firebase and place into a player object
+     * @param win an integer pulled from firebase and place into a player object
+     * @param loss an integer pulled from firebase and place into a player object
+     */
 
-
-    private void addPlayerToTable(String username, int w, int l) {
+    private void addPlayerToTable(String username, int win, int loss) {
         TableRow row = new TableRow(this);
         TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT);
         row.setLayoutParams(lp);
 
         TextView playerNameTextView = createTextView(username);
-        TextView wTextView = createTextView(String.valueOf(w));
-        TextView lTextView = createTextView(String.valueOf(l));
+        TextView wTextView = createTextView(String.valueOf(win));
+        TextView lTextView = createTextView(String.valueOf(loss));
 
         row.addView(playerNameTextView);
         row.addView(wTextView);
@@ -104,6 +126,12 @@ public class RoundRobinPreTesting extends AppCompatActivity {
         tableLayout1.addView(row);
     }
 
+    /**
+     * This function creates a text that will be imported into addPlayerToTable. This sets the perameters
+     * of the text font, size and padding.
+     * @param text TBD
+     * @return textView
+     */
     private TextView createTextView(String text) {
         TextView textView = new TextView(this);
         textView.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
@@ -121,6 +149,12 @@ public class RoundRobinPreTesting extends AppCompatActivity {
             }
         }
     }
+
+    /**
+     * This function is used to dynamically create the rows in tablelayout2 based on the amount of players in
+     * the bracket.
+     * @param matchUpText the generated match up created from addRowsToTable2
+     */
 
     // Adjust addMatchUpRow method to ensure proper text display
     @SuppressLint("SetTextI18n")
@@ -161,16 +195,5 @@ public class RoundRobinPreTesting extends AppCompatActivity {
         // Add the row to the table layout
         tableLayout2.addView(row);
 
-        // Set a listener to update the EditText with the winner's username
-        winnerEditText.setOnFocusChangeListener((v, hasFocus) -> {
-            if (!hasFocus) {
-                EditText editText = (EditText) v;
-                String winner = editText.getText().toString().trim();
-                if (!winner.isEmpty()) {
-                    // Update the winner EditText field
-                    editText.setText(winner);
-                }
-            }
-        });
     }
 }
