@@ -50,7 +50,7 @@ public class RoundRobinEdit extends AppCompatActivity {
                         for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                             String username = document.getString("username");
                             String organization = document.getString("organization");
-                            String rank = document.getString("rank"); // Fixed typo here
+                            String rank = document.getString("rank");
                             int win = Objects.requireNonNull(document.getLong("W")).intValue();
                             int loss = Objects.requireNonNull(document.getLong("L")).intValue();
 
@@ -173,7 +173,7 @@ public class RoundRobinEdit extends AppCompatActivity {
         // After updating the players' records, you can proceed to update the Firebase database
         updatePlayersInFirebase();
 
-        Intent intent = new Intent(this, RoundRobinPre.class);
+        Intent intent = new Intent(this, RoundRobinPreTesting.class);
         intent.putExtra("players", (Serializable) players);
         startActivity(intent);
     }
