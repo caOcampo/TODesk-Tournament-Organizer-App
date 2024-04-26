@@ -152,22 +152,22 @@ public class Swiss extends AppCompatActivity {
                 final String docId = collectionName + "_" + i;
                 db.collection("AccessCodes").document(accessCode).collection(collectionName).document(docId)
                         .get().addOnSuccessListener(documentSnapshot -> {
-                            String player1 = documentSnapshot.getString("player1");
-                            String player2 = documentSnapshot.getString("player2");
-                            player1 = player1.isEmpty() ? "<player>" : player1;
-                            player2 = player2.isEmpty() ? "<player>" : player2;
+                            runOnUiThread(() -> {
+                                String player1 = documentSnapshot.getString("player1");
+                                String player2 = documentSnapshot.getString("player2");
+                                player1 = player1.isEmpty() ? "<player>" : player1;
+                                player2 = player2.isEmpty() ? "<player>" : player2;
 
-                            String buttonId = "score" + docId;
-                            int resID = getResources().getIdentifier(buttonId, "id", getPackageName());
-                            Button button = (Button) binding.getRoot().findViewById(resID);
-                            if (button != null) {
-                                button.setText(player1 + " vs " + player2);
-                            }
-
-                            if (updatesCompleted.incrementAndGet() == totalUpdates.get()) {
-                                navigateToBracketDisplay();  // Navigate only after all updates are complete
-                            }
-
+                                String buttonId = "score" + docId;
+                                int resID = getResources().getIdentifier(buttonId, "id", getPackageName());
+                                Button button = (Button) binding.getRoot().findViewById(resID);
+                                if (button != null) {
+                                    button.setText(player1 + "\n" + player2);
+                                }
+                                if (updatesCompleted.incrementAndGet() == totalUpdates.get()) {
+                                    navigateToBracketDisplay();
+                                }
+                            });
                         }).addOnFailureListener(e -> {
                             System.out.println("Error fetching document: " + e.getMessage());
                         });

@@ -6,14 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.os.Environment;
+import android.widget.ProgressBar;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.todeskapp.databinding.CurrentBracketSacPdfBinding;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Source;
 import java.io.File;
 import java.io.FileOutputStream;
 
@@ -24,9 +23,9 @@ public class CurrentBracket_SAC_PDF extends AppCompatActivity {
     private FirebaseFirestore db;
     private String accessCode;
     private LinearLayout bracketContainer;
-
-
+    private ProgressBar progressBar;
     private Button saveAsPdfButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,8 +38,12 @@ public class CurrentBracket_SAC_PDF extends AppCompatActivity {
 
         bracketContainer = findViewById(R.id.bracket_container);
 
+        progressBar = findViewById(R.id.progressBar);
 
-        readAccessCodeFromFirebase(bracketContainer);
+        readAccessCodeFromFirebase();
+
+
+        readAccessCodeFromFirebase();
         /*saveAsPdfButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,79 +52,107 @@ public class CurrentBracket_SAC_PDF extends AppCompatActivity {
         });*/
     }
 
-    private void readAccessCodeFromFirebase(LinearLayout bracketContainer) {
+    private void readAccessCodeFromFirebase() {
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        // Get the specific document reference
         db.collection("AccessCodes").document(accessCode)
-                .get()
+
+                .get(Source.SERVER)
+
                 .addOnCompleteListener(task -> {
+
                     if (task.isSuccessful()) {
+
                         DocumentSnapshot document = task.getResult();
 
                         if (document.exists()) {
 
                             Long bracketStyleLong = document.getLong("BracketStyle");
 
-
                             if (bracketStyleLong != null) {
+
                                 int bracketStyle = bracketStyleLong.intValue();
+
                                 switch (bracketStyle) {
                                     case 0:
-                                        displaySwissStage(bracketContainer);
+                                        displaySwissStage();
                                         break;
                                     case 1:
-                                        displayRoundRobinPre(bracketContainer);
+                                        displayRoundRobinPre();
                                         break;
-
                                     default:
                                         Toast.makeText(this, "Unhandled bracket style: " + bracketStyle, Toast.LENGTH_SHORT).show();
                                 }
-                            }
-
-                            else {
+                            } else {
                                 Toast.makeText(this, "BracketStyle field is missing.", Toast.LENGTH_SHORT).show();
                             }
-                        }
-
-                        else {
+                        } else {
                             Toast.makeText(this, "No such document!", Toast.LENGTH_SHORT).show();
                         }
-                    }
-
-                    else {
+                    } else {
                         Toast.makeText(this, "Failed to fetch document: " + task.getException(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
-    private void displayRoundRobinPre(LinearLayout bracketContainer) {
-        // Inflate the layout "round_robin_pre_testing" and add it to the ScrollView
+    private void displayRoundRobinPre() {
         LayoutInflater inflater = LayoutInflater.from(this);
         View roundRobinPreTestingView = inflater.inflate(R.layout.round_robin_pre_testing, bracketContainer, false);
         bracketContainer.addView(roundRobinPreTestingView);
     }
 
-
-    private void displaySwissStage(LinearLayout bracketContainer) {
-        LayoutInflater inflater = LayoutInflater.from(this);
-        View swissStagePreview = inflater.inflate(R.layout.swiss_pool_display_8p, bracketContainer, false);
-        bracketContainer.addView(swissStagePreview);
-        /*if(numberOfPlayers == 8){
-            View swissStagePreview = inflater.inflate(R.layout.swiss_pool_display_8p, bracketContainer, false);
-            bracketContainer.addView(swissStagePreview);
-        }
-        else{
-            View swissStagePreview = inflater.inflate(R.layout.swiss_pool_display_16p, bracketContainer, false);
-            bracketContainer.addView(swissStagePreview);
-        }*/
-
+    public void displaySwissStage() {
+        showLoadingIndicator();
+        fetchDataAsync(new DataCallback() {
+            @Override
+            public void onDataReady(Data data) {
+                hideLoadingIndicator();
+                bracketContainer.removeAllViews();
+                LayoutInflater inflater = LayoutInflater.from(CurrentBracket_SAC_PDF.this);
+                View swissStagePreview = inflater.inflate(R.layout.swiss_pool_display_8p, bracketContainer, false);
+                bracketContainer.addView(swissStagePreview);
+            }
+        });
     }
 
     private void displayElimMatch(LinearLayout scrollView) {
 
 
     }
+
+    private void showLoadingIndicator() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    private void hideLoadingIndicator() {
+        progressBar.setVisibility(View.GONE);
+    }
+
+    private void fetchDataAsync(DataCallback callback) {
+        // Simulate fetching data asynchronously
+        new Thread(() -> {
+            // Simulate network delay
+            try {
+                Thread.sleep(2000); // Delay for 2 seconds
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            // Assume data is fetched successfully
+            Data data = new Data(); // Replace this with actual data fetching logic
+            runOnUiThread(() -> callback.onDataReady(data));
+        }).start();
+    }
+
+    interface DataCallback {
+        void onDataReady(Data data);
+    }
+
+    class Data {
+        // Define data fields here
+    }
+
+
 
     /*public void saveAsPdf(LinearLayout bracketContainer) {
         try {
