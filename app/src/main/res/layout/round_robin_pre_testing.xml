@@ -55,8 +55,8 @@
             android:id="@+id/tableLayout1"
             android:layout_width="372dp"
             android:layout_height="wrap_content"
-            tools:ignore="DuplicateIds">
-
+            tools:ignore="DuplicateIds"
+            android:orientation="vertical">
 
         </TableLayout>
     </ScrollView>
@@ -216,16 +216,16 @@
 
 
         <TableLayout
+            android:id="@id/tableLayout2"
             android:layout_width="372dp"
             android:layout_height="wrap_content"
-            tools:ignore="DuplicateIds">
-
-
+            tools:ignore="DuplicateIds"
+            android:orientation="vertical">
         </TableLayout>
     </ScrollView>
 
 
 
--->
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 

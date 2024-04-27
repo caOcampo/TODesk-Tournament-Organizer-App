@@ -23,7 +23,10 @@ public class CurrentBracket_SAC_PDF extends AppCompatActivity {
     private FirebaseFirestore db;
     private String accessCode;
     private LinearLayout bracketContainer;
+
     private ProgressBar progressBar;
+
+
     private Button saveAsPdfButton;
 
     @Override
@@ -117,8 +120,6 @@ public class CurrentBracket_SAC_PDF extends AppCompatActivity {
     }
 
     private void displayElimMatch(LinearLayout scrollView) {
-
-
     }
 
     private void showLoadingIndicator() {

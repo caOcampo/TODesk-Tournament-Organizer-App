@@ -63,8 +63,8 @@ public class RoundRobinEdit extends AppCompatActivity {
                             String username = document.getString("username");
                             String organization = document.getString("organization");
                             String rank = document.getString("rank");
-                            int win = Objects.requireNonNull(document.getLong("W")).intValue();
-                            int loss = Objects.requireNonNull(document.getLong("L")).intValue();
+                            int win = Math.toIntExact((document.getLong("W")));
+                            int loss = Math.toIntExact((document.getLong("L")));
 
                             // Create a Player object with retrieved data
                             PlayerProfile.Player player = new PlayerProfile.Player(username, organization, rank, win, loss);
