@@ -43,7 +43,7 @@ public class CurrentBracket_SAC_PDFTest {
 
         // Mock FirebaseFirestore.getInstance()
         FirebaseFirestore mockFirestore = mock(FirebaseFirestore.class);
-        when(currentBracketSacPdf.getFirestoreInstance()).thenReturn(mockFirestore);
+
 
         // Mock Firebase document
         DocumentSnapshot mockDocumentSnapshot = mock(DocumentSnapshot.class);

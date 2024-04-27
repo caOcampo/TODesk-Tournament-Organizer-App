@@ -95,7 +95,7 @@ public class CurrentBracket_SAC_PDF extends AppCompatActivity {
                 });
     }
 
-    private void displayRoundRobinPre(LinearLayout bracketContainer) {
+    void displayRoundRobinPre(LinearLayout bracketContainer) {
         // Inflate the layout "round_robin_pre_testing" and add it to the ScrollView
         LayoutInflater inflater = LayoutInflater.from(this);
         View roundRobinPreTestingView = inflater.inflate(R.layout.round_robin_pre_testing, bracketContainer, false);
@@ -103,7 +103,7 @@ public class CurrentBracket_SAC_PDF extends AppCompatActivity {
     }
 
 
-    private void displaySwissStage(LinearLayout bracketContainer) {
+    void displaySwissStage(LinearLayout bracketContainer) {
         LayoutInflater inflater = LayoutInflater.from(this);
         if(numberOfPlayers == 8){
             View swissStagePreview = inflater.inflate(R.layout.swiss_pool_display_8p, bracketContainer, false);
