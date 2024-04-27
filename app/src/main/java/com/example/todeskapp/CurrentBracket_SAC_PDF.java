@@ -25,7 +25,6 @@ public class CurrentBracket_SAC_PDF extends AppCompatActivity {
     private String accessCode;
     private LinearLayout bracketContainer;
 
-    private int numberOfPlayers;
 
     private Button saveAsPdfButton;
     @Override
@@ -37,7 +36,6 @@ public class CurrentBracket_SAC_PDF extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
         accessCode = getIntent().getStringExtra("ACCESS_CODE");
-        numberOfPlayers = getIntent().getIntExtra("NUMBER_OF_PLAYERS", 0);
 
         bracketContainer = findViewById(R.id.bracket_container);
 
@@ -107,14 +105,16 @@ public class CurrentBracket_SAC_PDF extends AppCompatActivity {
 
     private void displaySwissStage(LinearLayout bracketContainer) {
         LayoutInflater inflater = LayoutInflater.from(this);
-        if(numberOfPlayers == 8){
+        View swissStagePreview = inflater.inflate(R.layout.swiss_pool_display_8p, bracketContainer, false);
+        bracketContainer.addView(swissStagePreview);
+        /*if(numberOfPlayers == 8){
             View swissStagePreview = inflater.inflate(R.layout.swiss_pool_display_8p, bracketContainer, false);
             bracketContainer.addView(swissStagePreview);
         }
         else{
             View swissStagePreview = inflater.inflate(R.layout.swiss_pool_display_16p, bracketContainer, false);
             bracketContainer.addView(swissStagePreview);
-        }
+        }*/
 
     }
 

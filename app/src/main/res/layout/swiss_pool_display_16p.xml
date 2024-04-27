@@ -7,7 +7,7 @@
 
 
     <LinearLayout
-        android:id="@+id/zero_zero"
+        android:id="@+id/score00"
         style="@style/swiss_one_matchup"
         android:layout_height="425dp"
         android:layout_marginTop="60dp"
@@ -70,12 +70,12 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/one_zero"
+        android:id="@+id/score10"
         style="@style/swiss_one_matchup"
         android:layout_height="225dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="40dp"
-        app:layout_constraintStart_toEndOf="@+id/zero_zero"
+        app:layout_constraintStart_toEndOf="@+id/score00"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
@@ -111,13 +111,13 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/zero_one"
+        android:id="@+id/score01"
         style="@style/swiss_one_matchup"
         android:layout_height="225dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        app:layout_constraintStart_toEndOf="@+id/zero_zero"
-        app:layout_constraintTop_toBottomOf="@+id/one_zero">
+        app:layout_constraintStart_toEndOf="@+id/score00"
+        app:layout_constraintTop_toBottomOf="@+id/score10">
 
         <TextView
             android:id="@+id/zero_one_text"
@@ -152,11 +152,11 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/two_zero"
+        android:id="@+id/score20"
         style="@style/swiss_one_matchup"
         android:layout_height="125dp"
         android:layout_marginTop="25dp"
-        app:layout_constraintStart_toEndOf="@+id/one_zero"
+        app:layout_constraintStart_toEndOf="@+id/score10"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
@@ -178,12 +178,12 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/one_one"
+        android:id="@+id/score11"
         style="@style/swiss_one_matchup"
         android:layout_height="225dp"
         android:layout_marginStart="120dp"
-        app:layout_constraintStart_toEndOf="@+id/zero_zero"
-        app:layout_constraintTop_toBottomOf="@+id/two_zero">
+        app:layout_constraintStart_toEndOf="@+id/score00"
+        app:layout_constraintTop_toBottomOf="@+id/score20">
 
         <TextView
             android:id="@+id/one_one_text"
@@ -216,11 +216,11 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/zero_two"
+        android:id="@+id/score02"
         style="@style/swiss_one_matchup"
         android:layout_height="125dp"
-        app:layout_constraintStart_toEndOf="@+id/zero_one"
-        app:layout_constraintTop_toBottomOf="@+id/one_one">
+        app:layout_constraintStart_toEndOf="@+id/score01"
+        app:layout_constraintTop_toBottomOf="@+id/score11">
 
         <TextView
             android:id="@+id/zero_two_text"
@@ -241,10 +241,10 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/three_zero"
+        android:id="@+id/score30"
         style="@style/swiss_one_matchup"
         android:layout_marginTop="10dp"
-        app:layout_constraintStart_toEndOf="@+id/two_zero"
+        app:layout_constraintStart_toEndOf="@+id/score20"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
@@ -262,11 +262,11 @@
 
 
     <LinearLayout
-        android:id="@+id/two_one"
+        android:id="@+id/score21"
         style="@style/swiss_one_matchup"
         android:layout_height="175dp"
-        app:layout_constraintStart_toEndOf="@+id/one_one"
-        app:layout_constraintTop_toBottomOf="@+id/three_zero">
+        app:layout_constraintStart_toEndOf="@+id/score11"
+        app:layout_constraintTop_toBottomOf="@+id/score30">
 
         <TextView
             android:id="@+id/two_one_text"
@@ -294,11 +294,11 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/one_two"
+        android:id="@+id/score12"
         style="@style/swiss_one_matchup"
         android:layout_height="175dp"
-        app:layout_constraintStart_toEndOf="@+id/one_one"
-        app:layout_constraintTop_toBottomOf="@+id/two_one">
+        app:layout_constraintStart_toEndOf="@+id/score11"
+        app:layout_constraintTop_toBottomOf="@+id/score21">
 
         <TextView
             android:id="@+id/one_two_text"
@@ -326,10 +326,10 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/zero_three"
+        android:id="@+id/score03"
         style="@style/swiss_one_matchup"
-        app:layout_constraintStart_toEndOf="@+id/zero_two"
-        app:layout_constraintTop_toBottomOf="@+id/one_two">
+        app:layout_constraintStart_toEndOf="@+id/score02"
+        app:layout_constraintTop_toBottomOf="@+id/score12">
 
         <TextView
             android:id="@+id/zero_three_text"
@@ -345,11 +345,11 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/three_one"
+        android:id="@+id/score31"
         style="@style/swiss_one_matchup"
         android:layout_height="85dp"
         android:layout_marginTop="80dp"
-        app:layout_constraintStart_toEndOf="@+id/three_zero"
+        app:layout_constraintStart_toEndOf="@+id/score30"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
@@ -368,11 +368,11 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/two_two"
+        android:id="@+id/score22"
         style="@style/swiss_one_matchup"
         android:layout_height="175dp"
-        app:layout_constraintStart_toEndOf="@+id/two_one"
-        app:layout_constraintTop_toBottomOf="@+id/three_one">
+        app:layout_constraintStart_toEndOf="@+id/score21"
+        app:layout_constraintTop_toBottomOf="@+id/score31">
 
         <TextView
             android:id="@+id/two_two_text"
@@ -399,11 +399,11 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/one_three"
+        android:id="@+id/score13"
         style="@style/swiss_one_matchup"
         android:layout_height="85dp"
-        app:layout_constraintStart_toEndOf="@+id/one_two"
-        app:layout_constraintTop_toBottomOf="@+id/two_two">
+        app:layout_constraintStart_toEndOf="@+id/score12"
+        app:layout_constraintTop_toBottomOf="@+id/score22">
 
         <TextView
             android:id="@+id/one_three_text"
@@ -421,11 +421,11 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/three_two"
+        android:id="@+id/score32"
         style="@style/swiss_one_matchup"
         android:layout_height="85dp"
         android:layout_marginTop="175dp"
-        app:layout_constraintStart_toEndOf="@+id/three_one"
+        app:layout_constraintStart_toEndOf="@+id/score31"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
@@ -443,11 +443,11 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/two_three"
+        android:id="@+id/score23"
         style="@style/swiss_one_matchup"
         android:layout_height="85dp"
-        app:layout_constraintStart_toEndOf="@+id/one_three"
-        app:layout_constraintTop_toBottomOf="@+id/three_two">
+        app:layout_constraintStart_toEndOf="@+id/score13"
+        app:layout_constraintTop_toBottomOf="@+id/score32">
 
         <TextView
             android:id="@+id/two_three_text"

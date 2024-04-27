@@ -108,7 +108,7 @@ public class ConfigureTournament extends AppCompatActivity {
                                 switch (bracketStyle) {
                                     case 0:
 
-                                        performActionBasedOnBracketStyle();
+                                        swissPlayerValidation();
                                         break;
                                     case 1:
                                         performActionBasedOnBracketStyle1();
@@ -130,7 +130,7 @@ public class ConfigureTournament extends AppCompatActivity {
     }
 
 
-    private void performActionBasedOnBracketStyle() {
+    private void swissPlayerValidation() {
         db.collection("AccessCodes").document(accessCode)
                 .collection("PlayerList")
                 .get()
