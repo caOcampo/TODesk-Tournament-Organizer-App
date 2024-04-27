@@ -8,34 +8,70 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.example.todeskapp.databinding.PlayerProfileBinding;
 
+/**
+ *
+ * This class provides display and functionality of the player_profile layout to the user.
+ * Here, the user can configure the player profile to add them to the tournament. This allows the
+ * user to enter details about the username, organization of the user, and rank of the user.
+ *
+ * @author Remi_ngo
+ * @since April 2024
+ *
+ *
+ */
 public class PlayerProfile extends AppCompatActivity{
 
+    /**
+     * Binding the configure_tournament.xml file to this code.
+     */
     private PlayerProfileBinding binding;
+    /**
+     * Initializing Firestore database.
+     */
     private FirebaseFirestore db;
+    /**
+     * Holds the access code variable for knowing what document to access.
+     */
     private String accessCode;
 
-
-
+    /**
+     * Sets the GUI to the player_profile.xml. Retrieves database information.
+     *
+     * @param savedInstanceState the state of the GUI
+     * @return No return value.
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //sets display
         super.onCreate(savedInstanceState);
         binding = PlayerProfileBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        //initialize database, get access code
         db = FirebaseFirestore.getInstance();
         accessCode = getIntent().getStringExtra("ACCESS_CODE");
 
-        /* Setup redirection from PlayerProfile to AddPlayer */
+        //adds functionality to the add button
         binding.add.setOnClickListener(v -> addPlayer());
     }
 
 
-
+    /**
+     * Adds the user profile details to the database.
+     *
+     * @return No return value.
+     *
+     */
     private void addPlayer() {
+
+        //get values from the user input
         String username = binding.inputUsername.getText().toString().trim();
         String organization = binding.inputOrganization.getText().toString().trim().isEmpty() ? "" : binding.inputOrganization.getText().toString().trim();
         String rank = binding.inputRank.getText().toString().trim().isEmpty() ? "" : binding.inputRank.getText().toString().trim();
 
+        //checks if it is empty
         if (username.isEmpty()) {
             Toast.makeText(this, "Username cannot be empty", Toast.LENGTH_SHORT).show();
             return;
@@ -48,6 +84,7 @@ public class PlayerProfile extends AppCompatActivity{
             rank = "";
         }
 
+        //gets player details and adds it to the database
         Player player = new Player(username, organization, rank, 0, 0);
 
         db.collection("AccessCodes")
@@ -62,7 +99,15 @@ public class PlayerProfile extends AppCompatActivity{
                 .addOnFailureListener(e -> Toast.makeText(PlayerProfile.this, "Failed to add player: " + e.toString(), Toast.LENGTH_SHORT).show());
     }
 
+    /**
+     * Remove the document initialized when PlayerList collection was created.
+     *
+     * @return No return value.
+     *
+     */
     private void deleteInitialDoc() {
+
+        //get the initial document from the database
         db.collection("AccessCodes")
                 .document(accessCode)
                 .collection("PlayerList")
@@ -70,16 +115,29 @@ public class PlayerProfile extends AppCompatActivity{
                 .delete()
                 .addOnSuccessListener(aVoid -> {
                     Toast.makeText(this, "Initial document removed successfully", Toast.LENGTH_SHORT).show();
+
+                    //after delete redirect
                     navigateToAddPlayer();
                 })
                 .addOnFailureListener(e -> Toast.makeText(this, "Failed to remove initial document: " + e.toString(), Toast.LENGTH_SHORT).show());
     }
 
+    /**
+     * Redirect back to the AddPlayer page
+     *
+     * @return No return value.
+     *
+     */
     private void navigateToAddPlayer() {
         Intent intent = new Intent(PlayerProfile.this, AddPlayer.class);
         intent.putExtra("ACCESS_CODE", accessCode);  // Ensure accessCode is not null
         startActivity(intent);
     }
+
+    /**
+     * Class to hold details about the player
+     *
+     */
     public static class Player {
         private String username;
         private String organization;
