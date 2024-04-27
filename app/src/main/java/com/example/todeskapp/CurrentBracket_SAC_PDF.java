@@ -25,7 +25,6 @@ public class CurrentBracket_SAC_PDF extends AppCompatActivity {
     private String accessCode;
     private LinearLayout bracketContainer;
 
-    int numberOfPlayers;
 
     private Button saveAsPdfButton;
     @Override
@@ -37,7 +36,6 @@ public class CurrentBracket_SAC_PDF extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
         accessCode = getIntent().getStringExtra("ACCESS_CODE");
-        numberOfPlayers = getIntent().getIntExtra("NUMBER_OF_PLAYERS", 0);
 
         bracketContainer = findViewById(R.id.bracket_container);
 
@@ -50,14 +48,6 @@ public class CurrentBracket_SAC_PDF extends AppCompatActivity {
             }
         });*/
     }
-
-    /**
-     * A function that reads the AccessCode from firebase. Within the read access code will have a bracket style
-     * that chooses based on cases, which tournament style will be used to initialize the players into.
-     *
-     * @param bracketContainer is a scrollview within the current_bracket_sac_pdf xml file that will display
-     *                         the bracket style that is initialized based on case 0, 1 or 2.
-     */
 
     private void readAccessCodeFromFirebase(LinearLayout bracketContainer) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -105,12 +95,7 @@ public class CurrentBracket_SAC_PDF extends AppCompatActivity {
                 });
     }
 
-    /**
-     * This function displays the layout round_robin_pre_testing into the bracketContainer of the
-     * curent_bracket_sac_pdf xml.
-     * @param bracketContainer is the scrollview container for any incoming bracket image.
-     */
-    void displayRoundRobinPre(LinearLayout bracketContainer) {
+    private void displayRoundRobinPre(LinearLayout bracketContainer) {
         // Inflate the layout "round_robin_pre_testing" and add it to the ScrollView
         LayoutInflater inflater = LayoutInflater.from(this);
         View roundRobinPreTestingView = inflater.inflate(R.layout.round_robin_pre_testing, bracketContainer, false);
@@ -118,7 +103,7 @@ public class CurrentBracket_SAC_PDF extends AppCompatActivity {
     }
 
 
-    void displaySwissStage(LinearLayout bracketContainer) {
+    private void displaySwissStage(LinearLayout bracketContainer) {
         LayoutInflater inflater = LayoutInflater.from(this);
         if(numberOfPlayers == 8){
             View swissStagePreview = inflater.inflate(R.layout.swiss_pool_display_8p, bracketContainer, false);
@@ -135,12 +120,6 @@ public class CurrentBracket_SAC_PDF extends AppCompatActivity {
 
 
     }
-
-    public Object getFirestoreInstance() {
-        return null;
-    }
-
-
 
     /*public void saveAsPdf(LinearLayout bracketContainer) {
         try {

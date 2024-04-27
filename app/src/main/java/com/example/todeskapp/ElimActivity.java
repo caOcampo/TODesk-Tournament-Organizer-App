@@ -1,25 +1,72 @@
 package com.example.todeskapp;
 
+import android.content.Intent;
 import android.os.Bundle;
+
+import com.example.todeskapp.databinding.CreateAccountBinding;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.view.View;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import com.example.todeskapp.databinding.ActivityElimBinding;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import TODesk.src.tournament.formats.DElim;
+import TODesk.src.tournament.data.PlayerEntry;
+
+import java.util.List;
+import java.util.ArrayList;
+
+
 
 public class ElimActivity extends AppCompatActivity {
 
     private ActivityElimBinding binding;
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
+
+    int initial;
+
+    private String accessCode;
+    private ExecutorService executorService;  // Executor service to run tasks in the background
+
+    ArrayList<PlayerEntry> playerList;
+    DElim DElimBracket;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
         binding = ActivityElimBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-/*
+
+        db = FirebaseFirestore.getInstance();
+        executorService = Executors.newSingleThreadExecutor();
+        /*
+        Intended implementation:
+        - Receive the access code to the database of players
+        - Instantiate DElim class with the list of players passed to upperBracket
+        - Create a scrolling view containing brackets of ELimMatch
+            - each DElim.Match would correspond to an ELimMatch layout
+
+         */
+
+        accessCode = getIntent().getStringExtra("ACCESS_CODE");
+
+
+
+
+        /*
         Toolbar toolbar = binding.toolbar;
         setSupportActionBar(toolbar);
         CollapsingToolbarLayout toolBarLayout = binding.toolbarLayout;
@@ -34,5 +81,28 @@ public class ElimActivity extends AppCompatActivity {
                         .setAnchorView(R.id.fab).show();
             }
         });*/
+        setContentView(R.layout.activity_elim);
     }
+
+    private void retrievePlayerListAndCreateBracket(String accessCode) {
+        db.collection("AccessCodes").document(accessCode)
+                .collection("PlayerList")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        playerList = new ArrayList<>();
+                        for (DocumentSnapshot document : task.getResult()) {
+                            // Convert each document to a PlayerEntry object
+                            PlayerEntry player = document.toObject(PlayerEntry.class);
+                            playerList.add(player);
+                        }
+                        // Once the list is retrieved, create the upper bracket
+                        DElimBracket.createUpperBracket(playerList);
+
+                    } else {
+                        // Handle errors
+                    }
+                });
+    }
+
 }
