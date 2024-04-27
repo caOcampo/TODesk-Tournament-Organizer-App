@@ -22,6 +22,7 @@ public class ConfigureTournament extends AppCompatActivity {
     private ConfigureTournmentBinding binding;
     private FirebaseFirestore db;
     private String accessCode;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +62,7 @@ public class ConfigureTournament extends AppCompatActivity {
         });
     }
 
-    private void ButtonListeners(){
+    private void ButtonListeners() {
         /* Setup redirection for the player settings */
         binding.playerSettings.setOnClickListener(v -> {
             accessCode = getIntent().getStringExtra("ACCESS_CODE");
@@ -109,27 +110,25 @@ public class ConfigureTournament extends AppCompatActivity {
 
                                         performActionBasedOnBracketStyle();
                                         break;
+                                    case 1:
+                                        performActionBasedOnBracketStyle1();
+
 
                                     default:
                                         Toast.makeText(this, "Unhandled bracket style: " + bracketStyle, Toast.LENGTH_SHORT).show();
                                 }
-                            }
-
-                            else {
+                            } else {
                                 Toast.makeText(this, "BracketStyle field is missing.", Toast.LENGTH_SHORT).show();
                             }
-                        }
-
-                        else {
+                        } else {
                             Toast.makeText(this, "No such document!", Toast.LENGTH_SHORT).show();
                         }
-                    }
-
-                    else {
+                    } else {
                         Toast.makeText(this, "Failed to fetch document: " + task.getException(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
+
 
     private void performActionBasedOnBracketStyle() {
         db.collection("AccessCodes").document(accessCode)
@@ -159,8 +158,28 @@ public class ConfigureTournament extends AppCompatActivity {
                 });
     }
 
+    private void performActionBasedOnBracketStyle1() {
+        db.collection("AccessCodes").document(accessCode)
+                .collection("PlayerList")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+
+                            int playerCount = task.getResult().size();
+
+                            Intent intent = new Intent(ConfigureTournament.this, CurrentBracket_SAC_PDF.class);
+                            intent.putExtra("ACCESS_CODE", accessCode);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(ConfigureTournament.this, "Failed to fetch players: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
 
 
+                });
+
+    }
 }
-
-

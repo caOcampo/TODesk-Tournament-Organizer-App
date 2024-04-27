@@ -28,6 +28,14 @@ public class RoundRobinEdit extends AppCompatActivity {
     private String accessCode;
     private List<PlayerProfile.Player> players;
 
+    /**
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     *
+     */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +49,10 @@ public class RoundRobinEdit extends AppCompatActivity {
         fetchAndDisplayPlayers();
     }
 
+    /**
+     * Used to fetch player's values from firebase, place them into new objects
+     * where their values will be manipulated by other classes and updated back into firebase.
+     */
     private void fetchAndDisplayPlayers() {
         db.collection("AccessCodes").document(accessCode)
                 .collection("PlayerList")
@@ -50,7 +62,7 @@ public class RoundRobinEdit extends AppCompatActivity {
                         for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                             String username = document.getString("username");
                             String organization = document.getString("organization");
-                            String rank = document.getString("rank"); // Fixed typo here
+                            String rank = document.getString("rank");
                             int win = Objects.requireNonNull(document.getLong("W")).intValue();
                             int loss = Objects.requireNonNull(document.getLong("L")).intValue();
 
@@ -69,14 +81,24 @@ public class RoundRobinEdit extends AppCompatActivity {
                 });
     }
 
-    private void addPlayerToTable(String playerName, int w, int l) {
+    /**
+     *
+     * This function takes the values of the retrieved data from firebase (playerName, win & loss).
+     * For each player object, a row will be dynamically made in tablelayout1 containing the values
+     * playerName, wins, & loss.
+     *
+     * @param username a string pulled from firebase and place into a player object
+     * @param win an integer pulled from firebase and place into a player object
+     * @param loss an integer pulled from firebase and place into a player object
+     */
+    private void addPlayerToTable(String username, int win, int loss) {
         TableRow row = new TableRow(this);
         TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT);
         row.setLayoutParams(lp);
 
-        TextView playerNameTextView = createTextView(playerName);
-        TextView wTextView = createTextView(String.valueOf(w));
-        TextView lTextView = createTextView(String.valueOf(l));
+        TextView playerNameTextView = createTextView(username);
+        TextView wTextView = createTextView(String.valueOf(win));
+        TextView lTextView = createTextView(String.valueOf(loss));
 
         row.addView(playerNameTextView);
         row.addView(wTextView);
@@ -85,6 +107,12 @@ public class RoundRobinEdit extends AppCompatActivity {
         tableLayout1.addView(row);
     }
 
+    /**
+     * This function creates a text that will be imported into addPlayerToTable. This sets the perameters
+     * of the text font, size and padding.
+     * @param text TBD
+     * @return textView
+     */
     private TextView createTextView(String text) {
         TextView textView = new TextView(this);
         TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(
@@ -99,6 +127,12 @@ public class RoundRobinEdit extends AppCompatActivity {
         return textView;
     }
 
+
+    /**
+     * The function generatePlayerMatchups create a for loop that goes though all of the object player's
+     * username from firebase and match them against one another. This will then call the function addMatchUpRow.
+     * This will iterate until all player usernames are used.
+     */
     private void generatePlayerMatchUps() {
         // Iterate through all players
         for (int i = 0; i < players.size(); i++) {
@@ -110,6 +144,15 @@ public class RoundRobinEdit extends AppCompatActivity {
         }
     }
 
+    /**
+     * addMatchUpRow is a function called within generatePlayerMatchUps that sets the parameters of the string
+     * created. This means font, size, and padding. Within this function it creates 3 strings to display in 1 row.
+     * the first string displays the player match "player 1 vs player 2", the second is a textview called "Winner:",
+     * and the last string prompts a textedit where the user is able to input which player gains the "win" point and
+     * which player gains the "loss" point.
+     *
+     * @param matchUpText is the text generated from the function generatePlayerMatchUps.
+     */
     @SuppressLint("SetTextI18n")
     private void addMatchUpRow(String matchUpText) {
         TableRow row = new TableRow(this);
@@ -147,6 +190,15 @@ public class RoundRobinEdit extends AppCompatActivity {
         tableLayout2.addView(row);
     }
 
+    /**
+     * This function submitResults is activated after the save button is pressed. This will iterate though all
+     * the inputs made within tablelayout2, save the input winner and add a win or loss to each player in each
+     * match generated. The input winner string, win and loss values will be stored and updated back into firebase
+     * in order to update the tournament bracket,automatically displaying the wins and losses within tablelayout1
+     * and redisplay the input winner string within each match up generated.
+     * @param view
+     */
+
     public void submitResults(View view) {
         // Iterate through each TableRow in tableLayout2
         for (int i = 0; i < tableLayout2.getChildCount(); i++) {
@@ -173,10 +225,18 @@ public class RoundRobinEdit extends AppCompatActivity {
         // After updating the players' records, you can proceed to update the Firebase database
         updatePlayersInFirebase();
 
-        Intent intent = new Intent(this, RoundRobinPre.class);
+        Intent intent = new Intent(this, RoundRobinPreTesting.class);
         intent.putExtra("players", (Serializable) players);
         startActivity(intent);
     }
+
+    /**
+     * This function is called from submitResults and it saves the previously generated match ups and
+     * winner strings into firebase. These strings will be later printed back into RoundRobinPreTesting
+     * and displayed in tablelayout2.
+     * @param matchUpText string taken from generateMatchUps
+     * @param winner string taken from submitResults
+     */
 
     private void saveWinnerToFirebase(String matchUpText, String winner) {
         // Split the matchUpText to get the names of the players involved
@@ -201,7 +261,9 @@ public class RoundRobinEdit extends AppCompatActivity {
                 });
     }
 
-
+    /**
+     * This function is called from submitResults to update the win losses of each username into firebase
+     */
     private void updatePlayersInFirebase() {
         // Update Firebase with the changes for each player
         for (PlayerProfile.Player player : players) {

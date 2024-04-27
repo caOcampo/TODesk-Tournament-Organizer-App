@@ -98,10 +98,10 @@ public class CurrentBracket_SAC_PDF extends AppCompatActivity {
     }
 
     private void displayRoundRobinPre(LinearLayout bracketContainer) {
-        // Inflate the layout "round_robin_pre" and add it to the ScrollView
+        // Inflate the layout "round_robin_pre_testing" and add it to the ScrollView
         LayoutInflater inflater = LayoutInflater.from(this);
-        View roundRobinPreView = inflater.inflate(R.layout.round_robin_pre, bracketContainer, false);
-        bracketContainer.addView(roundRobinPreView);
+        View roundRobinPreTestingView = inflater.inflate(R.layout.round_robin_pre_testing, bracketContainer, false);
+        bracketContainer.addView(roundRobinPreTestingView);
     }
 
 
