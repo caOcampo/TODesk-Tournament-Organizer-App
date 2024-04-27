@@ -132,16 +132,21 @@ public class Swiss extends AppCompatActivity {
     private void updateButtons(String accessCode) {
         String[] collectionNames = {"00", "10", "01", "20", "11", "02", "30", "21", "12", "03", "31", "22", "13", "32", "23"};
 
+        AtomicInteger totalUpdates = new AtomicInteger();
+        AtomicInteger updatesCompleted = new AtomicInteger();
+
         for (String collectionName : collectionNames) {
             int docCount;
 
             if (collectionName.equals("00")) {
-                docCount = 4;  // Collection "00" should have 4 documents
+                docCount = 4;
             } else if (collectionName.equals("10") || collectionName.equals("01")) {
-                docCount = 2;  // Collections "10" and "01" should have 2 documents each
+                docCount = 2;
             } else {
-                docCount = 1;  // All other collections have 1 document
+                docCount = 1;
             }
+
+            totalUpdates.addAndGet(docCount);
 
             for (int i = 1; i <= docCount; i++) {
                 final String docId = collectionName + "_" + i;
@@ -158,9 +163,11 @@ public class Swiss extends AppCompatActivity {
                             if (button != null) {
                                 button.setText(player1 + " vs " + player2);
                             }
-                            /*if (updatesCount.incrementAndGet() == totalUpdates) {
-                                navigateToBracketDisplay();
-                            }*/
+
+                            if (updatesCompleted.incrementAndGet() == totalUpdates.get()) {
+                                navigateToBracketDisplay();  // Navigate only after all updates are complete
+                            }
+
                         }).addOnFailureListener(e -> {
                             System.out.println("Error fetching document: " + e.getMessage());
                         });
