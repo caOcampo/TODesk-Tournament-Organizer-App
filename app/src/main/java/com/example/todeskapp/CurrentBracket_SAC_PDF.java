@@ -25,7 +25,7 @@ public class CurrentBracket_SAC_PDF extends AppCompatActivity {
     private String accessCode;
     private LinearLayout bracketContainer;
 
-
+    int numberOfPlayers;
     private Button saveAsPdfButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
