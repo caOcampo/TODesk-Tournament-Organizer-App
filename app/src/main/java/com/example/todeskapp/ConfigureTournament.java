@@ -112,7 +112,7 @@ public class ConfigureTournament extends AppCompatActivity {
                                         break;
                                     case 1:
                                         performActionBasedOnBracketStyle1();
-
+                                        break;
 
                                     default:
                                         Toast.makeText(this, "Unhandled bracket style: " + bracketStyle, Toast.LENGTH_SHORT).show();
@@ -166,9 +166,6 @@ public class ConfigureTournament extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-
-                            int playerCount = task.getResult().size();
-
                             Intent intent = new Intent(ConfigureTournament.this, CurrentBracket_SAC_PDF.class);
                             intent.putExtra("ACCESS_CODE", accessCode);
                             startActivity(intent);
@@ -181,5 +178,11 @@ public class ConfigureTournament extends AppCompatActivity {
 
                 });
 
+    }
+
+    private void startRoundRobinPreTestingActivity() {
+        Intent intent = new Intent(ConfigureTournament.this, RoundRobinPreTesting.class);
+        intent.putExtra("ACCESS_CODE", accessCode);
+        startActivity(intent);
     }
 }
