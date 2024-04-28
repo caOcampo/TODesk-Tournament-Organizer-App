@@ -219,7 +219,7 @@ public class ConfigureTournament extends AppCompatActivity {
                             //only proceed to redirect if the number of players is 8 or 16
                             if (playerCount == 8 || playerCount == 16) {
 
-                                Intent intent = new Intent(ConfigureTournament.this, Swiss.class);
+                                Intent intent = new Intent(ConfigureTournament.this, SwissEdit.class);
                                 intent.putExtra("ACCESS_CODE", accessCode);
                                 startActivity(intent);
 
