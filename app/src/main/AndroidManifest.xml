@@ -101,6 +101,10 @@
             android:exported="true">
         </activity>
 
+        <activity android:name=".SwissEdit"
+            android:label="SwissEdit">
+        </activity>
+
 
 
 

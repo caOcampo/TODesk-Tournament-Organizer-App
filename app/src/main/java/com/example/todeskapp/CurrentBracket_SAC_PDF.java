@@ -45,8 +45,6 @@ public class CurrentBracket_SAC_PDF extends AppCompatActivity {
 
         readAccessCodeFromFirebase();
 
-
-        readAccessCodeFromFirebase();
         /*saveAsPdfButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
