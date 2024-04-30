@@ -1,6 +1,7 @@
 package com.example.todeskapp;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,6 +45,7 @@ public class CurrentBracket_SAC_PDF extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
 
         readAccessCodeFromFirebase();
+        homeButton();
 
         /*saveAsPdfButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,6 +153,14 @@ public class CurrentBracket_SAC_PDF extends AppCompatActivity {
         // Define data fields here
     }
 
+    private void homeButton() {
+        binding.homeButton.setOnClickListener(v -> {
+            Intent intent = new Intent(CurrentBracket_SAC_PDF.this, MainMenu.class);
+            intent.putExtra("ACCESS_CODE", accessCode);
+            startActivity(intent);
+        });
+
+    }
 
 
     /*public void saveAsPdf(LinearLayout bracketContainer) {

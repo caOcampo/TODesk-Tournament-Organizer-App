@@ -67,6 +67,14 @@ public class AccessEditView extends AppCompatActivity {
 
         });
 
+        binding.viewButton.setOnClickListener(v -> {
+
+            Intent intent = new Intent(AccessEditView.this, CurrentBracket_SAC_PDF.class);
+            intent.putExtra("ACCESS_CODE", accessCode);
+            startActivity(intent);
+
+        });
+
     }
 
     /**
