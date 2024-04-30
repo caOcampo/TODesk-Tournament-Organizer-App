@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" >
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -65,6 +65,7 @@
         </activity>
 
         <activity android:name=".CurrentBracket_SAC_PDF"
+            android:requestLegacyExternalStorage="true"
             android:label="CurrentBracket_SAC_PDF">
         </activity>
 
@@ -102,6 +103,7 @@
         </activity>
 
         <activity android:name=".SwissEdit"
+            android:requestLegacyExternalStorage="true"
             android:label="SwissEdit">
         </activity>
 

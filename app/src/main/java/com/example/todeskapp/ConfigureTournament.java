@@ -1,5 +1,6 @@
 package com.example.todeskapp;
 
+
 import java.util.*;
 
 import android.content.Intent;
@@ -145,7 +146,7 @@ public class ConfigureTournament extends AppCompatActivity {
      * @return No return value.
      *
      */
-    private void bracketStyleRedirect(String accessCode) {
+    public void bracketStyleRedirect(String accessCode) {
 
         //test to see if can retrieve access code document
         db.collection("AccessCodes").document(accessCode)
@@ -202,7 +203,7 @@ public class ConfigureTournament extends AppCompatActivity {
      * @return No return value.
      *
      */
-    private void swissPlayerValidation() {
+    public void swissPlayerValidation() {
         //test to see if can retrieve access code document
         db.collection("AccessCodes").document(accessCode)
                 .collection("PlayerList")
@@ -234,7 +235,7 @@ public class ConfigureTournament extends AppCompatActivity {
                 });
     }
 
-    private void performActionBasedOnBracketStyle1() {
+    public void performActionBasedOnBracketStyle1() {
         db.collection("AccessCodes").document(accessCode)
                 .collection("PlayerList")
                 .get()
@@ -256,9 +257,9 @@ public class ConfigureTournament extends AppCompatActivity {
 
     }
 
-    private void startRoundRobinPreTestingActivity() {
+    /*private void startRoundRobinPreTestingActivity() {
         Intent intent = new Intent(ConfigureTournament.this, RoundRobinPreTesting.class);
         intent.putExtra("ACCESS_CODE", accessCode);
         startActivity(intent);
-    }
+    }*/
 }
