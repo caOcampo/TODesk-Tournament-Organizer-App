@@ -1,7 +1,5 @@
-package TODesk.src.tournament.formats;
-import TODesk.src.tournament.data.PlayerEntry;
-import TODesk.src.tournament.data.TournamentConfig;
-import TODesk.src.tournament.data.TournamentEntry;
+package toDesk.src.tournament.formats;
+import toDesk.src.tournament.data.PlayerEntry;
 
 import java.util.*;
 

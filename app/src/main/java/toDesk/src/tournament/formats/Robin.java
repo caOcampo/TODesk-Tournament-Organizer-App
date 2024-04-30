@@ -1,4 +1,4 @@
-package TODesk.src.tournament.formats;
+package toDesk.src.tournament.formats;
 
 import java.util.*;
 
