@@ -11,6 +11,9 @@ import android.widget.ProgressBar;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import android.content.DialogInterface;
+import androidx.appcompat.app.AlertDialog;
+import com.google.firebase.firestore.Query;
 
 import com.example.todeskapp.databinding.SwissPoolDisplay8pBinding;
 import com.example.todeskapp.databinding.SwissPoolDisplay16pBinding;
@@ -32,7 +35,7 @@ import java.util.stream.Collectors;
 
 public class SwissEdit extends AppCompatActivity {
 
-    private FirebaseFirestore db;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private SwissPoolDisplay8pBinding binding8p;
     private SwissPoolDisplay16pBinding binding16;
     private CurrentBracketSacPdfBinding bindingDisplay;
@@ -53,7 +56,7 @@ public class SwissEdit extends AppCompatActivity {
 
         setContentView(bindingDisplay.getRoot());
 
-        db = FirebaseFirestore.getInstance();
+
         accessCode = getIntent().getStringExtra("ACCESS_CODE");
 
         bracketContainer = findViewById(R.id.bracket_container);
@@ -106,10 +109,10 @@ public class SwissEdit extends AppCompatActivity {
                     }
                 });
 
-        intializeMatches(accessCode);
+        initializeMatches(accessCode);
     }
 
-    public void intializeMatches(String accessCode) {
+    public void initializeMatches(String accessCode) {
         db.collection("AccessCodes").document(accessCode).collection("PlayerList")
                 .get().addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -132,7 +135,7 @@ public class SwissEdit extends AppCompatActivity {
                                         .collection("00").document("00_" + (i + 1))
                                         .set(docData).addOnSuccessListener(aVoid -> {
                                             if (updatesCount.incrementAndGet() == 4) {
-                                                updateButtons(accessCode); // Call updateButtons only after all documents are updated
+                                                updateButtons(accessCode);
                                             }
                                         });
                             }
@@ -179,14 +182,20 @@ public class SwissEdit extends AppCompatActivity {
                                 Button button = (Button) binding8p.getRoot().findViewById(resID);
                                 if (button != null) {
                                     button.setText(player1 + "\n" + player2);
+                                    final String changePlayer1 = player1;
+                                    final String changePlayer2 = player2;
+
+                                    button.setOnClickListener(v -> showPlayerChoice(docId, changePlayer1, changePlayer2, documentSnapshot.getString("winRedirect")));
                                 }
                                 if (updatesCompleted.incrementAndGet() == totalUpdates.get()) {
                                     showLoadingIndicator();
                                     hideLoadingIndicator();
-                                    bracketContainer.removeAllViews(); // Clear existing views if any
+//                                    bracketContainer.removeAllViews();
+//
+//
+//                                    bracketContainer.addView(binding8p.getRoot());
 
-                                    // Directly add the view from the binding
-                                    bracketContainer.addView(binding8p.getRoot());
+                                    setContentView(binding8p.getRoot());
 
                                     /*fetchDataAsync(new CurrentBracket_SAC_PDF.DataCallback() {
                                         @Override
@@ -212,6 +221,92 @@ public class SwissEdit extends AppCompatActivity {
     private void hideLoadingIndicator() {
         progressBar.setVisibility(View.GONE);
     }
+
+    private void showPlayerChoice(String docId, String player1, String player2, String winRedirect) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Select a winner");
+
+        String[] players = {player1, player2};
+
+        builder.setItems(players, (dialog, which) -> {
+
+            String selectedPlayer = players[which];
+            movePlayerToNextRound(selectedPlayer, winRedirect);
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void movePlayerToNextRound(String playerName, String winRedirect) {
+        db.collection("AccessCodes").document(accessCode).collection(winRedirect)
+                .orderBy("docIndex")
+                .get().addOnCompleteListener(task -> {
+
+                    if (task.isSuccessful()) {
+
+                        boolean playerPlaced = false;
+
+                        for (DocumentSnapshot document : task.getResult()) {
+
+                            String player1 = document.getString("player1");
+                            String player2 = document.getString("player2");
+
+                            if (player1 == null || player1.isEmpty()) {
+                                document.getReference().update("player1", playerName);
+                                playerPlaced = true;
+                                break;
+
+                            } else if (player2 == null || player2.isEmpty()) {
+                                document.getReference().update("player2", playerName);
+                                playerPlaced = true;
+                                break;
+                            }
+                        }
+                        // If no player was placed, it means all documents are full. Handle accordingly.
+                        /*if (!playerPlaced) {
+                            createNewDocumentAndPlacePlayer(playerName, winRedirect);
+                        }*/
+                    } else {
+                        Toast.makeText(this, "Firestore Error: Failed to fetch documents for moving player.", Toast.LENGTH_SHORT).show();
+                        //Log.e("Firestore Error", "Failed to fetch documents for moving player", task.getException());
+                    }
+                });
+    }
+
+
+    //for testing?
+    public void setFirestoreInstance(FirebaseFirestore firestore) {
+        this.db = firestore;
+    }
+
+
+
+
+
+
+
+
+
+
+    /*private void createNewDocumentAndPlacePlayer(String playerName, String collectionName) {
+        // Create a new document because all existing ones are full
+        Map<String, Object> newDocData = new HashMap<>();
+        newDocData.put("player1", playerName);
+        // Place player in player1 field of new document
+        newDocData.put("player2", "");
+        // Keep player2 empty initially
+        newDocData.put("winRedirect", "");
+        // Set appropriate redirects
+        newDocData.put("lossRedirect", "");
+
+        db.collection("AccessCodes").document(accessCode).collection(collectionName)
+                .add(newDocData)
+                .addOnSuccessListener(documentReference -> Log.d("Firestore", "New match document created and player placed"))
+                .addOnFailureListener(e -> Log.e("Firestore Error", "Failed to create new match document", e));
+    }*/
 
     /*private void fetchDataAsync(CurrentBracket_SAC_PDF.DataCallback callback) {
         // Simulate fetching data asynchronously

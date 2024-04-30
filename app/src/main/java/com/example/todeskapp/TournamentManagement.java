@@ -145,7 +145,7 @@ public class TournamentManagement extends AppCompatActivity {
 
                             if (playerCount == 8 || playerCount == 16) {
 
-                                Intent intent = new Intent(TournamentManagement.this, Swiss.class);
+                                Intent intent = new Intent(TournamentManagement.this, SwissEdit.class);
                                 intent.putExtra("ACCESS_CODE", accessCode);
                                 startActivity(intent);
 
