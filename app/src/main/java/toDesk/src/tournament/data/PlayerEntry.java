@@ -1,4 +1,4 @@
-package TODesk.src.tournament.data;
+package toDesk.src.tournament.data;
 
 import java.util.Scanner;
 

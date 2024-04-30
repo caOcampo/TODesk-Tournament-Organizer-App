@@ -1,5 +1,4 @@
-package TODesk.src.tournament;
-import TODesk.src.tournament.data.TournamentEntry;
+package toDesk.src.tournament;
 
 public class MainApplication {
     public static void main(String[] args) {

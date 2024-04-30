@@ -1,9 +1,13 @@
 package com.example.todeskapp;
 
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.os.Bundle;
+import android.os.Environment;
 import android.widget.Button;
 import android.widget.Toast;
 import android.content.Intent;
+import android.graphics.pdf.PdfDocument;
 
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
@@ -25,6 +29,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Source;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -35,7 +41,7 @@ import java.util.stream.Collectors;
 
 public class SwissEdit extends AppCompatActivity {
 
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseFirestore db;
     private SwissPoolDisplay8pBinding binding8p;
     private SwissPoolDisplay16pBinding binding16;
     private CurrentBracketSacPdfBinding bindingDisplay;
@@ -56,6 +62,8 @@ public class SwissEdit extends AppCompatActivity {
 
         setContentView(bindingDisplay.getRoot());
 
+        db = FirebaseFirestore.getInstance();
+
 
         accessCode = getIntent().getStringExtra("ACCESS_CODE");
 
@@ -69,6 +77,26 @@ public class SwissEdit extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Access code not found.", Toast.LENGTH_SHORT).show();
         }
+
+        bindingDisplay.saveAsPDF.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveAsPdf(bracketContainer);
+            }
+        });
+
+        bindingDisplay.homeButton.setOnClickListener(v -> {
+            Intent intent = new Intent(SwissEdit.this, MainMenu.class);
+            intent.putExtra("ACCESS_CODE", accessCode);
+            startActivity(intent);
+        });
+
+        bindingDisplay.SaveAccessCodeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(SwissEdit.this, accessCode, Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
@@ -188,23 +216,9 @@ public class SwissEdit extends AppCompatActivity {
                                     button.setOnClickListener(v -> showPlayerChoice(docId, changePlayer1, changePlayer2, documentSnapshot.getString("winRedirect")));
                                 }
                                 if (updatesCompleted.incrementAndGet() == totalUpdates.get()) {
-                                    showLoadingIndicator();
-                                    hideLoadingIndicator();
-//                                    bracketContainer.removeAllViews();
-//
-//
-//                                    bracketContainer.addView(binding8p.getRoot());
+                                    bracketDisplayer();
 
-                                    setContentView(binding8p.getRoot());
-
-                                    /*fetchDataAsync(new CurrentBracket_SAC_PDF.DataCallback() {
-                                        @Override
-                                        public void onDataReady(CurrentBracket_SAC_PDF.Data data) {
-                                            hideLoadingIndicator();
-                                            bracketContainer.removeAllViews();
-                                            bracketContainer.addView(binding8p.getRoot());
-                                        }
-                                    });*/
+//                                    setContentView(binding8p.getRoot());
                                 }
                             });
                         }).addOnFailureListener(e -> {
@@ -265,198 +279,62 @@ public class SwissEdit extends AppCompatActivity {
                                 break;
                             }
                         }
-                        // If no player was placed, it means all documents are full. Handle accordingly.
-                        /*if (!playerPlaced) {
-                            createNewDocumentAndPlacePlayer(playerName, winRedirect);
-                        }*/
                     } else {
                         Toast.makeText(this, "Firestore Error: Failed to fetch documents for moving player.", Toast.LENGTH_SHORT).show();
                         //Log.e("Firestore Error", "Failed to fetch documents for moving player", task.getException());
                     }
                 });
+
+        bracketDisplayer();
     }
 
-
-    //for testing?
-    public void setFirestoreInstance(FirebaseFirestore firestore) {
-        this.db = firestore;
-    }
-
-
-
-
-
-
-
-
-
-
-    /*private void createNewDocumentAndPlacePlayer(String playerName, String collectionName) {
-        // Create a new document because all existing ones are full
-        Map<String, Object> newDocData = new HashMap<>();
-        newDocData.put("player1", playerName);
-        // Place player in player1 field of new document
-        newDocData.put("player2", "");
-        // Keep player2 empty initially
-        newDocData.put("winRedirect", "");
-        // Set appropriate redirects
-        newDocData.put("lossRedirect", "");
-
-        db.collection("AccessCodes").document(accessCode).collection(collectionName)
-                .add(newDocData)
-                .addOnSuccessListener(documentReference -> Log.d("Firestore", "New match document created and player placed"))
-                .addOnFailureListener(e -> Log.e("Firestore Error", "Failed to create new match document", e));
-    }*/
-
-    /*private void fetchDataAsync(CurrentBracket_SAC_PDF.DataCallback callback) {
-        // Simulate fetching data asynchronously
-        new Thread(() -> {
-            // Simulate network delay
-            try {
-                Thread.sleep(2000); // Delay for 2 seconds
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            // Assume data is fetched successfully
-            CurrentBracket_SAC_PDF.Data data = new CurrentBracket_SAC_PDF.Data(); // Replace this with actual data fetching logic
-            runOnUiThread(() -> callback.onDataReady(data));
-        }).start();
-    }
-
-    interface DataCallback {
-        void onDataReady(CurrentBracket_SAC_PDF.Data data);
-    }
-
-    class Data {
-        // Define data fields here
-    }*/
-
-    /*private void navigateToBracketDisplay() {
-        Intent intent = new Intent(SwissEdit.this, CurrentBracket_SAC_PDF.class);
-        intent.putExtra("ACCESS_CODE", accessCode);
-        startActivity(intent);
-    }*/
-
-
-        /*public void initializeSwissStage(String accessCode, int stageNumber) {
+    private void saveAsPdf(LinearLayout bracketContainer) {
+        //get access code document
         db.collection("AccessCodes").document(accessCode)
-                .collection("PlayerList")
                 .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        String tournamentName = documentSnapshot.getString("TournamentName");
 
-                        List<String> playerNames = new ArrayList<>();
+                        PdfDocument pdfDocument = new PdfDocument();
+                        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(bracketContainer.getChildAt(0).getWidth(),
+                                bracketContainer.getChildAt(0).getHeight(), 1).create();
+                        PdfDocument.Page page = pdfDocument.startPage(pageInfo);
+                        bracketContainer.draw(page.getCanvas());
+                        pdfDocument.finishPage(page);
 
-                        task.getResult().forEach(document -> {
-                            playerNames.add(document.getId());
-                        });
+                        // Using getExternalFilesDir for compatibility with scoped storage
+                        File pdfFile = new File(getExternalFilesDir(null), tournamentName + ".pdf");
 
+                        try {
+                            FileOutputStream outputStream = new FileOutputStream(pdfFile);
+                            pdfDocument.writeTo(outputStream);
+                            outputStream.close();
+                            pdfDocument.close();
 
-                        Collections.shuffle(playerNames);
-
-
-
-                        if(playerNames.size() == 8){
-                            setContentView(binding.getRoot());
+                            // Include the path in the toast message
+                            Toast.makeText(this, "PDF saved successfully at " + pdfFile.getAbsolutePath(), Toast.LENGTH_LONG).show();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            Toast.makeText(this, "Error saving PDF: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
-                        else{
-                            setContentView(binding16.getRoot());
-                        }
-
-                        initializePlayerStats(accessCode, playerNames);
-                        matchMaking(accessCode, playerNames, stageNumber);
-
                     } else {
-                        System.err.println("Error fetching players: " + task.getException().getMessage());
+                        Toast.makeText(this, "No such document!", Toast.LENGTH_SHORT).show();
                     }
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(this, "Error getting document: " + e.toString(), Toast.LENGTH_SHORT).show();
                 });
     }
 
-    private void initializePlayerStats(String accessCode, List<String> playerNames) {
-        for (String playerName : playerNames) {
-            db.collection("AccessCodes")
-                    .document(accessCode)
-                    .collection("PlayerList")
-                    .document(playerName)
-                    .update("win", 0, "loss", 0)
-                    .addOnSuccessListener(aVoid -> System.out.println("Player stats updated for: " + playerName))
-                    .addOnFailureListener(e -> System.err.println("Error updating player stats: " + e.getMessage()));
-        }
+    public void bracketDisplayer(){
+        showLoadingIndicator();
+        hideLoadingIndicator();
+        bracketContainer.removeAllViews();
+        bracketContainer.addView(binding8p.getRoot());
     }
 
-    private void matchMaking(String accessCode, List<String> playerNames, int stageNumber) {
-        int numberOfPlayers = playerNames.size();
-        Map<String, Match> matchups = new HashMap<>();
 
-        for (int i = 0; i < numberOfPlayers-1; i += 2) {
-
-            String matchId = "zero_zero_match" + ((i / 2) + 1);
-            String player1 = playerNames.get(i);
-            String player2 = playerNames.get(i + 1);
-            matchups.put(matchId, new Match(player1, player2));
-
-
-            db.collection("AccessCodes")
-                    .document(accessCode)
-                    .collection("Matchups Stage: "+ stageNumber)
-                    .add(new Match(player1, player2))
-                    .addOnSuccessListener(documentReference -> System.out.println("Match created between " + player1 + " and " + player2))
-                    .addOnFailureListener(e -> System.err.println("Failed to create match: " + e.getMessage()));
-
-
-
-        }
-        updateMatchupButtons(matchups);
-
-    }
-
-    class Match {
-        private String player1;
-        private String player2;
-
-        Match(String player1, String player2) {
-            this.player1 = player1;
-            this.player2 = player2;
-        }
-
-        public String getPlayer1() {
-            return player1;
-        }
-
-        public String getPlayer2() {
-            return player2;
-        }
-
-        public void setPlayer1(String player1) {
-            this.player1 = player1;
-        }
-
-        public void setPlayer2(String player2) {
-            this.player2 = player2;
-        }
-    }
-
-    public void updateMatchupButtons(Map<String, Match> matchups) {
-        new Handler(Looper.getMainLooper()).post(() -> {
-            for (Map.Entry<String, Match> entry : matchups.entrySet()) {
-
-                String key = entry.getKey();
-                Match match = entry.getValue();
-
-                int buttonId = getResources().getIdentifier(key, "id", getPackageName());
-
-                Button button = findViewById(buttonId);
-
-                if (button != null) {
-                    String matchText = match.player1 + "\n" + match.player2;
-                    button.setText(matchText);
-                } else {
-                    Toast.makeText(Swiss.this, "Button not found for: " + key, Toast.LENGTH_SHORT).show();
-                }
-            }
-            navigateToBracketDisplay();
-        });
-    }*/
 
 
 }

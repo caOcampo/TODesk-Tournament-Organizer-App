@@ -2,6 +2,7 @@ package com.example.todeskapp;
 
 
 import android.content.Intent;
+import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,11 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.widget.ProgressBar;
 import android.widget.Button;
+
+
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.os.Environment;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.todeskapp.databinding.CurrentBracketSacPdfBinding;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -30,6 +36,8 @@ public class CurrentBracket_SAC_PDF extends AppCompatActivity {
 
     private Button saveAsPdfButton;
 
+    Toast showAccessCode;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,12 +55,21 @@ public class CurrentBracket_SAC_PDF extends AppCompatActivity {
         readAccessCodeFromFirebase();
         homeButton();
 
-        /*saveAsPdfButton.setOnClickListener(new View.OnClickListener() {
+        saveAsPdfButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveAsPdf(bracketContainer);
             }
-        });*/
+        });
+
+        binding.SaveAccessCodeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(CurrentBracket_SAC_PDF.this, accessCode, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
     }
 
     private void readAccessCodeFromFirebase() {
@@ -96,6 +113,45 @@ public class CurrentBracket_SAC_PDF extends AppCompatActivity {
                     } else {
                         Toast.makeText(this, "Failed to fetch document: " + task.getException(), Toast.LENGTH_SHORT).show();
                     }
+                });
+    }
+
+    private void saveAsPdf(LinearLayout bracketContainer) {
+        //get access code document
+        db.collection("AccessCodes").document(accessCode)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        String tournamentName = documentSnapshot.getString("TournamentName");
+
+                        PdfDocument pdfDocument = new PdfDocument();
+                        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(bracketContainer.getChildAt(0).getWidth(),
+                                bracketContainer.getChildAt(0).getHeight(), 1).create();
+                        PdfDocument.Page page = pdfDocument.startPage(pageInfo);
+                        bracketContainer.draw(page.getCanvas());
+                        pdfDocument.finishPage(page);
+
+                        // Using getExternalFilesDir for compatibility with scoped storage
+                        File pdfFile = new File(getExternalFilesDir(null), tournamentName + ".pdf");
+
+                        try {
+                            FileOutputStream outputStream = new FileOutputStream(pdfFile);
+                            pdfDocument.writeTo(outputStream);
+                            outputStream.close();
+                            pdfDocument.close();
+
+                            // Include the path in the toast message
+                            Toast.makeText(this, "PDF saved successfully at " + pdfFile.getAbsolutePath(), Toast.LENGTH_LONG).show();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            Toast.makeText(this, "Error saving PDF: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(this, "No such document!", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(this, "Error getting document: " + e.toString(), Toast.LENGTH_SHORT).show();
                 });
     }
 
@@ -171,6 +227,7 @@ public class CurrentBracket_SAC_PDF extends AppCompatActivity {
             bracketContainer.draw(canvas);
 
             // Create a File object for the PDF
+            String fileName = ""
             File pdfFile = new File(Environment.getExternalStorageDirectory(), "Tournament.pdf");
             FileOutputStream outputStream = new FileOutputStream(pdfFile);
 

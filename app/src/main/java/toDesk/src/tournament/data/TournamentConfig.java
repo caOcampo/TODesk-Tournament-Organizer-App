@@ -1,4 +1,4 @@
-package TODesk.src.tournament.data;
+package toDesk.src.tournament.data;
 
 public class TournamentConfig {
     String TournamentName, Game;

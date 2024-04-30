@@ -3,7 +3,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import TODesk.src.tournament.formats.DElim;
 
 public class ElimMatch extends RelativeLayout {
 

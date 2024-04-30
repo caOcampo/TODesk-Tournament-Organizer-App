@@ -1,13 +1,22 @@
 package com.example.todeskapp;
 
+import com.example.todeskapp.ConfigureTournament;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.todeskapp.databinding.AccessEditViewBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
 
 /**
  * This class provides display and functionality of the access_edit_view.xml layout to the user.
@@ -21,6 +30,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
  *
  */
 public class AccessEditView extends AppCompatActivity {
+
+
+    ConfigureTournament brackets;
 
     /**
      * Binding the access_edit_view.xml file to this code.
@@ -69,9 +81,56 @@ public class AccessEditView extends AppCompatActivity {
 
         binding.viewButton.setOnClickListener(v -> {
 
-            Intent intent = new Intent(AccessEditView.this, CurrentBracket_SAC_PDF.class);
+            /*Intent intent = new Intent(AccessEditView.this, CurrentBracket_SAC_PDF.class);
             intent.putExtra("ACCESS_CODE", accessCode);
-            startActivity(intent);
+            startActivity(intent);*/
+
+            db.collection("AccessCodes").document(accessCode)
+                    .get()
+
+                    //if can access
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+
+                            if (document.exists()) {
+
+                                //gets the bracketStyle field value which is an integer that corresponds to each format
+
+                                Long bracketStyleLong = document.getLong("BracketStyle");
+
+                                if (bracketStyleLong != null) {
+                                    int bracketStyle = bracketStyleLong.intValue();
+                                    switch (bracketStyle) {
+
+                                        // swiss pool
+                                        case 0:
+                                            swissPlayerValidation();
+                                            break;
+
+                                        // round robin
+                                        case 1:
+                                            performActionBasedOnBracketStyle1();
+                                            break;
+                                        case 2:
+                                            performActionBasedOnBracketStyle1();
+                                            break;
+
+
+                                        default:
+                                            Toast.makeText(this, "Unhandled bracket style: " + bracketStyle, Toast.LENGTH_SHORT).show();
+                                    }
+                                } else {
+                                    Toast.makeText(this, "BracketStyle field is missing.", Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                Toast.makeText(this, "No such document!", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(this, "Failed to fetch document: " + task.getException(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
 
         });
 
@@ -101,6 +160,59 @@ public class AccessEditView extends AppCompatActivity {
                 });
     }
 
+    public void swissPlayerValidation() {
+        //test to see if can retrieve access code document
+        db.collection("AccessCodes").document(accessCode)
+                .collection("PlayerList")
+                .get()
+
+                //if can access
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+
+                            int playerCount = task.getResult().size();
+
+                            //only proceed to redirect if the number of players is 8 or 16
+                            if (playerCount == 8 || playerCount == 16) {
+
+                                Intent intent = new Intent(AccessEditView.this, SwissEdit.class);
+                                intent.putExtra("ACCESS_CODE", accessCode);
+                                startActivity(intent);
+
+                            } else {
+
+                                Toast.makeText(AccessEditView.this, "Swiss Pool MUST HAVE 8 or 16 players", Toast.LENGTH_LONG).show();
+                            }
+                        } else {
+                            Toast.makeText(AccessEditView.this, "Failed to fetch players: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+    public void performActionBasedOnBracketStyle1() {
+        db.collection("AccessCodes").document(accessCode)
+                .collection("PlayerList")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            Intent intent = new Intent(AccessEditView.this, CurrentBracket_SAC_PDF.class);
+                            intent.putExtra("ACCESS_CODE", accessCode);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(AccessEditView.this, "Failed to fetch players: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+
+
+                });
+
+    }
 
 
 }
